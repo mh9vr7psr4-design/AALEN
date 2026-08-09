@@ -1,0 +1,859 @@
+/* LEN Photography · Reference Palette v11
+   Colour language is taken from LEN-site-optimized: neutral paper, ink black,
+   muted olive and restrained antique gold. Layout and motion stay untouched. */
+
+:root {
+  color-scheme: dark light !important;
+  --reference-ink: #11120f;
+  --reference-ink-raised: #1b1d17;
+  --reference-paper: #f2f0e9;
+  --reference-paper-2: #e8e5dc;
+  --reference-white: #faf9f5;
+  --reference-caption: #55584f;
+  --reference-caption-soft: #686b63;
+  --reference-line: rgba(17, 18, 15, .16);
+  --reference-gold: #b9a16c;
+  --reference-gold-bright: #d1bd86;
+  --reference-gold-ink: #6b5935;
+  --reference-shadow: 0 24px 70px rgba(0, 0, 0, .22);
+  --reference-ease: cubic-bezier(.65, 0, .35, 1);
+  --reference-ease-out: cubic-bezier(.16, 1, .3, 1);
+
+  --ink: var(--reference-ink) !important;
+  --paper: var(--reference-paper) !important;
+  --paper-2: var(--reference-paper-2) !important;
+  --white: var(--reference-white) !important;
+  --muted: var(--reference-caption-soft) !important;
+  --line: var(--reference-line) !important;
+  --gold: var(--reference-gold) !important;
+  --warm-bg: var(--reference-paper) !important;
+  --warm-bg-soft: var(--reference-paper-2) !important;
+  --warm-surface: rgba(250, 249, 245, .9) !important;
+  --warm-surface-solid: var(--reference-white) !important;
+  --warm-ink: var(--reference-ink) !important;
+  --warm-ink-soft: var(--reference-caption) !important;
+  --warm-line: var(--reference-line) !important;
+  --warm-gold: var(--reference-gold) !important;
+  --warm-gold-light: var(--reference-gold-bright) !important;
+  --warm-shadow: var(--reference-shadow) !important;
+  --warm-ease: var(--reference-ease) !important;
+  --warm-ease-soft: var(--reference-ease) !important;
+  --v9-ink: var(--reference-ink) !important;
+  --v9-ink-soft: var(--reference-caption) !important;
+  --v9-blue: var(--reference-gold) !important;
+  --v9-blue-deep: var(--reference-ink-raised) !important;
+  --v9-blue-line: var(--reference-line) !important;
+  --v9-ease-soft: var(--reference-ease) !important;
+  --v9-ease-out: var(--reference-ease-out) !important;
+  --v9-ease-inout: var(--reference-ease) !important;
+}
+
+html,
+body {
+  color: var(--reference-ink) !important;
+  background: var(--reference-paper) !important;
+}
+
+body::after {
+  opacity: .045 !important;
+  background-image:
+    repeating-radial-gradient(circle at 20% 30%, rgba(255,255,255,.58) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(108deg, rgba(0,0,0,.28) 0 1px, transparent 1px 5px) !important;
+  background-size: 8px 8px, 11px 11px !important;
+  mix-blend-mode: soft-light !important;
+}
+
+::selection {
+  color: var(--reference-white) !important;
+  background: #696d58 !important;
+}
+
+:focus-visible {
+  outline: 2px solid var(--reference-gold-bright) !important;
+  outline-offset: 4px;
+}
+
+/* Current opening choreography, recoloured to the uploaded reference. */
+.intro {
+  color: var(--reference-white) !important;
+  background:
+    radial-gradient(circle at 50% 44%, rgba(185,161,108,.15), transparent 30%),
+    radial-gradient(circle at 50% 50%, #171914 0%, #0d0e0c 60%) !important;
+}
+
+.intro::before,
+.intro::after {
+  background: #0d0e0c !important;
+}
+
+.intro__stage {
+  background:
+    radial-gradient(circle at 50% 48%, rgba(209,189,134,.12), rgba(27,29,23,.28) 28%, transparent 63%) !important;
+  filter: none !important;
+}
+
+.intro__stage::before,
+.intro__blur--a,
+.intro__blur--b,
+.intro__orb {
+  background: radial-gradient(circle, rgba(185,161,108,.2), transparent 68%) !important;
+}
+
+.intro__ring,
+.intro__orbit,
+.intro__axis {
+  border-color: rgba(209,189,134,.32) !important;
+  box-shadow: 0 0 28px rgba(209,189,134,.12) !important;
+}
+
+.intro__cube-face,
+.intro__glass,
+.intro__glass--a,
+.intro__glass--b,
+.intro__glass--c,
+.intro__glass--d {
+  border-color: rgba(250,249,245,.34) !important;
+  background:
+    linear-gradient(145deg, rgba(250,249,245,.18), rgba(185,161,108,.09) 50%, rgba(13,14,12,.24)) !important;
+  box-shadow: inset 0 1px rgba(255,255,255,.34), 0 20px 58px rgba(0,0,0,.22) !important;
+}
+
+.intro__line,
+.intro__light-slice {
+  background:
+    linear-gradient(104deg, transparent 39%, rgba(250,249,245,.96) 49%, rgba(209,189,134,.4) 52%, transparent 62%) !important;
+}
+
+.intro__brand,
+.intro__brand strong {
+  color: var(--reference-white) !important;
+  text-shadow: 0 0 24px rgba(209,189,134,.12) !important;
+}
+
+.intro__brand span,
+.intro__progress,
+.intro__skip {
+  color: rgba(250,249,245,.72) !important;
+}
+
+.intro__progress-track {
+  background: rgba(250,249,245,.16) !important;
+}
+
+.intro__progress-track i {
+  background: linear-gradient(90deg, #786a4b, var(--reference-gold-bright)) !important;
+  box-shadow: 0 0 22px rgba(209,189,134,.35) !important;
+}
+
+.intro__skip {
+  border-color: rgba(250,249,245,.22) !important;
+  background: rgba(13,14,12,.28) !important;
+}
+
+/* Navigation, fixed controls and pointer states. */
+.site-header,
+.site-header.is-scrolled,
+.mobile-nav {
+  color: var(--reference-white) !important;
+  border-color: rgba(250,249,245,.14) !important;
+  background: rgba(8,9,8,.82) !important;
+  box-shadow: 0 14px 45px rgba(0,0,0,.2) !important;
+}
+
+.site-header::before,
+.site-header.is-scrolled::before {
+  border-color: rgba(250,249,245,.14) !important;
+  background: rgba(8,9,8,.76) !important;
+  box-shadow: 0 14px 45px rgba(0,0,0,.2) !important;
+}
+
+.site-header.is-scrolled,
+.site-header.is-scrolled::before {
+  background: rgba(8,9,8,.94) !important;
+}
+
+.wordmark,
+.wordmark__meta,
+.site-logo,
+.site-nav a,
+.mobile-nav a,
+.mobile-nav p,
+.header-cta,
+.menu-toggle {
+  color: var(--reference-white) !important;
+}
+
+.wordmark__meta,
+.mobile-nav__eyebrow,
+.mobile-nav__foot {
+  color: rgba(250,249,245,.68) !important;
+}
+
+.site-nav a {
+  color: rgba(250,249,245,.72) !important;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  color: var(--reference-white) !important;
+}
+
+.site-nav a.is-active {
+  color: var(--reference-ink) !important;
+  background: #d5c38e !important;
+  box-shadow: 0 0 20px rgba(213,195,142,.22) !important;
+}
+
+.site-nav a::after,
+.scroll-progress,
+.gallery-page__progress i,
+.music-toggle__bars i {
+  background: var(--reference-gold) !important;
+}
+
+.header-cta {
+  border-color: rgba(250,249,245,.36) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.header-cta:hover,
+.header-cta:focus-visible {
+  color: var(--reference-ink) !important;
+  background: var(--reference-white) !important;
+}
+
+.menu-toggle__lines,
+.menu-toggle__lines::before,
+.menu-toggle__lines::after {
+  background: var(--reference-white) !important;
+}
+
+.floating-controls {
+  color: rgba(250,249,245,.82) !important;
+  border-color: rgba(250,249,245,.24) !important;
+  background: rgba(12,13,11,.88) !important;
+  box-shadow: 0 16px 44px rgba(0,0,0,.26), 0 0 0 1px rgba(185,161,108,.08) inset !important;
+}
+
+.music-toggle,
+.back-to-top {
+  color: rgba(250,249,245,.82) !important;
+  border-color: rgba(250,249,245,.16) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.music-toggle:hover,
+.back-to-top:hover,
+.music-toggle:focus-visible,
+.back-to-top:focus-visible {
+  color: var(--reference-white) !important;
+  background: rgba(250,249,245,.1) !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  a,
+  button,
+  .media.has-photo,
+  [data-image-slot].has-photo {
+    cursor: pointer !important;
+  }
+
+  [data-edit] {
+    cursor: default;
+  }
+
+  html.editing [data-edit] {
+    cursor: text !important;
+  }
+
+  .works-exhibit__sticky {
+    cursor: default !important;
+  }
+}
+
+/* Hero keeps original photography; only neutral black overlays are changed. */
+.hero {
+  color: var(--reference-white) !important;
+  background: var(--reference-ink-raised) !important;
+}
+
+.hero__visual,
+.hero__media,
+.hero__media img,
+.work-card img,
+.gallery-page img,
+.lightbox img {
+  filter: none !important;
+}
+
+.hero__shade,
+.hero::before,
+.hero__visual::after,
+.hero__media::after {
+  background:
+    linear-gradient(90deg, rgba(10,11,9,.72) 0%, rgba(10,11,9,.2) 56%, rgba(10,11,9,.28) 100%),
+    linear-gradient(0deg, rgba(10,11,9,.58), transparent 58%),
+    radial-gradient(circle at 72% 34%, rgba(185,161,108,.1), transparent 42%) !important;
+}
+
+.hero__meta,
+.hero .eyebrow,
+.hero__intro,
+.hero__copy p,
+.scroll-cue {
+  color: rgba(250,249,245,.88) !important;
+  text-shadow: 0 2px 18px rgba(0,0,0,.48) !important;
+}
+
+.hero h1,
+.hero__statement {
+  color: var(--reference-white) !important;
+  text-shadow: 0 4px 34px rgba(0,0,0,.46) !important;
+}
+
+.hero__copy::before,
+.hero__side-line,
+.scroll-cue::before,
+.scroll-cue i {
+  background: linear-gradient(90deg, rgba(250,249,245,.3), var(--reference-gold-bright), rgba(250,249,245,.24)) !important;
+}
+
+/* About stays clean neutral paper. */
+.about {
+  color: var(--reference-ink) !important;
+  background:
+    radial-gradient(circle at 18% 14%, rgba(255,255,255,.58), transparent 30%),
+    linear-gradient(135deg, var(--reference-paper) 0%, var(--reference-paper-2) 100%) !important;
+  box-shadow: inset 0 1px rgba(255,255,255,.7), inset 0 -1px rgba(17,18,15,.08) !important;
+}
+
+.about::before,
+.about::after {
+  color: var(--reference-line) !important;
+}
+
+.about-letter-fold {
+  border-color: rgba(17,18,15,.12) !important;
+  background:
+    radial-gradient(circle at 70% 25%, rgba(255,255,255,.48), transparent 30%),
+    linear-gradient(135deg, #f7f5ef, var(--reference-paper) 62%, #dfdcd2) !important;
+  box-shadow: 0 15px 42px rgba(0,0,0,.1) !important;
+}
+
+.about__portrait {
+  border-color: rgba(17,18,15,.2) !important;
+  background: #d8d7d3 !important;
+  box-shadow: 0 34px 90px rgba(25,24,20,.16) !important;
+}
+
+.about__portrait::before,
+.about__portrait::after {
+  border-color: rgba(255,255,255,.38) !important;
+  background: linear-gradient(140deg, rgba(255,255,255,.14), transparent 28%, rgba(17,18,15,.05)) !important;
+}
+
+.about__copy .eyebrow,
+.about__index,
+.about__role,
+.about__bio {
+  color: var(--reference-caption) !important;
+}
+
+.about__copy h2 {
+  color: var(--reference-ink) !important;
+}
+
+.about__role::before {
+  background: var(--reference-gold) !important;
+}
+
+.about__facts {
+  border-color: rgba(17,18,15,.14) !important;
+  background: rgba(17,18,15,.14) !important;
+}
+
+.about__facts span {
+  color: var(--reference-caption) !important;
+  background: var(--reference-paper-2) !important;
+}
+
+.about__facts span:hover {
+  color: var(--reference-white) !important;
+  background: var(--reference-ink) !important;
+}
+
+/* Works: reference paper and ink, with a restrained black depth vignette. */
+.works,
+.works-exhibit {
+  color: var(--reference-ink) !important;
+  background: var(--reference-paper) !important;
+}
+
+.works-exhibit__sticky {
+  color: var(--reference-ink) !important;
+  background:
+    radial-gradient(circle at 58% 50%, rgba(255,255,255,.92) 0 7%, rgba(185,161,108,.09) 31%, transparent 62%),
+    linear-gradient(145deg, #f6f4ee 0%, var(--reference-paper) 54%, #dfdcd3 100%) !important;
+}
+
+.works-exhibit__sticky::before {
+  background:
+    linear-gradient(90deg, rgba(17,18,15,.34) 0%, rgba(17,18,15,.1) 9%, transparent 28% 74%, rgba(17,18,15,.09) 91%, rgba(17,18,15,.3) 100%),
+    linear-gradient(180deg, rgba(17,18,15,.1), transparent 22% 80%, rgba(17,18,15,.09)) !important;
+  box-shadow:
+    inset 13vw 0 18vw -12vw rgba(17,18,15,.4),
+    inset -13vw 0 18vw -12vw rgba(17,18,15,.36) !important;
+}
+
+.works-exhibit__sticky::after {
+  opacity: .55 !important;
+  background:
+    radial-gradient(ellipse at 58% 50%, transparent 0 24%, rgba(232,229,220,.08) 47%, rgba(17,18,15,.12) 100%),
+    repeating-linear-gradient(90deg, transparent 0 38px, rgba(17,18,15,.022) 38px 39px) !important;
+}
+
+.works-exhibit__intro .eyebrow,
+.works-exhibit__intro > p,
+.section-heading .eyebrow,
+.section-heading > p {
+  color: var(--reference-caption) !important;
+}
+
+.works-tunnel-guides::before,
+.works-tunnel-guides::after,
+.works-depth-line,
+.works-tunnel-guides > i {
+  background: linear-gradient(90deg, rgba(17,18,15,.42), rgba(185,161,108,.2) 54%, transparent) !important;
+  box-shadow: 0 0 10px rgba(17,18,15,.08) !important;
+}
+
+.works-depth-vanish {
+  border-color: rgba(107,89,53,.42) !important;
+  background: var(--reference-paper) !important;
+  box-shadow: 0 0 22px rgba(185,161,108,.24) !important;
+}
+
+.works-exhibit .work-card,
+.works-exhibit .work-card:nth-child(n),
+.spatial-v3 .works .work-card:nth-child(n)[data-spatial-stage] {
+  filter: none !important;
+  backface-visibility: hidden;
+  transition:
+    transform 940ms var(--reference-ease),
+    opacity 720ms var(--reference-ease) !important;
+  will-change: auto !important;
+}
+
+.works-exhibit__sticky.is-switching .work-card,
+.works-exhibit__sticky.is-releasing .work-card {
+  transition:
+    transform 1040ms var(--reference-ease),
+    opacity 760ms var(--reference-ease) !important;
+}
+
+.works-exhibit__sticky.is-initializing .work-card,
+.works-exhibit .work-card[data-depth-instant] {
+  transition: none !important;
+}
+
+.works-exhibit .work-card[data-depth-current],
+.works-exhibit .work-card[data-depth-outgoing],
+.works-exhibit .work-card[data-depth-incoming] {
+  will-change: transform, opacity !important;
+}
+
+.works-exhibit .work-card .media {
+  border-color: rgba(250,249,245,.8) !important;
+  background: #d8d7d3 !important;
+  box-shadow: 0 39px 104px rgba(0,0,0,.24), 0 0 0 1px rgba(17,18,15,.08) !important;
+}
+
+.works-exhibit .work-card[data-depth-current] .media {
+  box-shadow: 0 48px 126px rgba(0,0,0,.3), 0 0 0 1px rgba(107,89,53,.28), 0 0 52px rgba(185,161,108,.1) !important;
+}
+
+.works-exhibit .work-card figcaption,
+.works-exhibit .work-card figcaption h3,
+.works-exhibit__hud b,
+.works-exhibit__hud strong {
+  color: var(--reference-ink) !important;
+  text-shadow: none !important;
+}
+
+.works-exhibit .work-card figcaption p,
+.works-exhibit .work-card figcaption b {
+  color: var(--reference-caption) !important;
+}
+
+.works-exhibit__hud {
+  color: var(--reference-caption) !important;
+  padding: 22px 34px 24px 0 !important;
+  background:
+    linear-gradient(90deg, rgba(242,240,233,.98) 0%, rgba(242,240,233,.88) 72%, rgba(242,240,233,0) 100%) !important;
+  filter: none !important;
+  transition:
+    opacity 560ms var(--reference-ease),
+    transform 760ms var(--reference-ease) !important;
+}
+
+.works-exhibit__hud > span,
+.works-exhibit__hud b,
+.works-exhibit__hud em,
+.works-depth-indicator small {
+  color: var(--reference-caption) !important;
+  opacity: 1 !important;
+}
+
+.works-exhibit__hud p {
+  color: #454840 !important;
+  opacity: 1 !important;
+}
+
+.works-exhibit__sticky.is-copy-hidden .works-exhibit__hud {
+  opacity: 0 !important;
+  filter: none !important;
+  transform: translate3d(-28px, calc(-50% + 6px), 0) !important;
+}
+
+.works-exhibit__hud::after {
+  opacity: .5 !important;
+  background: linear-gradient(90deg, rgba(17,18,15,.48), rgba(185,161,108,.26) 62%, transparent) !important;
+  box-shadow: 0 0 8px rgba(17,18,15,.08) !important;
+}
+
+.works-depth-indicator__track::before {
+  background:
+    repeating-linear-gradient(90deg, rgba(17,18,15,.34) 0 1px, transparent 1px 16.5%),
+    linear-gradient(90deg, rgba(17,18,15,.42), rgba(185,161,108,.22)) !important;
+}
+
+#works-depth-indicator-ball {
+  left: 0 !important;
+  border-color: rgba(17,18,15,.48) !important;
+  background: radial-gradient(circle at 31% 27%, #fff 0 8%, #e2ca8e 27%, #b9a16c 64%, #4e432a 100%) !important;
+  box-shadow: 0 5px 12px rgba(0,0,0,.22), 0 0 17px rgba(185,161,108,.22), inset 0 1px rgba(255,255,255,.78) !important;
+  transform: translate3d(var(--indicator-x, 0px), -50%, 0);
+  transition:
+    transform 940ms var(--reference-ease),
+    box-shadow 560ms var(--reference-ease) !important;
+  will-change: transform;
+}
+
+.works-exhibit__sticky.is-switching #works-depth-indicator-ball,
+.works-exhibit__sticky.is-stage-focused #works-depth-indicator-ball {
+  transform: translate3d(var(--indicator-x, 0px), -50%, 0) scale(1.08);
+}
+
+.works-loop-controls {
+  color: rgba(250,249,245,.82) !important;
+  border-color: rgba(250,249,245,.2) !important;
+  background: rgba(13,14,12,.86) !important;
+  box-shadow: 0 12px 30px rgba(0,0,0,.18), inset 0 1px rgba(250,249,245,.08) !important;
+}
+
+.works-loop-controls button,
+.works-loop-controls span {
+  color: rgba(250,249,245,.82) !important;
+}
+
+.works-loop-controls button:hover,
+.works-loop-controls button:focus-visible {
+  color: var(--reference-ink) !important;
+  background: var(--reference-gold-bright) !important;
+}
+
+/* Remaining sections follow the reference alternation of paper and ink. */
+.manifesto {
+  color: var(--reference-white) !important;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(148,141,106,.23), transparent 29%),
+    var(--reference-ink) !important;
+}
+
+.manifesto *,
+.booking,
+.booking h2,
+.booking h3 {
+  color: var(--reference-white) !important;
+}
+
+.manifesto > span,
+.manifesto__inner > span {
+  color: rgba(250,249,245,.68) !important;
+}
+
+.booking {
+  background: #161714 !important;
+}
+
+.booking .section-heading .eyebrow,
+.booking .section-heading > p,
+.booking-step p {
+  color: rgba(250,249,245,.74) !important;
+}
+
+.booking-steps,
+.booking-step {
+  border-color: rgba(250,249,245,.16) !important;
+}
+
+.booking-step {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.booking-step b {
+  color: var(--reference-gold-bright) !important;
+}
+
+.services {
+  color: var(--reference-ink) !important;
+  background: var(--reference-paper-2) !important;
+}
+
+.package {
+  color: var(--reference-ink) !important;
+  border-color: var(--reference-line) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.package__tag,
+.package__note,
+.package ul {
+  color: var(--reference-caption) !important;
+}
+
+.package:hover,
+.package--featured {
+  color: var(--reference-white) !important;
+  background: var(--reference-ink) !important;
+}
+
+.package:hover .package__tag,
+.package:hover .package__note,
+.package:hover ul,
+.package--featured .package__tag,
+.package--featured .package__note,
+.package--featured ul {
+  color: rgba(250,249,245,.76) !important;
+}
+
+.package li::before {
+  color: var(--reference-gold-bright) !important;
+}
+
+.service-intro,
+.plans {
+  color: var(--reference-white) !important;
+  background:
+    radial-gradient(circle at 12% 78%, rgba(185,161,108,.14), transparent 31%),
+    radial-gradient(circle at 84% 18%, rgba(105,109,88,.16), transparent 34%),
+    #0d0e0c !important;
+}
+
+.service-intro .eyebrow,
+.service-intro__lead,
+.service-intro__aside,
+.service-intro small,
+.service-plan li,
+.service-rules p,
+.makeup-showcase p {
+  color: rgba(250,249,245,.78) !important;
+}
+
+.service-plan,
+.service-extra,
+.service-rules,
+.makeup-showcase {
+  color: var(--reference-white) !important;
+  border-color: rgba(250,249,245,.17) !important;
+  background: rgba(250,249,245,.055) !important;
+  box-shadow: 0 24px 70px rgba(0,0,0,.24) !important;
+}
+
+.service-plan__top > span,
+.service-extra__heading > span,
+.service-rules__title > span,
+.makeup-showcase__copy > span,
+.service-rules__list b {
+  color: var(--reference-gold-bright) !important;
+}
+
+.plan-fireflies {
+  opacity: .72 !important;
+  mix-blend-mode: screen !important;
+}
+
+.contact {
+  color: var(--reference-ink) !important;
+  background:
+    radial-gradient(circle at var(--contact-x, 70%) var(--contact-y, 35%), rgba(185,161,108,.15), transparent 28%),
+    var(--reference-paper) !important;
+}
+
+.contact::before {
+  color: rgba(17,18,15,.035) !important;
+}
+
+.contact__lead .eyebrow,
+.contact__lead p,
+.contact-grid span {
+  color: var(--reference-caption) !important;
+}
+
+.contact-grid,
+.contact-grid > div {
+  border-color: var(--reference-line) !important;
+}
+
+.contact-grid > div {
+  color: var(--reference-ink) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.contact-grid > div:hover {
+  color: var(--reference-white) !important;
+  background: #151711 !important;
+  box-shadow: 0 24px 60px rgba(0,0,0,.16) !important;
+}
+
+.contact-grid > div:hover span {
+  color: rgba(250,249,245,.72) !important;
+}
+
+.site-footer {
+  color: rgba(250,249,245,.7) !important;
+  border-color: rgba(250,249,245,.12) !important;
+  background: #0d0e0c !important;
+}
+
+.site-footer .wordmark {
+  color: var(--reference-white) !important;
+}
+
+/* Dark gallery/editor surfaces and readable captions. */
+.gallery-page,
+.lightbox {
+  color: var(--reference-white) !important;
+  background:
+    radial-gradient(circle at 74% 18%, rgba(102,105,77,.2), transparent 32%),
+    #0b0c0a !important;
+}
+
+.gallery-page__header,
+.gallery-page__footer,
+.lightbox__controls,
+.gallery-manager,
+.owner-panel,
+.owner-tools {
+  color: var(--reference-white) !important;
+  border-color: rgba(250,249,245,.16) !important;
+  background: rgba(11,12,10,.86) !important;
+}
+
+.gallery-page__title span,
+.gallery-page__meta small,
+.gallery-page__footer p,
+.gallery-page__item figcaption,
+.lightbox__caption,
+.lightbox__counter,
+.owner-tools__hint {
+  color: rgba(250,249,245,.7) !important;
+}
+
+.gallery-page__item figcaption {
+  background: rgba(0,0,0,.62) !important;
+  text-shadow: 0 1px 8px rgba(0,0,0,.7);
+}
+
+.gallery-page button,
+.lightbox button,
+.gallery-manager button,
+.owner-panel button,
+.owner-tools button {
+  color: var(--reference-white) !important;
+  border-color: rgba(250,249,245,.24) !important;
+}
+
+.gallery-manager button.primary,
+.owner-tools button.primary,
+html.editing [data-image-slot]::after,
+.edit-toast {
+  color: var(--reference-ink) !important;
+  border-color: #e8e1cf !important;
+  background: #e8e1cf !important;
+}
+
+html.editing [data-edit] {
+  outline-color: var(--reference-gold) !important;
+}
+
+html.editing [data-image-slot] {
+  outline-color: var(--reference-gold) !important;
+}
+
+/* Keep deliberate ambient type alive without overriding card/reveal transforms. */
+[data-ambient-float] {
+  animation: reference-ambient-float 8s var(--reference-ease) var(--ambient-delay, 0s) infinite !important;
+}
+
+@keyframes reference-ambient-float {
+  0%, 100% { transform: translate3d(0, -2px, 0); }
+  50% { transform: translate3d(0, 5px, 0); }
+}
+
+@media (max-width: 900px) {
+  .site-header,
+  .site-header::before,
+  .mobile-nav {
+    background: rgba(8,9,8,.94) !important;
+  }
+
+  .works-exhibit__hud {
+    padding: 18px 24px 20px 0 !important;
+    background:
+      linear-gradient(90deg, rgba(242,240,233,.98) 0%, rgba(242,240,233,.88) 78%, rgba(242,240,233,0) 100%) !important;
+  }
+
+  .works-exhibit__sticky.is-copy-hidden .works-exhibit__hud {
+    transform: translate3d(-22px, 8px, 0) !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .works-exhibit__hud {
+    width: min(84vw, 340px) !important;
+    max-width: min(84vw, 340px) !important;
+  }
+
+  .works-exhibit__hud p {
+    display: -webkit-box !important;
+    margin-top: 9px !important;
+    overflow: hidden;
+    color: #3f423b !important;
+    font-size: 12px !important;
+    line-height: 1.72 !important;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  .works-exhibit__hud em {
+    display: none !important;
+  }
+
+  .works-depth-indicator small {
+    color: #4a4d45 !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .works-exhibit .work-card,
+  .works-exhibit__hud,
+  #works-depth-indicator-ball {
+    transition-duration: .01ms !important;
+  }
+}

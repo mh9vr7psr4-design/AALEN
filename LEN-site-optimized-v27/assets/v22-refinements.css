@@ -1,0 +1,194 @@
+/* LEN v22 · finer plan hover hierarchy + persistent black/gold navigation. */
+
+#service-intro {
+  --v22-card-rest: rgba(250,249,245,.055);
+  --v22-card-hover: rgba(250,249,245,.095);
+  --v22-text-light: rgba(250,249,245,.96);
+  --v22-text-soft: rgba(250,249,245,.80);
+  --v22-gold: #d5c38e;
+  --v22-gold-soft: rgba(213,195,142,.26);
+}
+
+/* Card hover: lift black toward a soft charcoal-grey, while keeping the minimal corner logic. */
+#service-intro .service-plan,
+#service-intro .service-extra,
+#service-intro .service-rules,
+#service-intro .makeup-showcase {
+  background-color: var(--v22-card-rest) !important;
+  transition:
+    background-color .62s cubic-bezier(.16,1,.3,1),
+    border-color .52s cubic-bezier(.16,1,.3,1),
+    box-shadow .58s cubic-bezier(.16,1,.3,1),
+    transform .58s cubic-bezier(.16,1,.3,1) !important;
+}
+
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold),
+#service-intro .service-extra:is(:hover, :focus-within, .is-v19-gold),
+#service-intro .service-rules:is(:hover, :focus-within, .is-v19-gold),
+#service-intro .makeup-showcase:is(:hover, :focus-within, .is-v19-gold) {
+  background-color: var(--v22-card-hover) !important;
+  border-color: rgba(250,249,245,.20) !important;
+  box-shadow:
+    0 25px 66px rgba(0,0,0,.22),
+    inset 0 1px 0 rgba(255,255,255,.075) !important;
+  transform: translate3d(0,-2px,0) !important;
+}
+
+/* Do not brighten or gild whole text groups merely because the card is hovered. */
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) .service-plan__top > span,
+#service-intro .service-extra:is(:hover, :focus-within, .is-v19-gold) .service-extra__heading > span,
+#service-intro .service-rules:is(:hover, :focus-within, .is-v19-gold) .service-rules__title > span,
+#service-intro .makeup-showcase:is(:hover, :focus-within, .is-v19-gold) .makeup-showcase__copy > span,
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) .service-plan__price strong,
+#service-intro .service-extra:is(:hover, :focus-within, .is-v19-gold) .service-extra__grid b,
+#service-intro .service-rules:is(:hover, :focus-within, .is-v19-gold) .service-rules__list b {
+  text-shadow: none !important;
+}
+
+/* The exact text fragment under the pointer/touch is the only fragment that lightens. */
+#service-intro .plan-float-target {
+  color: var(--v22-text-light) !important;
+  text-shadow: 0 0 14px rgba(250,249,245,.055) !important;
+}
+
+#service-intro [data-edit],
+#service-intro .service-plan__top > span,
+#service-intro .service-plan__price small,
+#service-intro .service-extra__heading > span,
+#service-intro .service-rules__title > span,
+#service-intro .service-rules__list b,
+#service-intro .makeup-showcase__copy > span,
+#service-intro .makeup-showcase figcaption {
+  transition:
+    color .34s cubic-bezier(.16,1,.3,1),
+    opacity .34s ease,
+    transform .42s cubic-bezier(.16,1,.3,1),
+    text-shadow .34s ease !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #service-intro [data-edit]:hover,
+  #service-intro .service-plan__top > span:hover,
+  #service-intro .service-plan__price small:hover,
+  #service-intro .service-extra__heading > span:hover,
+  #service-intro .service-rules__title > span:hover,
+  #service-intro .service-rules__list b:hover,
+  #service-intro .makeup-showcase__copy > span:hover,
+  #service-intro .makeup-showcase figcaption:hover {
+    color: var(--v22-text-light) !important;
+  }
+}
+
+/* Navigation: restore all section labels, but keep a single black-and-gold language everywhere. */
+.site-header,
+.site-header.is-scrolled,
+.site-header.is-scrolled:hover,
+.site-header.is-scrolled:focus-within {
+  color: #faf9f5 !important;
+  background: rgba(8,9,8,.90) !important;
+  border-bottom: 1px solid rgba(213,195,142,.20) !important;
+  box-shadow: 0 14px 45px rgba(0,0,0,.20) !important;
+}
+
+.site-header::before,
+.site-header.is-scrolled::before,
+.site-header.is-scrolled:hover::before,
+.site-header.is-scrolled:focus-within::before {
+  border-color: rgba(213,195,142,.18) !important;
+  background: rgba(8,9,8,.86) !important;
+  box-shadow: none !important;
+}
+
+.site-nav {
+  gap: clamp(2px,.38vw,7px) !important;
+}
+
+.site-nav a,
+.site-nav a:visited {
+  color: rgba(250,249,245,.58) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  color: #eadbb0 !important;
+  background: rgba(213,195,142,.07) !important;
+  box-shadow: inset 0 0 0 1px rgba(213,195,142,.12) !important;
+}
+
+.site-nav a.is-active,
+.site-nav a.is-active:hover,
+.site-nav a.is-active:focus-visible {
+  color: #11120f !important;
+  background: var(--v22-gold) !important;
+  box-shadow: 0 0 20px rgba(213,195,142,.16) !important;
+}
+
+.site-nav a::before,
+.site-nav a::after {
+  border-color: rgba(213,195,142,.24) !important;
+}
+
+.wordmark,
+.wordmark__meta,
+.header-cta,
+.menu-toggle,
+.mobile-nav a,
+.mobile-nav p {
+  color: #faf9f5 !important;
+}
+
+.wordmark__meta {
+  border-left-color: rgba(213,195,142,.22) !important;
+  color: rgba(250,249,245,.48) !important;
+}
+
+.header-cta {
+  border-color: rgba(213,195,142,.40) !important;
+  color: #eadbb0 !important;
+  background: rgba(213,195,142,.035) !important;
+}
+.header-cta:hover,
+.header-cta:focus-visible {
+  color: #11120f !important;
+  border-color: #d5c38e !important;
+  background: #d5c38e !important;
+}
+
+.mobile-nav {
+  color: #faf9f5 !important;
+  border-color: rgba(213,195,142,.18) !important;
+  background: rgba(8,9,8,.98) !important;
+}
+.mobile-nav a {
+  color: rgba(250,249,245,.74) !important;
+}
+.mobile-nav a:hover,
+.mobile-nav a:focus-visible,
+.mobile-nav a:active {
+  color: #eadbb0 !important;
+}
+.mobile-nav a::after {
+  color: rgba(213,195,142,.60) !important;
+}
+
+@media (max-width: 1180px) and (min-width: 901px) {
+  .site-header {
+    gap: clamp(12px,2vw,28px) !important;
+  }
+  .site-nav a {
+    padding-inline: 8px !important;
+    font-size: 9px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #service-intro .service-plan,
+  #service-intro .service-extra,
+  #service-intro .service-rules,
+  #service-intro .makeup-showcase,
+  #service-intro [data-edit] {
+    transition-duration: .16s !important;
+  }
+}

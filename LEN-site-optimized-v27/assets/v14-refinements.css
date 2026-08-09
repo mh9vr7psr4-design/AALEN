@@ -1,0 +1,358 @@
+/* LEN Photography · v14 refinements
+   Scope: manifesto quote sizing, inward booking flips, Violet-Evergarden-inspired
+   ivory envelope treatment, red wax seal, paper curl and pointer parallax. */
+
+:root {
+  --v14-ease-out: cubic-bezier(.16, 1, .3, 1);
+  --v14-ease-soft: cubic-bezier(.22, .72, .2, 1);
+  --v14-ivory: #eee8d9;
+  --v14-ivory-deep: #d8ccb6;
+  --v14-ink: #28251f;
+  --v14-wax: #a51f2f;
+  --v14-wax-deep: #5e0f1b;
+}
+
+/* Quote: only the three sentence fragments become exactly 5px larger.
+   The LEN STUDIO signature keeps its original scale. */
+.manifesto__inner > p > span[data-edit] {
+  margin-top: 0 !important;
+  color: inherit !important;
+  font-size: 14px !important;
+  line-height: 1.8 !important;
+  letter-spacing: .04em !important;
+}
+
+/* Booking · four inward paper flips. The white plane rotates in from the
+   inner edge, so spatial-motion transforms on the article stay untouched. */
+.booking-steps {
+  perspective: 1500px;
+  perspective-origin: 50% 50%;
+}
+
+.booking-step {
+  --v14-flip-from: -96deg;
+  --v14-flip-origin: 100% 50%;
+  --v14-copy-shift: -8px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition:
+    border-color .62s var(--v14-ease-soft),
+    box-shadow .62s var(--v14-ease-soft) !important;
+}
+
+.booking-step:nth-child(3),
+.booking-step:nth-child(4) {
+  --v14-flip-from: 96deg;
+  --v14-flip-origin: 0% 50%;
+  --v14-copy-shift: 8px;
+}
+
+.booking-step::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(112deg, rgba(255,255,255,.96), rgba(244,244,240,.98) 58%, #fff 100%);
+  border: 1px solid rgba(31,31,28,.08);
+  box-shadow:
+    inset 0 1px rgba(255,255,255,.9),
+    0 28px 70px rgba(0,0,0,.12);
+  transform-origin: var(--v14-flip-origin);
+  transform: rotateY(var(--v14-flip-from));
+  backface-visibility: hidden;
+  transition: transform .78s cubic-bezier(.18,.86,.22,1);
+  will-change: transform;
+}
+
+.booking-step > * {
+  position: relative;
+  z-index: 1;
+  transform: translate3d(0,0,24px);
+  transition:
+    color .34s ease .08s,
+    transform .72s var(--v14-ease-out),
+    text-shadow .42s ease !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .booking-step:hover::before {
+    transform: rotateY(0deg);
+  }
+
+  .booking-step:hover {
+    border-color: rgba(255,255,255,.42) !important;
+    box-shadow: 0 28px 76px rgba(0,0,0,.18) !important;
+  }
+
+  .booking-step:hover > * {
+    color: var(--v14-ink) !important;
+    transform: translate3d(var(--v14-copy-shift), -3px, 34px);
+    text-shadow: none !important;
+  }
+
+  .booking-step:hover p,
+  .booking-step:hover b,
+  .booking-step:hover h3 {
+    color: var(--v14-ink) !important;
+  }
+}
+
+.booking-step.is-v14-flipped::before {
+  transform: rotateY(0deg);
+}
+
+.booking-step.is-v14-flipped > *,
+.booking-step.is-v14-flipped p,
+.booking-step.is-v14-flipped b,
+.booking-step.is-v14-flipped h3 {
+  color: var(--v14-ink) !important;
+}
+
+/* Envelope · pale old stationery + deep red wax, inspired by the elegant
+   letter language of Violet Evergarden without reproducing its emblem. */
+.about-envelope-experience {
+  --env-tilt-x: 0deg;
+  --env-tilt-y: 0deg;
+  --env-tap-z: 0px;
+  --env-tap-scale: 1;
+  --env-light-x: 50%;
+  --env-light-y: 34%;
+}
+
+.len-envelope {
+  cursor: pointer;
+  transform-origin: 50% 52%;
+}
+
+.about-envelope-experience.is-approaching:not(.is-opening) .len-envelope {
+  transform:
+    translate3d(-50%, -48%, var(--env-tap-z))
+    rotateX(var(--env-tilt-x))
+    rotateY(var(--env-tilt-y))
+    rotateZ(-.35deg)
+    scale(var(--env-tap-scale)) !important;
+  transition:
+    opacity .34s ease,
+    filter .72s ease,
+    transform .48s cubic-bezier(.18,.82,.22,1) !important;
+}
+
+.about-envelope-experience.is-envelope-tapped {
+  --env-tap-z: 18px;
+  --env-tap-scale: .974;
+}
+
+.len-envelope::before {
+  content: "";
+  position: absolute;
+  inset: -2.5%;
+  z-index: 12;
+  pointer-events: none;
+  border-radius: 2px;
+  opacity: .56;
+  background:
+    radial-gradient(circle at var(--env-light-x) var(--env-light-y), rgba(255,255,255,.44), transparent 24%),
+    linear-gradient(112deg, transparent 36%, rgba(255,250,232,.18) 49%, transparent 62%);
+  mix-blend-mode: soft-light;
+  transform: translateZ(58px);
+  transition: opacity .4s ease;
+}
+
+.len-envelope__back {
+  background:
+    radial-gradient(circle at 16% 18%, rgba(112,89,61,.08) 0 .7px, transparent 1.5px),
+    radial-gradient(circle at 72% 66%, rgba(255,255,255,.42) 0 .8px, transparent 1.5px),
+    repeating-linear-gradient(3deg, rgba(92,74,50,.026) 0 1px, transparent 1px 7px),
+    linear-gradient(137deg, #f4efe3 0%, var(--v14-ivory) 52%, var(--v14-ivory-deep) 100%) !important;
+  border-color: rgba(90,74,53,.34) !important;
+  box-shadow:
+    inset 0 1px rgba(255,255,255,.85),
+    inset 0 -2px rgba(93,72,49,.16),
+    inset 0 -24px 50px rgba(99,76,50,.06),
+    0 38px 92px rgba(0,0,0,.42) !important;
+}
+
+.len-envelope__pocket {
+  background:
+    repeating-linear-gradient(4deg, rgba(90,71,48,.022) 0 1px, transparent 1px 7px),
+    linear-gradient(145deg, #eee6d5, #e1d5be 64%, #cfc0a5) !important;
+  border-color: rgba(91,72,50,.28) !important;
+  box-shadow:
+    inset 0 1px rgba(255,255,255,.72),
+    inset 0 -2px rgba(80,61,42,.13),
+    inset 0 -22px 44px rgba(93,71,48,.05) !important;
+}
+
+.len-envelope__pocket::before {
+  border-left-color: rgba(113,91,64,.18) !important;
+  background: linear-gradient(125deg, rgba(255,255,255,.2), rgba(92,70,48,.025)) !important;
+}
+
+.len-envelope__pocket::after {
+  border-right-color: rgba(91,71,49,.18) !important;
+  background: linear-gradient(230deg, rgba(255,255,255,.14), rgba(90,68,46,.04)) !important;
+}
+
+.len-envelope__flap {
+  background:
+    radial-gradient(circle at 71% 26%, rgba(99,76,51,.07) 0 .7px, transparent 1.4px),
+    repeating-linear-gradient(4deg, rgba(89,68,46,.022) 0 1px, transparent 1px 7px),
+    linear-gradient(169deg, #f2ecdf, #e5dac6 66%, #cdbda2) !important;
+  border-color: rgba(91,72,50,.28) !important;
+  box-shadow:
+    inset 0 1px rgba(255,255,255,.82),
+    inset 0 -2px rgba(80,61,42,.14),
+    0 8px 18px rgba(56,42,28,.12) !important;
+}
+
+/* Dog-eared, wrinkled corner. */
+.len-envelope__corner-curl {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  z-index: 8;
+  width: clamp(32px, 4.4vw, 58px);
+  aspect-ratio: 1;
+  pointer-events: none;
+  clip-path: polygon(22% 0, 100% 0, 100% 79%, 84% 68%, 71% 53%, 57% 39%, 40% 26%);
+  background:
+    linear-gradient(138deg, rgba(117,91,61,.18) 0 7%, transparent 8% 48%, rgba(255,255,255,.62) 49% 65%, rgba(174,157,129,.42) 66% 100%),
+    #e6dbc7;
+  box-shadow: -8px 10px 15px rgba(65,49,33,.13);
+  transform: translateZ(12px) rotateZ(1.5deg);
+}
+
+.len-envelope__corner-curl::after {
+  content: "";
+  position: absolute;
+  inset: 11% 7% 8% 20%;
+  border-top: 1px solid rgba(96,74,49,.22);
+  transform: rotate(42deg);
+  transform-origin: 100% 0;
+  opacity: .75;
+}
+
+/* Deep crimson wax seal; LEN mark stays proprietary to this site. */
+.len-envelope__seal {
+  color: rgba(255,225,214,.9) !important;
+  border: 1px solid rgba(91,10,24,.9) !important;
+  border-radius: 48% 52% 45% 55% / 52% 45% 55% 48% !important;
+  background:
+    radial-gradient(circle at 31% 25%, rgba(255,176,160,.42), transparent 18%),
+    radial-gradient(circle at 68% 76%, rgba(55,0,10,.28), transparent 28%),
+    linear-gradient(145deg, #c73a49 0%, var(--v14-wax) 42%, var(--v14-wax-deep) 100%) !important;
+  box-shadow:
+    0 9px 20px rgba(45,5,12,.38),
+    0 2px 3px rgba(0,0,0,.18),
+    inset 0 0 0 3px rgba(255,191,177,.12),
+    inset 0 1px rgba(255,205,191,.42),
+    inset 0 -3px rgba(69,4,16,.34) !important;
+  text-shadow: 0 1px 1px rgba(70,0,12,.45) !important;
+}
+
+.len-envelope__seal::before,
+.len-envelope__seal::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.len-envelope__seal::before {
+  inset: 5px;
+  border: 1px solid rgba(255,201,187,.22);
+  box-shadow: inset 0 0 0 1px rgba(88,3,18,.24);
+}
+
+.len-envelope__seal::after {
+  inset: -4px -3px -5px -4px;
+  z-index: -1;
+  background: rgba(139,18,35,.22);
+  filter: blur(.4px);
+  transform: rotate(-7deg);
+}
+
+/* Opening: long, single-easing motions prevent the old stepped feel. */
+.about-envelope-experience.is-opening .len-envelope__flap {
+  animation: v14-flap-open 1.04s cubic-bezier(.18,.82,.22,1) forwards !important;
+  will-change: transform;
+}
+
+.about-envelope-experience.is-opening .len-envelope__seal {
+  opacity: 0 !important;
+  transform: translate(-50%, -50%) scale(.7) rotate(-7deg) !important;
+  transition: opacity .38s ease, transform .5s var(--v14-ease-out) !important;
+}
+
+.about-envelope-experience.is-opening .len-envelope__letter {
+  animation: v14-letter-release 1.48s cubic-bezier(.16,.82,.22,1) .12s both !important;
+  will-change: transform, filter, opacity;
+}
+
+.about-envelope-experience.is-closing-to-about .len-envelope {
+  animation: v14-envelope-retreat .9s cubic-bezier(.38,.08,.24,1) forwards !important;
+}
+
+@keyframes v14-flap-open {
+  0% { z-index: 5; transform: rotateX(0deg) translateZ(0); filter: brightness(1); }
+  100% { z-index: 0; transform: rotateX(171deg) translateZ(-2px) scaleY(.985); filter: brightness(.86); }
+}
+
+@keyframes v14-letter-release {
+  0% {
+    z-index: 2;
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 4%, 4px) rotateX(0deg) rotateZ(.08deg) scale(.99);
+  }
+  100% {
+    z-index: 9;
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, -72%, 82px) rotateX(-1.2deg) rotateZ(-.18deg) scale(1.025);
+  }
+}
+
+@keyframes v14-envelope-retreat {
+  from {
+    opacity: 1;
+    filter: blur(0) saturate(.96);
+    transform: translate3d(-50%, -48%, 0) rotateX(0) rotateY(0) rotateZ(-.35deg) scale(1);
+  }
+  to {
+    opacity: .14;
+    filter: blur(5px) saturate(.8);
+    transform: translate3d(-50%, -43%, -165px) rotateX(2deg) rotateY(0) rotateZ(-.8deg) scale(.86);
+  }
+}
+
+@media (max-width: 700px) {
+  .manifesto__inner > p > span[data-edit] {
+    font-size: 14px !important;
+    line-height: 1.72 !important;
+  }
+  .len-envelope::before { opacity: .42; }
+}
+
+html[data-quality="low"] .len-envelope::before {
+  opacity: .26;
+  mix-blend-mode: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .booking-step::before,
+  .booking-step > *,
+  .about-envelope-experience.is-approaching .len-envelope {
+    transition-duration: .18s !important;
+  }
+  .about-envelope-experience.is-opening .len-envelope__flap,
+  .about-envelope-experience.is-opening .len-envelope__letter,
+  .about-envelope-experience.is-closing-to-about .len-envelope {
+    animation-duration: .28s !important;
+    animation-delay: 0s !important;
+  }
+}

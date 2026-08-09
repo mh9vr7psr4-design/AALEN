@@ -1,0 +1,110 @@
+/* LEN v24 · warm ivory plan selection + no envelope hover growth. */
+
+#service-intro {
+  --v23-selected-bg: #eee6d8;
+  --v23-selected-bg-2: #f8f3e9;
+  --v23-selected-ink: #111513;
+  --v23-selected-ink-soft: rgba(17,21,19,.72);
+  --v23-selected-rule: rgba(17,21,19,.18);
+}
+
+/* Selected plan: a clear warm ivory paper surface with no blue cast. */
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold),
+#service-intro .service-extra:is(:hover, :focus-within, .is-v19-gold),
+#service-intro .service-rules:is(:hover, :focus-within, .is-v19-gold),
+#service-intro .makeup-showcase:is(:hover, :focus-within, .is-v19-gold) {
+  background:
+    linear-gradient(145deg, var(--v23-selected-bg-2), var(--v23-selected-bg)) !important;
+  background-color: var(--v23-selected-bg) !important;
+  border-color: rgba(195,174,117,.46) !important;
+  color: var(--v23-selected-ink) !important;
+  box-shadow:
+    0 28px 72px rgba(0,0,0,.20),
+    inset 0 1px 0 rgba(255,255,255,.92),
+    inset 0 -1px 0 rgba(17,21,19,.06) !important;
+  transform: translate3d(0,-3px,0) !important;
+}
+
+/* The entire selected column changes language: every readable fragment becomes dark. */
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) *,
+#service-intro .service-extra:is(:hover, :focus-within, .is-v19-gold) *,
+#service-intro .service-rules:is(:hover, :focus-within, .is-v19-gold) *,
+#service-intro .makeup-showcase:is(:hover, :focus-within, .is-v19-gold) * {
+  color: var(--v23-selected-ink) !important;
+  text-shadow: none !important;
+}
+
+/* Preserve secondary hierarchy without losing the selected state. */
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) small,
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) .service-plan__top > span,
+#service-intro .service-extra:is(:hover, :focus-within, .is-v19-gold) .service-extra__heading > span,
+#service-intro .service-rules:is(:hover, :focus-within, .is-v19-gold) .service-rules__title > span,
+#service-intro .makeup-showcase:is(:hover, :focus-within, .is-v19-gold) figcaption {
+  color: var(--v23-selected-ink-soft) !important;
+}
+
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) li,
+#service-intro .service-extra:is(:hover, :focus-within, .is-v19-gold) p,
+#service-intro .service-rules:is(:hover, :focus-within, .is-v19-gold) p {
+  border-color: var(--v23-selected-rule) !important;
+}
+
+/* Existing minimal gold corners remain, but become a quiet detail on the pale surface. */
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold)::before,
+#service-intro .service-extra:is(:hover, :focus-within, .is-v19-gold)::before,
+#service-intro .service-rules:is(:hover, :focus-within, .is-v19-gold)::before,
+#service-intro .makeup-showcase:is(:hover, :focus-within, .is-v19-gold)::before {
+  opacity: .78 !important;
+}
+
+/* Individual text float stays tactile, but it no longer changes the selected text back to white. */
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) .plan-float-target,
+#service-intro .service-extra:is(:hover, :focus-within, .is-v19-gold) .plan-float-target,
+#service-intro .service-rules:is(:hover, :focus-within, .is-v19-gold) .plan-float-target,
+#service-intro .makeup-showcase:is(:hover, :focus-within, .is-v19-gold) .plan-float-target {
+  color: #050706 !important;
+  text-shadow: 0 8px 18px rgba(18,31,34,.10) !important;
+}
+
+/* Envelope: remove the v17 hover enlargement completely. Motion is tilt/jitter only. */
+.about-envelope-experience .len-envelope,
+.about-envelope-experience.is-awaiting-open .len-envelope,
+.about-envelope-experience.is-awaiting-open:not(.is-opening) .len-envelope,
+.about-envelope-experience.is-v16-entrance-jitter .len-envelope,
+.about-envelope-experience.is-v16-click-jitter .len-envelope,
+.about-envelope-experience.is-envelope-tapped .len-envelope {
+  scale: 1 !important;
+}
+
+.about-envelope-experience.is-awaiting-open:not(.is-opening) .len-envelope {
+  transition:
+    opacity .34s ease,
+    filter .34s ease,
+    transform .48s cubic-bezier(.18,.82,.22,1) !important;
+  will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .about-envelope-experience.is-awaiting-open:not(.is-opening) .len-envelope:hover {
+    scale: 1 !important;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  #service-intro .service-plan.is-v19-gold,
+  #service-intro .service-extra.is-v19-gold,
+  #service-intro .service-rules.is-v19-gold,
+  #service-intro .makeup-showcase.is-v19-gold {
+    background: linear-gradient(145deg, var(--v23-selected-bg-2), var(--v23-selected-bg)) !important;
+    color: var(--v23-selected-ink) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #service-intro .service-plan,
+  #service-intro .service-extra,
+  #service-intro .service-rules,
+  #service-intro .makeup-showcase {
+    transition-duration: .16s !important;
+  }
+}

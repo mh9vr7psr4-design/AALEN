@@ -1,0 +1,123 @@
+/* v15 — make the photographer-introduction envelope feel like solid stationery.
+   This layer only overrides material rendering; layout, copy and interaction stay unchanged. */
+
+/* Remove the translucent/glass treatment inherited from the older cinematic layer. */
+.len-envelope__back,
+.len-envelope__letter,
+.len-envelope__pocket,
+.len-envelope__flap,
+.len-envelope__seal {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Keep the physical envelope crisp through approach, tap and opening. */
+.about-envelope-experience.is-approaching .len-envelope,
+.about-envelope-experience.is-awaiting-open .len-envelope,
+.about-envelope-experience.is-envelope-tapped .len-envelope,
+.about-envelope-experience.is-opening .len-envelope {
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+/* Denser paper body: opaque fibers, firmer borders, stronger contact shadows. */
+.len-envelope__back {
+  opacity: 1 !important;
+  background:
+    radial-gradient(circle at 16% 18%, rgba(101,77,49,.09) 0 .7px, transparent 1.45px),
+    radial-gradient(circle at 72% 66%, rgba(255,255,255,.5) 0 .8px, transparent 1.45px),
+    repeating-linear-gradient(3deg, rgba(86,65,42,.032) 0 1px, transparent 1px 7px),
+    linear-gradient(137deg, #f5efe2 0%, #eee5d4 51%, #d8c8ad 100%) !important;
+  border: 1px solid rgba(78,58,37,.42) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.9),
+    inset 0 -2px 0 rgba(75,54,34,.18),
+    inset 0 -24px 48px rgba(88,64,39,.08),
+    0 5px 8px rgba(42,29,18,.18),
+    0 34px 82px rgba(0,0,0,.5) !important;
+}
+
+.len-envelope__pocket {
+  opacity: 1 !important;
+  background:
+    repeating-linear-gradient(4deg, rgba(83,62,39,.03) 0 1px, transparent 1px 7px),
+    linear-gradient(145deg, #efe6d5 0%, #dfd2bb 63%, #c9b899 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.78),
+    inset 0 -2px 0 rgba(74,53,33,.16),
+    inset 0 -22px 42px rgba(77,55,34,.07),
+    0 -2px 4px rgba(65,45,28,.08) !important;
+}
+
+.len-envelope__flap {
+  opacity: 1 !important;
+  background:
+    radial-gradient(circle at 71% 26%, rgba(90,66,41,.08) 0 .7px, transparent 1.4px),
+    repeating-linear-gradient(4deg, rgba(83,61,38,.03) 0 1px, transparent 1px 7px),
+    linear-gradient(169deg, #f4ecdf 0%, #e4d8c3 65%, #c9b696 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.84),
+    inset 0 -2px 0 rgba(75,53,32,.17),
+    0 7px 15px rgba(52,36,22,.16) !important;
+}
+
+.len-envelope__letter {
+  opacity: 1 !important;
+  background:
+    repeating-linear-gradient(0deg, rgba(83,63,42,.022) 0 1px, transparent 1px 6px),
+    linear-gradient(108deg, #fffdf8 0%, #f7f1e5 56%, #e8dcc6 100%) !important;
+  border-color: rgba(92,70,44,.28) !important;
+  box-shadow:
+    0 3px 6px rgba(47,32,19,.16),
+    0 17px 38px rgba(7,8,8,.28),
+    inset 0 1px 0 rgba(255,255,255,.96),
+    inset 0 -1px 0 rgba(82,60,37,.12) !important;
+}
+
+.len-envelope__seal {
+  opacity: 1;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Opening remains sharp: no glass haze is introduced while the flap and letter move. */
+.about-envelope-experience.is-opening .len-envelope__back,
+.about-envelope-experience.is-opening .len-envelope__pocket,
+.about-envelope-experience.is-opening .len-envelope__flap,
+.about-envelope-experience.is-opening .len-envelope__letter {
+  filter: none !important;
+}
+
+/* Retreat through depth rather than blur. The overlay handoff still hides it on schedule. */
+.about-envelope-experience.is-closing-to-about .len-envelope {
+  animation: v15-envelope-solid-retreat .9s cubic-bezier(.38,.08,.24,1) forwards !important;
+}
+
+@keyframes v15-envelope-solid-retreat {
+  from {
+    opacity: 1;
+    filter: none;
+    transform: translate3d(-50%, -48%, 0) rotateX(0) rotateY(0) rotateZ(-.35deg) scale(1);
+  }
+  to {
+    opacity: .72;
+    filter: none;
+    transform: translate3d(-50%, -43%, -190px) rotateX(2deg) rotateY(0) rotateZ(-.8deg) scale(.84);
+  }
+}
+
+/* Preserve the solid-paper look even when the performance profile is lowered. */
+html[data-quality="low"] .len-envelope__back,
+html[data-quality="low"] .len-envelope__letter,
+html[data-quality="low"] .len-envelope__pocket,
+html[data-quality="low"] .len-envelope__flap,
+html[data-quality="low"] .len-envelope__seal {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-envelope-experience.is-closing-to-about .len-envelope {
+    animation-duration: .28s !important;
+  }
+}

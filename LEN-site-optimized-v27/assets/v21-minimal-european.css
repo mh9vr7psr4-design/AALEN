@@ -1,0 +1,243 @@
+/* LEN v21 · restrained European editorial refinement.
+   Corner-only foil and a navigation palette permanently pinned to the home state. */
+
+#service-intro {
+  --v21-gold: rgba(218, 190, 119, .82);
+  --v21-gold-soft: rgba(218, 190, 119, .14);
+  --v21-gold-glint: rgba(248, 230, 180, .9);
+}
+
+/* Keep the cards visually quiet. No full gold rim, no ornate frame, no inward burn. */
+#service-intro .service-plan,
+#service-intro .service-extra,
+#service-intro .service-rules,
+#service-intro .makeup-showcase {
+  outline: 0 !important;
+  transition:
+    border-color .42s cubic-bezier(.16,1,.3,1),
+    box-shadow .48s cubic-bezier(.16,1,.3,1),
+    background-color .42s ease,
+    transform .5s cubic-bezier(.16,1,.3,1) !important;
+}
+
+/* Four tiny L-shaped foil corners only. */
+#service-intro .service-plan::before,
+#service-intro .service-extra::before,
+#service-intro .service-rules::before,
+#service-intro .makeup-showcase::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 7px !important;
+  z-index: 9 !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  -webkit-mask: none !important;
+  mask: none !important;
+  background:
+    linear-gradient(90deg, var(--v21-gold), var(--v21-gold-glint)) left top / 27px 1px no-repeat,
+    linear-gradient(180deg, var(--v21-gold), var(--v21-gold-glint)) left top / 1px 27px no-repeat,
+    linear-gradient(270deg, var(--v21-gold), var(--v21-gold-glint)) right top / 27px 1px no-repeat,
+    linear-gradient(180deg, var(--v21-gold), var(--v21-gold-glint)) right top / 1px 27px no-repeat,
+    linear-gradient(90deg, var(--v21-gold), var(--v21-gold-glint)) left bottom / 27px 1px no-repeat,
+    linear-gradient(0deg, var(--v21-gold), var(--v21-gold-glint)) left bottom / 1px 27px no-repeat,
+    linear-gradient(270deg, var(--v21-gold), var(--v21-gold-glint)) right bottom / 27px 1px no-repeat,
+    linear-gradient(0deg, var(--v21-gold), var(--v21-gold-glint)) right bottom / 1px 27px no-repeat !important;
+  transition: opacity .38s ease !important;
+  animation: none !important;
+}
+
+/* Small corner glints, not decorative filigree. */
+#service-intro .service-plan::after,
+#service-intro .service-extra::after,
+#service-intro .service-rules::after,
+#service-intro .makeup-showcase::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 4px !important;
+  z-index: 8 !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  background:
+    radial-gradient(circle at 0 0, rgba(244,224,170,.18), transparent 18px),
+    radial-gradient(circle at 100% 0, rgba(244,224,170,.13), transparent 18px),
+    radial-gradient(circle at 0 100%, rgba(244,224,170,.11), transparent 18px),
+    radial-gradient(circle at 100% 100%, rgba(244,224,170,.14), transparent 18px) !important;
+  transition: opacity .4s ease !important;
+  animation: none !important;
+}
+
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold),
+#service-intro .service-extra:is(:hover, :focus-within, .is-v19-gold),
+#service-intro .service-rules:is(:hover, :focus-within, .is-v19-gold),
+#service-intro .makeup-showcase:is(:hover, :focus-within, .is-v19-gold) {
+  border-color: rgba(250,249,245,.22) !important;
+  outline: 0 !important;
+  background: rgba(250,249,245,.065) !important;
+  box-shadow:
+    0 24px 62px rgba(0,0,0,.24),
+    inset 0 1px 0 rgba(255,255,255,.08) !important;
+  transform: translate3d(0,-3px,0) !important;
+}
+
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold)::before,
+#service-intro .service-extra:is(:hover, :focus-within, .is-v19-gold)::before,
+#service-intro .service-rules:is(:hover, :focus-within, .is-v19-gold)::before,
+#service-intro .makeup-showcase:is(:hover, :focus-within, .is-v19-gold)::before {
+  opacity: .94 !important;
+  animation: none !important;
+}
+
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold)::after,
+#service-intro .service-extra:is(:hover, :focus-within, .is-v19-gold)::after,
+#service-intro .service-rules:is(:hover, :focus-within, .is-v19-gold)::after,
+#service-intro .makeup-showcase:is(:hover, :focus-within, .is-v19-gold)::after {
+  opacity: .72 !important;
+  animation: none !important;
+}
+
+/* Accent copy only warms slightly; body copy remains neutral. */
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) .service-plan__top > span,
+#service-intro .service-extra:is(:hover, :focus-within, .is-v19-gold) .service-extra__heading > span,
+#service-intro .service-rules:is(:hover, :focus-within, .is-v19-gold) .service-rules__title > span,
+#service-intro .makeup-showcase:is(:hover, :focus-within, .is-v19-gold) .makeup-showcase__copy > span,
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) .service-plan__price strong,
+#service-intro .service-extra:is(:hover, :focus-within, .is-v19-gold) .service-extra__grid b,
+#service-intro .service-rules:is(:hover, :focus-within, .is-v19-gold) .service-rules__list b {
+  color: #ead7a4 !important;
+  text-shadow: 0 0 12px rgba(218,190,119,.08) !important;
+}
+
+/* Navigation: one HOME label, permanently using the home palette from top to bottom. */
+.site-header,
+.site-header.is-scrolled,
+.site-header.is-scrolled:hover,
+.site-header.is-scrolled:focus-within {
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 13px clamp(20px,4vw,72px) !important;
+  border: 0 !important;
+  border-bottom: 1px solid rgba(250,249,245,.14) !important;
+  border-radius: 0 !important;
+  color: #faf9f5 !important;
+  background: rgba(8,9,8,.82) !important;
+  box-shadow: 0 14px 45px rgba(0,0,0,.2) !important;
+  transform: none !important;
+}
+
+.site-header::before,
+.site-header.is-scrolled::before,
+.site-header.is-scrolled:hover::before,
+.site-header.is-scrolled:focus-within::before {
+  border-color: rgba(250,249,245,.14) !important;
+  background: rgba(8,9,8,.76) !important;
+  box-shadow: none !important;
+}
+
+.site-header.is-scrolled > .wordmark,
+.site-header.is-scrolled > .site-nav,
+.site-header.is-scrolled > .header-actions,
+.site-header.is-scrolled:hover > .wordmark,
+.site-header.is-scrolled:hover > .site-nav,
+.site-header.is-scrolled:hover > .header-actions,
+.site-header.is-scrolled:focus-within > .wordmark,
+.site-header.is-scrolled:focus-within > .site-nav,
+.site-header.is-scrolled:focus-within > .header-actions {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transform: none !important;
+}
+
+.site-nav {
+  gap: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.site-nav a.is-home-fixed,
+.site-nav a.is-home-fixed:hover,
+.site-nav a.is-home-fixed:focus-visible {
+  color: #11120f !important;
+  background: #d5c38e !important;
+  box-shadow: 0 0 20px rgba(213,195,142,.18) !important;
+}
+
+.site-nav a.is-home-fixed::before {
+  display: none !important;
+  content: none !important;
+}
+
+.site-nav a.is-home-fixed .site-nav__cn {
+  color: inherit !important;
+}
+
+/* Prevent any blue/violet navigation state from legacy styles. */
+.wordmark,
+.wordmark__meta,
+.site-nav a,
+.header-cta,
+.menu-toggle,
+.mobile-nav a,
+.mobile-nav p {
+  color: #faf9f5 !important;
+}
+
+.header-cta {
+  border-color: rgba(250,249,245,.36) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.header-cta:hover,
+.header-cta:focus-visible {
+  color: #11120f !important;
+  background: #faf9f5 !important;
+}
+
+.menu-toggle__lines,
+.menu-toggle__lines::before,
+.menu-toggle__lines::after {
+  background: #faf9f5 !important;
+}
+
+.mobile-nav {
+  color: #faf9f5 !important;
+  border-color: rgba(250,249,245,.14) !important;
+  background: rgba(8,9,8,.97) !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,.28) !important;
+}
+.mobile-nav a {
+  color: #faf9f5 !important;
+}
+.mobile-nav a:first-child {
+  color: #d5c38e !important;
+}
+
+@media (max-width: 900px) {
+  .site-header,
+  .site-header.is-scrolled,
+  .site-header.is-scrolled:hover,
+  .site-header.is-scrolled:focus-within {
+    padding:
+      max(12px, env(safe-area-inset-top))
+      max(18px, env(safe-area-inset-right))
+      12px
+      max(18px, env(safe-area-inset-left)) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #service-intro .service-plan,
+  #service-intro .service-extra,
+  #service-intro .service-rules,
+  #service-intro .makeup-showcase {
+    transition-duration: .18s !important;
+  }
+}
