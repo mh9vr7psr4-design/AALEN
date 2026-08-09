@@ -116,7 +116,7 @@
 
     const beginLetterHandoff = () => {
       rememberStory();
-      about.classList.remove("is-about-story-awaiting", "is-about-up-reveal");
+      about.classList.remove("is-about-story-awaiting", "is-about-up-reveal", "about-story-armed");
       about.classList.add("is-about-letter-unfolding");
       overlay.classList.add("is-completing");
       root.classList.remove("about-story-lock", "about-story-active");
@@ -137,8 +137,8 @@
 
       const low = experience.quality === "low";
       const reduced = experience.reducedMotion;
-      const closingDelay = reduced ? 70 : low ? 760 : 990;
-      const handoffDelay = reduced ? 120 : low ? 1360 : 1820;
+      const closingDelay = reduced ? 70 : low ? 1180 : 1460;
+      const handoffDelay = reduced ? 120 : low ? 1480 : 1760;
 
       later(() => {
         overlay.classList.add("is-closing-to-about");

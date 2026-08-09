@@ -1,0 +1,145 @@
+/* LEN v25 · warm-paper selection hierarchy + gold-only active navigation. */
+
+#service-intro {
+  --v25-paper-warm: #eee6d8;
+  --v25-paper-highlight: #f8f3e9;
+  --v25-ink: #11110f;
+  --v25-ink-soft: rgba(17,17,15,.70);
+  --v25-price-brown: #49372b;
+  --v25-corner-black: rgba(16,15,13,.86);
+  --v25-corner-black-soft: rgba(16,15,13,.38);
+}
+
+/* Selected plan remains warm ivory and clearly selected. */
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold),
+#service-intro .service-extra:is(:hover, :focus-within, .is-v19-gold),
+#service-intro .service-rules:is(:hover, :focus-within, .is-v19-gold),
+#service-intro .makeup-showcase:is(:hover, :focus-within, .is-v19-gold) {
+  background: linear-gradient(145deg, var(--v25-paper-highlight), var(--v25-paper-warm)) !important;
+  background-color: var(--v25-paper-warm) !important;
+  border-color: rgba(16,15,13,.18) !important;
+  color: var(--v25-ink) !important;
+}
+
+/* Corner-only rule: black first, with an extremely restrained black-gold undertone. */
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold)::before,
+#service-intro .service-extra:is(:hover, :focus-within, .is-v19-gold)::before,
+#service-intro .service-rules:is(:hover, :focus-within, .is-v19-gold)::before,
+#service-intro .makeup-showcase:is(:hover, :focus-within, .is-v19-gold)::before {
+  opacity: .96 !important;
+  background:
+    linear-gradient(90deg, var(--v25-corner-black), rgba(70,58,37,.62)) left top / 27px 1px no-repeat,
+    linear-gradient(180deg, var(--v25-corner-black), rgba(70,58,37,.62)) left top / 1px 27px no-repeat,
+    linear-gradient(270deg, var(--v25-corner-black), rgba(70,58,37,.62)) right top / 27px 1px no-repeat,
+    linear-gradient(180deg, var(--v25-corner-black), rgba(70,58,37,.62)) right top / 1px 27px no-repeat,
+    linear-gradient(90deg, var(--v25-corner-black), rgba(70,58,37,.62)) left bottom / 27px 1px no-repeat,
+    linear-gradient(0deg, var(--v25-corner-black), rgba(70,58,37,.62)) left bottom / 1px 27px no-repeat,
+    linear-gradient(270deg, var(--v25-corner-black), rgba(70,58,37,.62)) right bottom / 27px 1px no-repeat,
+    linear-gradient(0deg, var(--v25-corner-black), rgba(70,58,37,.62)) right bottom / 1px 27px no-repeat !important;
+}
+
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold)::after,
+#service-intro .service-extra:is(:hover, :focus-within, .is-v19-gold)::after,
+#service-intro .service-rules:is(:hover, :focus-within, .is-v19-gold)::after,
+#service-intro .makeup-showcase:is(:hover, :focus-within, .is-v19-gold)::after {
+  opacity: .22 !important;
+  background:
+    radial-gradient(circle at 0 0, rgba(20,18,14,.12), transparent 17px),
+    radial-gradient(circle at 100% 0, rgba(20,18,14,.10), transparent 17px),
+    radial-gradient(circle at 0 100%, rgba(20,18,14,.08), transparent 17px),
+    radial-gradient(circle at 100% 100%, rgba(20,18,14,.10), transparent 17px) !important;
+}
+
+/* All selected copy is ink-dark; price gets a distinct deep-brown editorial hierarchy. */
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) *,
+#service-intro .service-extra:is(:hover, :focus-within, .is-v19-gold) *,
+#service-intro .service-rules:is(:hover, :focus-within, .is-v19-gold) *,
+#service-intro .makeup-showcase:is(:hover, :focus-within, .is-v19-gold) * {
+  color: var(--v25-ink) !important;
+  text-shadow: none !important;
+}
+
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) .service-plan__price,
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) .service-plan__price strong,
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) .service-plan__price b,
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) .service-plan__price span {
+  color: var(--v25-price-brown) !important;
+  text-shadow: none !important;
+}
+
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) small,
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) .service-plan__top > span,
+#service-intro .service-extra:is(:hover, :focus-within, .is-v19-gold) .service-extra__heading > span,
+#service-intro .service-rules:is(:hover, :focus-within, .is-v19-gold) .service-rules__title > span,
+#service-intro .makeup-showcase:is(:hover, :focus-within, .is-v19-gold) figcaption {
+  color: var(--v25-ink-soft) !important;
+}
+
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) .plan-float-target,
+#service-intro .service-extra:is(:hover, :focus-within, .is-v19-gold) .plan-float-target,
+#service-intro .service-rules:is(:hover, :focus-within, .is-v19-gold) .plan-float-target,
+#service-intro .makeup-showcase:is(:hover, :focus-within, .is-v19-gold) .plan-float-target {
+  color: #060605 !important;
+  text-shadow: 0 7px 16px rgba(53,40,28,.08) !important;
+}
+
+/* Navigation: default labels stay quiet. Only the current/clicked section is gold text. */
+.site-nav a,
+.site-nav a:visited {
+  color: rgba(250,249,245,.60) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  color: rgba(234,219,176,.88) !important;
+  background: rgba(213,195,142,.045) !important;
+  box-shadow: none !important;
+}
+
+.site-nav a.is-active,
+.site-nav a.is-active:visited,
+.site-nav a.is-active:hover,
+.site-nav a.is-active:focus-visible {
+  color: #d9c27f !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  text-shadow: 0 0 12px rgba(217,194,127,.13) !important;
+}
+
+.site-nav a.is-active .site-nav__en,
+.site-nav a.is-active .site-nav__cn {
+  color: inherit !important;
+}
+
+/* Mobile uses the same active-section logic and never turns the whole menu gold. */
+.mobile-nav a {
+  color: rgba(250,249,245,.74) !important;
+  background: transparent !important;
+}
+.mobile-nav a.is-active,
+.mobile-nav a.is-active:visited,
+.mobile-nav a.is-active:hover,
+.mobile-nav a.is-active:focus-visible,
+.mobile-nav a.is-active:active {
+  color: #d9c27f !important;
+  background: transparent !important;
+  text-shadow: 0 0 12px rgba(217,194,127,.12) !important;
+}
+
+@media (hover: none), (pointer: coarse) {
+  #service-intro .service-plan.is-v19-gold,
+  #service-intro .service-extra.is-v19-gold,
+  #service-intro .service-rules.is-v19-gold,
+  #service-intro .makeup-showcase.is-v19-gold {
+    background: linear-gradient(145deg, var(--v25-paper-highlight), var(--v25-paper-warm)) !important;
+    color: var(--v25-ink) !important;
+  }
+}
+
+/* v21 once made the first mobile item permanently gold; neutralize that legacy exception. */
+.mobile-nav nav a:first-child:not(.is-active) {
+  color: rgba(250,249,245,.74) !important;
+  text-shadow: none !important;
+}

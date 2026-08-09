@@ -1,0 +1,114 @@
+/* LEN Photography · v16 micro-motion layer
+   Scope: envelope Joker-card-like idle entrance/click shake + works intro copy jitter.
+   Uses individual translate/rotate properties so the existing 3D transform/parallax remains intact. */
+
+:root {
+  --v16-jitter-ease: cubic-bezier(.2,.84,.2,1);
+}
+
+/* Envelope: first reveal gets a short, lively physical wobble without changing the existing ±10° parallax transform. */
+.about-envelope-experience.is-v16-entrance-jitter .len-envelope {
+  animation: v16-envelope-entrance-jitter 1.65s var(--v16-jitter-ease) both;
+  will-change: translate, rotate;
+}
+
+.about-envelope-experience.is-v16-entrance-jitter .len-envelope__seal {
+  animation: v16-seal-follow-jitter 1.28s cubic-bezier(.2,.75,.2,1) .08s both;
+  will-change: rotate;
+}
+
+/* Clicking the envelope never opens it; it gives a short tactile shake. */
+.about-envelope-experience.is-v16-click-jitter .len-envelope {
+  animation: v16-envelope-click-jitter .42s cubic-bezier(.22,.72,.2,1) both;
+  will-change: translate, rotate;
+}
+
+.about-envelope-experience.is-v16-click-jitter .len-envelope__seal {
+  animation: v16-seal-click-jitter .34s ease-out both;
+}
+
+@keyframes v16-envelope-entrance-jitter {
+  0%   { translate: 0 0;     rotate: 0deg; }
+  12%  { translate: -3px 1px; rotate: -2.25deg; }
+  24%  { translate: 4px -2px; rotate: 2.7deg; }
+  38%  { translate: -3px 2px; rotate: -1.75deg; }
+  52%  { translate: 2px -1px; rotate: 1.2deg; }
+  66%  { translate: -1px 1px; rotate: -.62deg; }
+  80%  { translate: .6px 0;   rotate: .3deg; }
+  100% { translate: 0 0;      rotate: 0deg; }
+}
+
+@keyframes v16-envelope-click-jitter {
+  0%   { translate: 0 0;      rotate: 0deg; }
+  18%  { translate: -5px 1px; rotate: -2.8deg; }
+  38%  { translate: 5px -1px; rotate: 2.55deg; }
+  58%  { translate: -3px 1px; rotate: -1.55deg; }
+  78%  { translate: 2px 0;    rotate: .85deg; }
+  100% { translate: 0 0;      rotate: 0deg; }
+}
+
+@keyframes v16-seal-follow-jitter {
+  0%,100% { rotate: 0deg; }
+  20% { rotate: 3.6deg; }
+  39% { rotate: -3deg; }
+  58% { rotate: 1.8deg; }
+  76% { rotate: -.8deg; }
+}
+
+@keyframes v16-seal-click-jitter {
+  0%,100% { rotate: 0deg; }
+  30% { rotate: -4deg; }
+  62% { rotate: 3deg; }
+}
+
+/* Works intro + current work description: tiny editorial shake, never continuous. */
+html:not(.editing) .works-exhibit__intro .eyebrow:hover,
+html:not(.editing) .works-exhibit__intro h2:hover,
+html:not(.editing) .works-exhibit__intro > div:last-child > span:hover,
+html:not(.editing) .works-exhibit__hud strong:hover,
+html:not(.editing) .works-exhibit__hud p:hover,
+.works-exhibit__intro .is-v16-copy-jitter,
+.works-exhibit__hud.is-v16-copy-jitter strong,
+.works-exhibit__hud.is-v16-copy-jitter p {
+  animation: v16-copy-jitter .48s cubic-bezier(.2,.76,.24,1) both;
+  will-change: translate, rotate;
+}
+
+@keyframes v16-copy-jitter {
+  0%   { translate: 0 0;      rotate: 0deg; }
+  20%  { translate: -1.8px .5px; rotate: -.34deg; }
+  42%  { translate: 1.5px -.5px; rotate: .28deg; }
+  62%  { translate: -.9px .35px; rotate: -.16deg; }
+  80%  { translate: .45px 0;  rotate: .08deg; }
+  100% { translate: 0 0;      rotate: 0deg; }
+}
+
+/* Coarse pointers: keep feedback visible but compact. */
+@media (hover: none), (pointer: coarse) {
+  .about-envelope-experience.is-v16-click-jitter .len-envelope {
+    animation-duration: .38s;
+  }
+}
+
+/* Performance profile: preserve character but reduce compositing work. */
+html[data-quality="low"] .about-envelope-experience.is-v16-entrance-jitter .len-envelope {
+  animation-duration: 1.2s;
+}
+
+html[data-quality="low"] .works-exhibit__hud.is-v16-copy-jitter strong,
+html[data-quality="low"] .works-exhibit__hud.is-v16-copy-jitter p {
+  animation-duration: .34s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-envelope-experience.is-v16-entrance-jitter .len-envelope,
+  .about-envelope-experience.is-v16-entrance-jitter .len-envelope__seal,
+  .about-envelope-experience.is-v16-click-jitter .len-envelope,
+  .about-envelope-experience.is-v16-click-jitter .len-envelope__seal,
+  .works-exhibit__intro .is-v16-copy-jitter,
+  .works-exhibit__hud.is-v16-copy-jitter strong,
+  .works-exhibit__hud.is-v16-copy-jitter p {
+    animation-duration: .16s !important;
+    animation-iteration-count: 1 !important;
+  }
+}

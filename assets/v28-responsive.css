@@ -1,0 +1,741 @@
+/* LEN v28 — full mobile responsive pass
+   Goal: preserve desktop art direction while making every section fluid across phone widths/heights. */
+
+:root {
+  --v28-vh: 1vh;
+  --v28-inline: clamp(16px, 5.2vw, 28px);
+  --v28-safe-top: max(12px, env(safe-area-inset-top));
+  --v28-safe-bottom: max(12px, env(safe-area-inset-bottom));
+}
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+body {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+main,
+.section,
+.manifesto,
+.site-footer,
+.gallery-page,
+.about-envelope-experience {
+  max-width: 100%;
+}
+
+.section,
+.section-heading,
+.about__copy,
+.about__visual,
+.works-exhibit__intro,
+.works-exhibit__scroll,
+.booking-steps,
+.package-grid,
+.service-intro__layout,
+.service-intro__copy,
+.service-plan-list,
+.service-plan,
+.service-extra,
+.service-rules,
+.makeup-showcase,
+.contact__lead,
+.contact-grid,
+.site-footer {
+  min-width: 0;
+}
+
+[data-edit],
+.service-plan li,
+.service-rules p,
+.contact-grid p,
+.package li,
+.package__note,
+.about__bio,
+.section-heading > p {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+section[id] {
+  scroll-margin-top: 76px;
+}
+
+/* Phones and small tablets */
+@media (max-width: 900px) {
+  :root {
+    --v28-inline: clamp(18px, 5.4vw, 34px);
+  }
+
+  .section {
+    width: 100% !important;
+    padding-left: var(--v28-inline) !important;
+    padding-right: var(--v28-inline) !important;
+  }
+
+  .site-header {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 58px;
+    padding-top: var(--v28-safe-top) !important;
+    padding-right: max(var(--v28-inline), env(safe-area-inset-right)) !important;
+    padding-bottom: 10px !important;
+    padding-left: max(var(--v28-inline), env(safe-area-inset-left)) !important;
+  }
+
+  .wordmark {
+    min-width: 0;
+  }
+
+  .wordmark > span:first-child {
+    white-space: nowrap;
+  }
+
+  .menu-toggle {
+    flex: 0 0 auto;
+    touch-action: manipulation;
+  }
+
+  .mobile-nav {
+    inset: 0 !important;
+    width: 100% !important;
+    height: calc(var(--v28-vh, 1vh) * 100);
+    min-height: 100svh;
+    padding:
+      max(84px, calc(env(safe-area-inset-top) + 72px))
+      max(var(--v28-inline), env(safe-area-inset-right))
+      max(28px, calc(env(safe-area-inset-bottom) + 20px))
+      max(var(--v28-inline), env(safe-area-inset-left)) !important;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .mobile-nav nav {
+    width: 100%;
+  }
+
+  .mobile-nav a {
+    max-width: 100%;
+    font-size: clamp(30px, 10vw, 48px) !important;
+    line-height: 1.05;
+  }
+
+  .floating-controls {
+    right: auto !important;
+    bottom: max(12px, calc(env(safe-area-inset-bottom) + 8px)) !important;
+    left: max(12px, env(safe-area-inset-left)) !important;
+    max-width: calc(100vw - max(24px, env(safe-area-inset-left) + env(safe-area-inset-right) + 16px));
+  }
+
+  /* Hero: use the real visible viewport instead of a desktop minimum height. */
+  .hero {
+    width: 100% !important;
+    height: calc(var(--v28-vh, 1vh) * 100) !important;
+    min-height: max(520px, 100svh) !important;
+    max-height: none !important;
+    overflow: hidden;
+  }
+
+  .hero__media,
+  .hero__shade,
+  .hero__object-layer {
+    inset: 0 !important;
+  }
+
+  .hero__meta {
+    top: max(78px, calc(env(safe-area-inset-top) + 68px)) !important;
+    right: max(var(--v28-inline), env(safe-area-inset-right)) !important;
+    left: max(var(--v28-inline), env(safe-area-inset-left)) !important;
+    width: auto !important;
+  }
+
+  .hero__copy {
+    right: max(var(--v28-inline), env(safe-area-inset-right)) !important;
+    bottom: max(74px, calc(env(safe-area-inset-bottom) + 58px)) !important;
+    left: max(var(--v28-inline), env(safe-area-inset-left)) !important;
+    width: auto !important;
+    max-width: min(92vw, 720px) !important;
+  }
+
+  .hero h1,
+  .hero__statement {
+    max-width: 100% !important;
+    font-size: clamp(48px, 15.8vw, 88px) !important;
+    line-height: .94 !important;
+    letter-spacing: -.075em !important;
+  }
+
+  .hero__intro {
+    max-width: min(90vw, 560px) !important;
+    font-size: clamp(12px, 3.4vw, 15px) !important;
+    line-height: 1.75 !important;
+  }
+
+  /* Envelope: always sized from the current phone viewport. */
+  .about-envelope-experience {
+    --paper-w: min(calc(100vw - 40px), 360px) !important;
+    width: 100% !important;
+    height: calc(var(--v28-vh, 1vh) * 100) !important;
+    min-height: 100svh;
+  }
+
+  .about-envelope-stage {
+    width: 100% !important;
+    height: calc(var(--v28-vh, 1vh) * 100) !important;
+    min-height: 100svh !important;
+  }
+
+  .about-envelope-open {
+    max-width: calc(100vw - 48px);
+  }
+
+  /* Photographer: switch earlier to a true phone layout instead of squeezing desktop columns. */
+  .about {
+    min-height: auto !important;
+    padding-top: clamp(84px, 12svh, 126px) !important;
+    padding-bottom: clamp(76px, 11svh, 120px) !important;
+  }
+
+  .about__visual {
+    max-width: min(46vw, 430px);
+  }
+
+  .about__copy h2 {
+    max-width: 100%;
+  }
+
+  .about__facts span {
+    min-width: 0;
+  }
+
+  /* Works tunnel: fit to short and tall phones without side clipping. */
+  .works-exhibit__intro {
+    width: 100%;
+  }
+
+  .works-exhibit__sticky {
+    height: calc(var(--v28-vh, 1vh) * 100) !important;
+    min-height: max(540px, 100svh) !important;
+    max-width: 100vw;
+    overflow: hidden;
+  }
+
+  .works-exhibit .work-card,
+  .works-exhibit .work-card:nth-child(n),
+  .spatial-v3 .works .work-card:nth-child(n)[data-spatial-stage] {
+    max-width: calc(100vw - 54px) !important;
+    max-height: 68svh;
+  }
+
+  .works-exhibit .work-card .media {
+    max-height: min(60svh, 590px);
+  }
+
+  .works-exhibit__hud {
+    left: max(18px, env(safe-area-inset-left)) !important;
+    max-width: min(calc(100vw - 74px), 340px) !important;
+  }
+
+  .works-loop-controls {
+    right: max(12px, env(safe-area-inset-right)) !important;
+    max-width: calc(100vw - 24px);
+  }
+
+  /* Editorial quote */
+  .manifesto {
+    width: 100%;
+    min-height: min(72svh, 760px) !important;
+    padding: clamp(72px, 12svh, 112px) var(--v28-inline) !important;
+  }
+
+  .manifesto__inner {
+    width: 100%;
+    max-width: 860px;
+  }
+
+  .manifesto p,
+  .manifesto__inner > p > span[data-edit] {
+    max-width: 100%;
+    font-size: clamp(32px, 8.6vw, 62px) !important;
+    line-height: 1.38 !important;
+  }
+
+  /* Process / services / plans */
+  .section-heading {
+    gap: 22px !important;
+  }
+
+  .section-heading h2 {
+    max-width: 100%;
+    font-size: clamp(38px, 9.8vw, 64px) !important;
+    line-height: 1.04 !important;
+  }
+
+  .section-heading > p {
+    max-width: 100% !important;
+    font-size: clamp(12px, 3.1vw, 15px) !important;
+  }
+
+  .package-grid {
+    width: 100%;
+  }
+
+  .package {
+    min-height: 0 !important;
+    padding: clamp(26px, 6.5vw, 42px) !important;
+  }
+
+  .package__tag {
+    margin-bottom: clamp(34px, 8vw, 52px) !important;
+  }
+
+  .package h3 {
+    font-size: clamp(29px, 7.4vw, 42px) !important;
+  }
+
+  .package__note {
+    min-height: 0 !important;
+    margin-bottom: clamp(30px, 7vw, 48px) !important;
+  }
+
+  .service-intro {
+    width: 100%;
+    overflow: clip;
+  }
+
+  .service-intro__layout,
+  .service-intro__copy {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .service-intro__header h2 {
+    max-width: 100%;
+    font-size: clamp(42px, 10.5vw, 68px) !important;
+    line-height: 1.05 !important;
+  }
+
+  .service-intro__lead,
+  .service-intro__aside {
+    max-width: 100% !important;
+    font-size: clamp(13px, 3.25vw, 15px) !important;
+    line-height: 1.82 !important;
+  }
+
+  .service-plan,
+  .service-extra,
+  .service-rules,
+  .makeup-showcase {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: clamp(22px, 5.4vw, 34px) !important;
+  }
+
+  .service-plan__top,
+  .service-plan__price,
+  .service-extra__heading,
+  .service-extra__grid,
+  .service-rules__title,
+  .service-rules__list,
+  .makeup-showcase__copy,
+  .makeup-showcase__images {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .service-plan__price strong {
+    font-size: clamp(26px, 7vw, 38px) !important;
+  }
+
+  .service-plan li,
+  .service-rules p,
+  .service-extra p,
+  .makeup-showcase p {
+    font-size: clamp(12px, 3.05vw, 14px) !important;
+    line-height: 1.75 !important;
+  }
+
+  .makeup-showcase__images img {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Contact and footer */
+  .contact__lead {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .contact__lead h2 {
+    max-width: 100%;
+    font-size: clamp(40px, 10.2vw, 68px) !important;
+    line-height: 1.08 !important;
+  }
+
+  .contact-grid > div {
+    min-width: 0;
+  }
+
+  .contact-grid p {
+    font-size: clamp(15px, 4.2vw, 23px) !important;
+  }
+
+  .site-footer {
+    width: 100%;
+    padding-right: max(var(--v28-inline), env(safe-area-inset-right)) !important;
+    padding-left: max(var(--v28-inline), env(safe-area-inset-left)) !important;
+    padding-bottom: max(30px, calc(env(safe-area-inset-bottom) + 22px)) !important;
+  }
+
+  /* Gallery dialog */
+  .gallery-page {
+    width: 100vw !important;
+    height: calc(var(--v28-vh, 1vh) * 100) !important;
+    min-height: 100svh;
+  }
+
+  .gallery-page__track {
+    max-width: 100vw;
+  }
+
+  .gallery-page__item,
+  .gallery-page__item img {
+    max-width: 100%;
+  }
+}
+
+/* Real phone layout: single-column photographer/process/contact and smaller scene geometry. */
+@media (max-width: 760px) {
+  .about {
+    grid-template-columns: 1fr !important;
+    gap: clamp(34px, 8vw, 54px) !important;
+  }
+
+  .about__visual {
+    width: min(100%, 430px) !important;
+    max-width: min(100%, 430px) !important;
+    justify-self: center !important;
+  }
+
+  .about__portrait {
+    width: 100%;
+    max-height: min(64svh, 590px);
+  }
+
+  .about__index {
+    right: 0 !important;
+    bottom: -22px !important;
+  }
+
+  .about__copy {
+    width: 100%;
+    max-width: 640px !important;
+    justify-self: center;
+  }
+
+  .about__copy .eyebrow {
+    margin-bottom: clamp(22px, 6vw, 36px) !important;
+  }
+
+  .about__copy h2 {
+    flex-wrap: wrap;
+    gap: .12em .25em !important;
+    font-size: clamp(46px, 13vw, 72px) !important;
+    line-height: .98 !important;
+  }
+
+  .about__copy h2 em {
+    font-size: .34em !important;
+  }
+
+  .about__role {
+    margin-top: 24px !important;
+    font-size: clamp(19px, 5vw, 28px) !important;
+  }
+
+  .about__bio {
+    max-width: 100% !important;
+    font-size: clamp(13px, 3.5vw, 16px) !important;
+    line-height: 1.82 !important;
+  }
+
+  .booking-steps,
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .booking-step {
+    min-height: 0 !important;
+    padding: clamp(24px, 6vw, 36px) !important;
+  }
+
+  .booking-step b {
+    margin-bottom: clamp(32px, 8vw, 48px) !important;
+  }
+
+  .package-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .service-plan__price {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+  }
+
+  .service-extra__grid,
+  .makeup-showcase__images {
+    grid-template-columns: 1fr !important;
+  }
+
+  .contact-grid > div {
+    min-height: 0 !important;
+    padding: clamp(24px, 6vw, 34px) !important;
+  }
+}
+
+/* Small phones including 320–430 px widths. */
+@media (max-width: 520px) {
+  :root {
+    --v28-inline: clamp(16px, 5.1vw, 22px);
+  }
+
+  .hero {
+    min-height: max(500px, 100svh) !important;
+  }
+
+  .hero__meta {
+    top: max(70px, calc(env(safe-area-inset-top) + 60px)) !important;
+  }
+
+  .hero__meta span {
+    font-size: 8px !important;
+    letter-spacing: .18em !important;
+  }
+
+  .hero__copy {
+    bottom: max(64px, calc(env(safe-area-inset-bottom) + 50px)) !important;
+  }
+
+  .hero h1,
+  .hero__statement {
+    font-size: clamp(46px, 15.5vw, 74px) !important;
+  }
+
+  .about-envelope-experience {
+    --paper-w: min(calc(100vw - 32px), 336px) !important;
+  }
+
+  .about-envelope-open {
+    width: min(146px, calc(100vw - 80px)) !important;
+    min-width: 0 !important;
+    height: 48px !important;
+    min-height: 48px !important;
+  }
+
+  .about {
+    padding-top: clamp(72px, 11svh, 96px) !important;
+    padding-bottom: clamp(68px, 10svh, 92px) !important;
+  }
+
+  .about__visual {
+    width: min(100%, 390px) !important;
+  }
+
+  .about__copy h2 {
+    font-size: clamp(44px, 14.2vw, 62px) !important;
+  }
+
+  .about__facts {
+    grid-template-columns: 1fr !important;
+    margin-top: 32px !important;
+  }
+
+  .about__facts span {
+    min-height: 0 !important;
+    padding: 15px 16px !important;
+  }
+
+  .works-exhibit__hud {
+    top: max(62px, calc(env(safe-area-inset-top) + 50px)) !important;
+    width: min(calc(100vw - 62px), 330px) !important;
+    max-width: min(calc(100vw - 62px), 330px) !important;
+  }
+
+  .works-exhibit__hud strong {
+    font-size: clamp(27px, 8.5vw, 38px) !important;
+  }
+
+  .works-exhibit .work-card,
+  .works-exhibit .work-card:nth-child(n),
+  .spatial-v3 .works .work-card:nth-child(n)[data-spatial-stage] {
+    width: min(74vw, 302px) !important;
+    max-width: calc(100vw - 46px) !important;
+  }
+
+  .manifesto p,
+  .manifesto__inner > p > span[data-edit] {
+    font-size: clamp(30px, 9.4vw, 48px) !important;
+  }
+
+  .section-heading {
+    margin-bottom: clamp(38px, 10vw, 54px) !important;
+  }
+
+  .section-heading h2 {
+    font-size: clamp(36px, 10.8vw, 50px) !important;
+  }
+
+  .service-intro__header h2 {
+    font-size: clamp(38px, 11.2vw, 54px) !important;
+  }
+
+  .service-plan,
+  .service-extra,
+  .service-rules,
+  .makeup-showcase {
+    padding: 21px 18px !important;
+  }
+
+  .service-plan__price {
+    gap: 8px !important;
+  }
+
+  .service-plan__price p {
+    min-width: 0;
+  }
+
+  .service-plan__price strong {
+    font-size: clamp(24px, 7.8vw, 32px) !important;
+  }
+
+  .service-rules__list p {
+    grid-template-columns: 28px minmax(0, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  .contact__lead h2 {
+    font-size: clamp(36px, 11vw, 52px) !important;
+  }
+
+  .gallery-page__header {
+    min-width: 0;
+  }
+
+  .gallery-page__title {
+    min-width: 0;
+    padding: 0 58px !important;
+  }
+
+  .gallery-page__track {
+    grid-auto-columns: min(92vw, 430px) !important;
+    gap: 14px !important;
+  }
+}
+
+/* Very narrow phones: prevent ornamental/UI details from stealing content width. */
+@media (max-width: 380px) {
+  .hero__intro br {
+    display: none;
+  }
+
+  .mobile-nav__foot {
+    font-size: 10px;
+  }
+
+  .about__copy h2 {
+    font-size: clamp(41px, 13.8vw, 52px) !important;
+  }
+
+  .works-exhibit__hud p {
+    -webkit-line-clamp: 2 !important;
+  }
+
+  .service-plan__top span,
+  .service-extra__heading > span,
+  .service-rules__title > span,
+  .makeup-showcase__copy > span {
+    letter-spacing: .14em !important;
+  }
+
+  .floating-controls {
+    transform: scale(.94);
+    transform-origin: left bottom;
+  }
+}
+
+/* Short landscape phones: prioritize content height and avoid fixed vertical compositions. */
+@media (max-height: 560px) and (orientation: landscape) and (max-width: 950px) {
+  .site-header {
+    min-height: 48px;
+    padding-top: max(8px, env(safe-area-inset-top)) !important;
+    padding-bottom: 7px !important;
+  }
+
+  .hero {
+    height: auto !important;
+    min-height: max(460px, 100svh) !important;
+  }
+
+  .hero__meta {
+    top: max(58px, calc(env(safe-area-inset-top) + 48px)) !important;
+  }
+
+  .hero__copy {
+    bottom: max(34px, calc(env(safe-area-inset-bottom) + 24px)) !important;
+  }
+
+  .hero h1,
+  .hero__statement {
+    font-size: clamp(40px, 8vw, 64px) !important;
+  }
+
+  .hero__intro {
+    margin-top: 12px !important;
+    line-height: 1.5 !important;
+  }
+
+  .about {
+    padding-top: 66px !important;
+  }
+
+  .about__portrait {
+    max-height: 72svh;
+  }
+
+  .about-envelope-experience,
+  .about-envelope-stage,
+  .gallery-page {
+    min-height: 100svh !important;
+  }
+
+  .works-exhibit__sticky {
+    min-height: 100svh !important;
+  }
+}
+
+/* Touch devices: don't reserve desktop hover transforms as layout space. */
+@media (hover: none), (pointer: coarse) {
+  .about__visual:hover .about__portrait img,
+  .package:hover,
+  .manifesto:hover .manifesto__inner {
+    transform: none;
+  }
+
+  a,
+  button,
+  [role="button"] {
+    touch-action: manipulation;
+  }
+}

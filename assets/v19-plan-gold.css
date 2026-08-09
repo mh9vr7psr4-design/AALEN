@@ -1,0 +1,170 @@
+/* LEN v19 · restrained foil-gold interaction for the PLANS section.
+   Desktop hover + mobile touch. No layout/content changes. */
+
+#service-intro {
+  --v19-gold: #d8bd78;
+  --v19-gold-bright: #f0dca2;
+  --v19-gold-deep: #9f7a32;
+  --v19-gold-line: rgba(224, 197, 126, .78);
+  --v19-gold-soft: rgba(224, 197, 126, .13);
+}
+
+#service-intro .service-plan,
+#service-intro .service-extra,
+#service-intro .service-rules,
+#service-intro .makeup-showcase {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  outline: 1px solid transparent;
+  outline-offset: -5px;
+  transition:
+    border-color .48s cubic-bezier(.16, 1, .3, 1),
+    outline-color .48s ease,
+    box-shadow .55s cubic-bezier(.16, 1, .3, 1),
+    background .5s ease,
+    transform .55s cubic-bezier(.16, 1, .3, 1) !important;
+}
+
+/* A dry metallic rim, not a yellow fill. */
+#service-intro .service-plan::before,
+#service-intro .service-extra::before,
+#service-intro .service-rules::before,
+#service-intro .makeup-showcase::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  pointer-events: none;
+  opacity: 0;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(112deg,
+      transparent 0 22%,
+      rgba(255, 244, 204, 0) 31%,
+      rgba(255, 237, 177, .34) 46%,
+      rgba(215, 175, 86, .16) 51%,
+      rgba(255, 244, 204, 0) 66%,
+      transparent 100%) border-box;
+  background-size: 220% 100%;
+  background-position: 120% 0;
+  -webkit-mask:
+    linear-gradient(#000 0 0) padding-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  transition: opacity .38s ease;
+}
+
+#service-intro .service-plan::after,
+#service-intro .service-extra::after,
+#service-intro .service-rules::after,
+#service-intro .makeup-showcase::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 7;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    linear-gradient(90deg, rgba(255,236,177,.075), transparent 11% 89%, rgba(255,236,177,.07)),
+    linear-gradient(0deg, rgba(171,126,45,.06), transparent 10% 90%, rgba(255,244,211,.045));
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 226, 153, .2),
+    inset 0 0 34px rgba(211, 168, 77, .045);
+  transition: opacity .44s ease;
+}
+
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold),
+#service-intro .service-extra:is(:hover, :focus-within, .is-v19-gold),
+#service-intro .service-rules:is(:hover, :focus-within, .is-v19-gold),
+#service-intro .makeup-showcase:is(:hover, :focus-within, .is-v19-gold) {
+  border-color: var(--v19-gold-line) !important;
+  outline-color: rgba(255, 231, 168, .26);
+  background:
+    linear-gradient(135deg, rgba(236, 207, 137, .055), rgba(255,255,255,.012) 38%, rgba(152,111,37,.04)),
+    rgba(250,249,245,.06) !important;
+  box-shadow:
+    0 30px 78px rgba(0,0,0,.27),
+    0 0 0 1px rgba(166, 124, 44, .16),
+    0 0 30px rgba(202, 160, 70, .075),
+    inset 0 1px 0 rgba(255, 241, 202, .16),
+    inset 0 0 24px rgba(201, 157, 63, .055) !important;
+  transform: translate3d(0, -4px, 0);
+}
+
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold)::before,
+#service-intro .service-extra:is(:hover, :focus-within, .is-v19-gold)::before,
+#service-intro .service-rules:is(:hover, :focus-within, .is-v19-gold)::before,
+#service-intro .makeup-showcase:is(:hover, :focus-within, .is-v19-gold)::before {
+  opacity: 1;
+  animation: v19-foil-sweep 1.45s cubic-bezier(.2,.7,.2,1) both;
+}
+
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold)::after,
+#service-intro .service-extra:is(:hover, :focus-within, .is-v19-gold)::after,
+#service-intro .service-rules:is(:hover, :focus-within, .is-v19-gold)::after,
+#service-intro .makeup-showcase:is(:hover, :focus-within, .is-v19-gold)::after {
+  opacity: 1;
+}
+
+/* Accent text becomes pale foil-gold while body copy stays readable. */
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) .service-plan__top > span,
+#service-intro .service-extra:is(:hover, :focus-within, .is-v19-gold) .service-extra__heading > span,
+#service-intro .service-rules:is(:hover, :focus-within, .is-v19-gold) .service-rules__title > span,
+#service-intro .makeup-showcase:is(:hover, :focus-within, .is-v19-gold) .makeup-showcase__copy > span,
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) .service-plan__price strong,
+#service-intro .service-extra:is(:hover, :focus-within, .is-v19-gold) .service-extra__grid b,
+#service-intro .service-rules:is(:hover, :focus-within, .is-v19-gold) .service-rules__list b {
+  color: var(--v19-gold-bright) !important;
+  text-shadow: 0 0 18px rgba(218, 177, 85, .12);
+  transition: color .38s ease, text-shadow .38s ease;
+}
+
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) li::before {
+  background: linear-gradient(90deg, var(--v19-gold-deep), var(--v19-gold-bright)) !important;
+  box-shadow: 0 0 8px rgba(222, 186, 100, .16);
+}
+
+@keyframes v19-foil-sweep {
+  0% { background-position: 125% 0; }
+  100% { background-position: -80% 0; }
+}
+
+/* Touch devices: no sticky browser hover; JS owns the brief gold state. */
+@media (hover: none), (pointer: coarse) {
+  #service-intro .service-plan:hover,
+  #service-intro .service-extra:hover,
+  #service-intro .service-rules:hover,
+  #service-intro .makeup-showcase:hover {
+    border-color: rgba(250,249,245,.17) !important;
+    outline-color: transparent;
+    transform: none;
+  }
+
+  #service-intro .service-plan.is-v19-gold,
+  #service-intro .service-extra.is-v19-gold,
+  #service-intro .service-rules.is-v19-gold,
+  #service-intro .makeup-showcase.is-v19-gold {
+    border-color: var(--v19-gold-line) !important;
+    outline-color: rgba(255, 231, 168, .25);
+    transform: translate3d(0, -2px, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #service-intro .service-plan::before,
+  #service-intro .service-extra::before,
+  #service-intro .service-rules::before,
+  #service-intro .makeup-showcase::before {
+    animation: none !important;
+    background-position: 50% 0 !important;
+  }
+
+  #service-intro .service-plan,
+  #service-intro .service-extra,
+  #service-intro .service-rules,
+  #service-intro .makeup-showcase {
+    transition-duration: .16s !important;
+  }
+}

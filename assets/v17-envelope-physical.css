@@ -1,0 +1,135 @@
+/* LEN Photography · v17 envelope physicality
+   Scope: remove the remaining glass/sheen treatment from the envelope itself,
+   keep stationery opaque through the entire interaction, and add a restrained
+   slow hover enlargement without touching the existing tilt/jitter/open logic. */
+
+/* The envelope is physical paper, never a backdrop/glass surface. */
+.len-envelope,
+.len-envelope__back,
+.len-envelope__letter,
+.len-envelope__pocket,
+.len-envelope__flap,
+.len-envelope__seal {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  filter: none !important;
+}
+
+/* Remove the two legacy glossy-film overlays; preserve paper fibers, wear and print. */
+.len-envelope::before,
+.len-envelope__back::before {
+  content: none !important;
+  display: none !important;
+  opacity: 0 !important;
+  background: none !important;
+  mix-blend-mode: normal !important;
+}
+
+/* Force fully opaque stationery surfaces. Their gradients remain as paper shading,
+   but there is no translucent layer underneath them. */
+.len-envelope__back {
+  opacity: 1 !important;
+  background-color: #eee5d4 !important;
+}
+
+.len-envelope__letter {
+  opacity: 1 !important;
+  background-color: #f7f1e5 !important;
+}
+
+.len-envelope__pocket {
+  opacity: 1 !important;
+  background-color: #dfd2bb !important;
+}
+
+.len-envelope__flap {
+  opacity: 1 !important;
+  background-color: #e4d8c3 !important;
+}
+
+.len-envelope__seal {
+  background-color: #8f172b !important;
+}
+
+/* Do not reintroduce haze during approach/opening/retreat. */
+.about-envelope-experience .len-envelope,
+.about-envelope-experience.is-approaching .len-envelope,
+.about-envelope-experience.is-awaiting-open .len-envelope,
+.about-envelope-experience.is-v16-entrance-jitter .len-envelope,
+.about-envelope-experience.is-v16-click-jitter .len-envelope,
+.about-envelope-experience.is-envelope-tapped .len-envelope,
+.about-envelope-experience.is-opening .len-envelope,
+.about-envelope-experience.is-closing-to-about .len-envelope {
+  filter: none !important;
+}
+
+/* Slow physical hover growth. Uses the individual scale property so it composes
+   with v14's perspective tilt and v16's translate/rotate jitter instead of replacing them. */
+.about-envelope-experience.is-awaiting-open:not(.is-opening) .len-envelope {
+  scale: 1;
+  transition:
+    opacity .34s ease,
+    filter .34s ease,
+    transform .48s cubic-bezier(.18,.82,.22,1),
+    scale 1.05s cubic-bezier(.16,1,.3,1) !important;
+  will-change: transform, scale;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .about-envelope-experience.is-awaiting-open:not(.is-opening) .len-envelope:hover {
+    /* +24%, deliberately below the user's 40% ceiling. */
+    scale: 1.24;
+  }
+}
+
+/* Once opening starts, settle to true size before the flap/letter choreography. */
+.about-envelope-experience.is-opening .len-envelope,
+.about-envelope-experience.is-closing-to-about .len-envelope {
+  scale: 1 !important;
+}
+
+/* Keep the envelope opaque while it retreats; the overlay itself handles the handoff. */
+.about-envelope-experience.is-closing-to-about .len-envelope {
+  animation: v17-envelope-solid-retreat .9s cubic-bezier(.38,.08,.24,1) forwards !important;
+}
+
+@keyframes v17-envelope-solid-retreat {
+  from {
+    opacity: 1;
+    filter: none;
+    transform: translate3d(-50%, -48%, 0) rotateX(0) rotateY(0) rotateZ(-.35deg) scale(1);
+  }
+  to {
+    opacity: 1;
+    filter: none;
+    transform: translate3d(-50%, -43%, -190px) rotateX(2deg) rotateY(0) rotateZ(-.8deg) scale(.84);
+  }
+}
+
+/* Touch devices have no hover state; retain the v16 tap shake without sticky zoom. */
+@media (hover: none), (pointer: coarse) {
+  .about-envelope-experience.is-awaiting-open:not(.is-opening) .len-envelope {
+    scale: 1;
+  }
+}
+
+html[data-quality="low"] .len-envelope,
+html[data-quality="low"] .len-envelope__back,
+html[data-quality="low"] .len-envelope__letter,
+html[data-quality="low"] .len-envelope__pocket,
+html[data-quality="low"] .len-envelope__flap,
+html[data-quality="low"] .len-envelope__seal {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  filter: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-envelope-experience.is-awaiting-open:not(.is-opening) .len-envelope {
+    transition: none !important;
+    scale: 1 !important;
+  }
+  .about-envelope-experience.is-closing-to-about .len-envelope {
+    animation-duration: .25s !important;
+  }
+}

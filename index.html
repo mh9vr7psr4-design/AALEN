@@ -3862,6 +3862,19 @@
   <link rel="stylesheet" href="assets/blue-continuity-v9.css">
   <link rel="stylesheet" href="assets/warm-editorial-v10.css">
   <link rel="stylesheet" href="assets/reference-palette-v11.css">
+  <link rel="stylesheet" href="assets/v14-refinements.css">
+  <link rel="stylesheet" href="assets/v15-envelope-solid.css">
+  <link rel="stylesheet" href="assets/v16-jitter.css">
+  <link rel="stylesheet" href="assets/v17-envelope-physical.css">
+  <link rel="stylesheet" href="assets/v18-refinements.css">
+  <link rel="stylesheet" href="assets/v19-plan-gold.css">
+  <link rel="stylesheet" href="assets/v21-minimal-european.css">
+  <link rel="stylesheet" href="assets/v22-refinements.css">
+  <link rel="stylesheet" href="assets/v24-warm-paper.css">
+  <link rel="stylesheet" href="assets/v25-refinements.css">
+  <link rel="stylesheet" href="assets/v26-about-motion.css">
+  <link rel="stylesheet" href="assets/v27-open-link.css">
+  <link rel="stylesheet" href="assets/v28-responsive.css">
   <script src="assets/performance-quality.js"></script>
 
   <style id="len-v12-performance-and-plan-motion">
@@ -4085,6 +4098,7 @@
         <div class="len-envelope__back">
           <i class="len-envelope__paper-fiber" aria-hidden="true"></i>
           <i class="len-envelope__edge-wear" aria-hidden="true"></i>
+          <i class="len-envelope__corner-curl" aria-hidden="true"></i>
         </div>
         <div class="len-envelope__letter">
           <i class="len-envelope__letter-crease len-envelope__letter-crease--top" aria-hidden="true"></i>
@@ -4155,13 +4169,13 @@
   <aside class="mobile-nav" id="mobile-nav" aria-label="移动端导航" aria-hidden="true" inert>
     <p class="mobile-nav__eyebrow">LEN · PHOTOGRAPHY</p>
     <nav aria-label="移动端主导航">
-      <a href="#top" data-index="01">首页</a>
-      <a href="#about" data-index="02">摄影师</a>
-      <a href="#works" data-index="03">作品</a>
-      <a href="#booking" data-index="04">流程</a>
-      <a href="#services" data-index="05">服务</a>
-      <a href="#service-intro" data-index="06">方案</a>
-      <a href="#contact" data-index="07">联系</a>
+      <a href="#top" data-index="01" data-section-link="top">首页</a>
+      <a href="#about" data-index="02" data-section-link="about">摄影师</a>
+      <a href="#works" data-index="03" data-section-link="works">作品</a>
+      <a href="#booking" data-index="04" data-section-link="booking">流程</a>
+      <a href="#services" data-index="05" data-section-link="services">服务</a>
+      <a href="#service-intro" data-index="06" data-section-link="service-intro">方案</a>
+      <a href="#contact" data-index="07" data-section-link="contact">联系</a>
     </nav>
     <p class="mobile-nav__foot">专注光影，也专注你真实的情绪。<br>南京 · AVAILABLE 2026</p>
   </aside>
@@ -5812,6 +5826,10 @@
             clonedExhibitScene.style.removeProperty(name);
           });
         }
+        clone.querySelectorAll("#works .works-v18-float, #works .plan-float-target, #works .is-plan-float-tap").forEach((item) => {
+          item.classList.remove("works-v18-float", "plan-float-target", "is-plan-float-tap", "is-v16-copy-jitter");
+          ["--plan-float-x", "--plan-float-y", "--plan-float-r"].forEach((name) => item.style.removeProperty(name));
+        });
         const clonedExhibitHud = clone.querySelector(".works-exhibit__hud");
         if (clonedExhibitHud) {
           clonedExhibitHud.classList.remove("is-story-changing", "is-copy-lifted", "is-touch-lift");
@@ -5935,6 +5953,8 @@
   <script src="assets/refined-v3.js"></script>
   <script src="assets/hero-interaction.js"></script>
   <script src="assets/about-envelope.js"></script>
+  <script src="assets/v16-jitter.js"></script>
+  <script src="assets/v18-refinements.js"></script>
   <script src="assets/ambient-motion.js"></script>
 
   <script id="len-v12-plan-text-float">
@@ -6015,6 +6035,10 @@
   <script src="assets/plan-fireflies.js"></script>
   <script src="assets/warm-editorial-v10.js"></script>
   <script src="assets/v13-interactions.js"></script>
+  <script src="assets/v14-refinements.js"></script>
+  <script src="assets/v19-plan-gold.js"></script>
+  <script src="assets/v25-refinements.js"></script>
+  <script src="assets/v28-responsive.js"></script>
 
 
 

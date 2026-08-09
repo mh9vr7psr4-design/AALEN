@@ -1,0 +1,111 @@
+/* LEN v26 — Photographer reveal refinement
+   Goal: a faster, cleaner AE-like cubic ease for the About photograph and copy.
+*/
+
+:root {
+  --v26-about-cubic: cubic-bezier(.215, .61, .355, 1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Collapse the legacy multi-stage reveal into one decisive motion once the envelope hands off. */
+  .about.is-about-letter-unfolding > .about__visual {
+    animation: v26-about-photo-in .58s var(--v26-about-cubic) .08s both !important;
+  }
+
+  .about.is-about-letter-unfolding > .about__copy {
+    animation: v26-about-copy-in .56s var(--v26-about-cubic) .12s both !important;
+  }
+
+  /* Returning to the section in the same visit should feel even quicker. */
+  .about.is-about-up-reveal > .about__visual,
+  .about.is-about-quick-reveal > .about__visual {
+    animation: v26-about-photo-in .48s var(--v26-about-cubic) both !important;
+  }
+
+  .about.is-about-up-reveal > .about__copy,
+  .about.is-about-quick-reveal > .about__copy {
+    animation: v26-about-copy-in .5s var(--v26-about-cubic) .045s both !important;
+  }
+
+  /* Fine internal stagger: short enough to read as one motion, not separate chunks. */
+  .about.is-about-letter-unfolding .about__copy > .eyebrow,
+  .about.is-about-letter-unfolding .about__copy > h2,
+  .about.is-about-letter-unfolding .about__copy > .about__role,
+  .about.is-about-letter-unfolding .about__copy > .about__bio,
+  .about.is-about-letter-unfolding .about__copy > .about__facts {
+    animation: v26-about-line-in .42s var(--v26-about-cubic) both;
+  }
+
+  .about.is-about-letter-unfolding .about__copy > .eyebrow { animation-delay: .11s; }
+  .about.is-about-letter-unfolding .about__copy > h2 { animation-delay: .14s; }
+  .about.is-about-letter-unfolding .about__copy > .about__role { animation-delay: .17s; }
+  .about.is-about-letter-unfolding .about__copy > .about__bio:nth-of-type(3) { animation-delay: .20s; }
+  .about.is-about-letter-unfolding .about__copy > .about__bio:nth-of-type(4) { animation-delay: .23s; }
+  .about.is-about-letter-unfolding .about__copy > .about__facts { animation-delay: .26s; }
+
+  /* Prevent the generic reveal system from re-introducing a second long transition here. */
+  .about.is-about-letter-unfolding > [data-reveal],
+  .about.is-about-up-reveal > [data-reveal],
+  .about.is-about-quick-reveal > [data-reveal] {
+    transition-duration: .46s !important;
+    transition-delay: 0s !important;
+  }
+
+  @keyframes v26-about-photo-in {
+    0% {
+      opacity: 0;
+      filter: blur(2.2px);
+      transform: translate3d(0, 30px, 0) scale(.992);
+    }
+    42% {
+      opacity: .92;
+      filter: blur(.45px);
+      transform: translate3d(0, 7px, 0) scale(.9985);
+    }
+    100% {
+      opacity: 1;
+      filter: none;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  @keyframes v26-about-copy-in {
+    0% {
+      opacity: 0;
+      filter: blur(1.8px);
+      transform: translate3d(0, 24px, 0) scale(.996);
+    }
+    45% {
+      opacity: .94;
+      filter: blur(.3px);
+      transform: translate3d(0, 5px, 0) scale(.999);
+    }
+    100% {
+      opacity: 1;
+      filter: none;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  @keyframes v26-about-line-in {
+    0% {
+      opacity: 0;
+      filter: blur(1px);
+      transform: translate3d(0, 11px, 0);
+    }
+    100% {
+      opacity: 1;
+      filter: none;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about__visual,
+  .about__copy,
+  .about__copy > * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

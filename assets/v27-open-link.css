@@ -1,0 +1,160 @@
+/* LEN v27 — explicit OPEN gesture + linked envelope → photographer handoff
+   Keeps the physical paper language while making the user's OPEN action unmistakable. */
+
+:root {
+  --v27-open-ease: cubic-bezier(.18,.82,.22,1);
+  --v27-link-ease: cubic-bezier(.215,.61,.355,1);
+}
+
+/* Make the OPEN press read as a physical action, not a passive state change. */
+@media (prefers-reduced-motion: no-preference) {
+  .about-envelope-experience.is-opening .len-envelope {
+    animation: v27-envelope-open-recoil .68s var(--v27-open-ease) both !important;
+  }
+
+  .about-envelope-experience.is-opening .len-envelope__seal {
+    animation: v27-wax-release .46s cubic-bezier(.22,.72,.2,1) both !important;
+    transition: none !important;
+  }
+
+  .about-envelope-experience.is-opening .len-envelope__flap {
+    animation: v27-flap-open .96s cubic-bezier(.16,.84,.2,1) .17s both !important;
+    will-change: transform;
+  }
+
+  .about-envelope-experience.is-opening .len-envelope__letter {
+    animation: v27-letter-pull 1.08s var(--v27-open-ease) .63s both !important;
+    visibility: visible !important;
+    will-change: transform, opacity;
+  }
+
+  /* The sheet in the About section unfolds quickly in the same direction as the extracted letter. */
+  .about.is-about-letter-unfolding .about-letter-folds {
+    animation: v27-about-sheet-link .66s var(--v27-link-ease) both !important;
+  }
+
+  .about.is-about-letter-unfolding .about-letter-fold--top {
+    animation: v27-about-fold-top .54s var(--v27-link-ease) .02s both !important;
+  }
+
+  .about.is-about-letter-unfolding .about-letter-fold--middle {
+    animation: v27-about-fold-middle .5s var(--v27-link-ease) .055s both !important;
+  }
+
+  .about.is-about-letter-unfolding .about-letter-fold--bottom {
+    animation: v27-about-fold-bottom .56s var(--v27-link-ease) .085s both !important;
+  }
+
+  /* A short paper-bright sweep visually connects the extracted letter to the revealed content. */
+  .about.is-about-letter-unfolding::before {
+    animation: v27-about-paper-sweep .62s var(--v27-link-ease) both !important;
+    transform-origin: 50% 50%;
+  }
+
+  @keyframes v27-envelope-open-recoil {
+    0%   { translate: 0 0; rotate: 0deg; }
+    24%  { translate: 0 3px; rotate: -.28deg; }
+    52%  { translate: 0 -1px; rotate: .16deg; }
+    100% { translate: 0 0; rotate: 0deg; }
+  }
+
+  @keyframes v27-wax-release {
+    0%   { opacity: 1; transform: translate(-50%,-50%) scale(1) rotate(0deg); }
+    28%  { opacity: 1; transform: translate(-50%,-50%) scale(1.08) rotate(-3deg); }
+    58%  { opacity: .92; transform: translate(-50%,-56%) scale(.94) rotate(4deg); }
+    100% { opacity: 0; transform: translate(-50%,-76%) scale(.64) rotate(-8deg); }
+  }
+
+  @keyframes v27-flap-open {
+    0%   { z-index: 5; transform: rotateX(0deg) translateZ(0); }
+    16%  { z-index: 5; transform: rotateX(-5deg) translateZ(3px); }
+    48%  { z-index: 5; transform: rotateX(92deg) translateZ(8px); }
+    100% { z-index: 0; transform: rotateX(174deg) translateZ(-3px) scaleY(.986); }
+  }
+
+  @keyframes v27-letter-pull {
+    0% {
+      z-index: 2;
+      opacity: 1;
+      transform: translate3d(0, 12%, 4px) rotateZ(.08deg) scale(.985);
+    }
+    22% {
+      z-index: 7;
+      opacity: 1;
+      transform: translate3d(0, 2%, 26px) rotateZ(-.05deg) scale(.992);
+    }
+    72% {
+      z-index: 9;
+      opacity: 1;
+      transform: translate3d(0, -68%, 88px) rotateX(-.9deg) rotateZ(-.14deg) scale(1.018);
+    }
+    100% {
+      z-index: 9;
+      opacity: 1;
+      transform: translate3d(0, -78%, 98px) rotateX(-.6deg) rotateZ(-.1deg) scale(1.024);
+    }
+  }
+
+  @keyframes v27-about-sheet-link {
+    0%   { opacity: .92; transform: translate3d(0,-24px,130px) scaleY(.12) scaleX(.93); }
+    54%  { opacity: 1; transform: translate3d(0,-5px,60px) scaleY(.72) scaleX(.985); }
+    100% { opacity: 1; transform: translate3d(0,0,0) scaleY(1) scaleX(1); }
+  }
+
+  @keyframes v27-about-fold-top {
+    from { transform: rotateX(84deg) translateZ(8px); }
+    to   { transform: rotateX(0deg) translateZ(0); }
+  }
+
+  @keyframes v27-about-fold-middle {
+    from { transform: rotateX(-10deg) translateZ(18px) scaleY(.9); }
+    to   { transform: rotateX(0deg) translateZ(0) scaleY(1); }
+  }
+
+  @keyframes v27-about-fold-bottom {
+    from { transform: rotateX(-84deg) translateZ(8px); }
+    to   { transform: rotateX(0deg) translateZ(0); }
+  }
+
+  @keyframes v27-about-paper-sweep {
+    0%   { opacity: .18; transform: translate3d(0,-12px,0) scaleY(.82); filter: brightness(1.14); }
+    45%  { opacity: .95; transform: translate3d(0,0,0) scaleY(1.03); filter: brightness(1.07); }
+    100% { opacity: 1; transform: translate3d(0,0,0) scaleY(1); filter: none; }
+  }
+}
+
+/* Plans: let the gold current read more clearly while preserving text contrast. */
+.service-intro.is-fireflies-active .plan-fireflies {
+  opacity: .9 !important;
+}
+
+@media (max-width: 900px) {
+  .service-intro.is-fireflies-active .plan-fireflies {
+    opacity: .72 !important;
+  }
+}
+
+/* Keep the existing gentle non-OPEN envelope tap; OPEN itself uses the stronger sequence above. */
+.about-envelope-experience.is-v16-click-jitter .len-envelope {
+  animation: v27-envelope-soft-tap .46s cubic-bezier(.2,.78,.22,1) both !important;
+}
+
+@keyframes v27-envelope-soft-tap {
+  0%   { translate: 0 0; rotate: 0deg; }
+  22%  { translate: -2px .5px; rotate: -.85deg; }
+  46%  { translate: 2px -.4px; rotate: .72deg; }
+  68%  { translate: -.9px .2px; rotate: -.32deg; }
+  86%  { translate: .35px 0; rotate: .12deg; }
+  100% { translate: 0 0; rotate: 0deg; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-envelope-experience.is-opening .len-envelope__seal,
+  .about-envelope-experience.is-opening .len-envelope__flap,
+  .about-envelope-experience.is-opening .len-envelope__letter,
+  .about.is-about-letter-unfolding .about-letter-folds,
+  .about.is-about-letter-unfolding .about-letter-fold {
+    animation-duration: .18s !important;
+    animation-delay: 0s !important;
+  }
+}
