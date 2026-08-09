@@ -1,9 +1,9 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN" class="intro-lock"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="LEN 摄影作品集——专注光影与情绪，提供南京人像、情侣、婚礼与定制影像服务。">
-  <meta name="theme-color" content="#10110f">
+  <meta name="theme-color" content="#11120f">
   <meta name="color-scheme" content="dark light">
   <meta name="format-detection" content="telephone=no">
   <title>LEN 摄影｜专注光影与情绪</title>
@@ -18,6 +18,11 @@
       --line: rgba(17, 18, 15, 0.16);
       --gold: #b9a16c;
       --shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
+      --ease-out-expo: cubic-bezier(.16, 1, .3, 1);
+      --ease-out-quart: cubic-bezier(.25, 1, .5, 1);
+      --ease-in-out-cubic: cubic-bezier(.65, 0, .35, 1);
+      --ease-weight: cubic-bezier(.2, .78, .18, 1);
+      --ease-spring: cubic-bezier(.17, .89, .32, 1.18);
     }
 
     * {
@@ -136,6 +141,67 @@
       contain: strict;
     }
 
+    .intro__visual {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      opacity: .04;
+      clip-path: inset(48.5% 0 48.5% 0);
+      transform: scale(1.075);
+      filter: blur(16px) brightness(.48);
+      transition:
+        clip-path 1.42s cubic-bezier(.76, 0, .18, 1),
+        transform 2.15s var(--ease-out-expo),
+        filter 1.6s var(--ease-out-quart),
+        opacity .9s ease;
+      will-change: clip-path, transform, filter, opacity;
+    }
+
+    .intro__visual img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 48%;
+    }
+
+    .intro__visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(5,8,5,.72), rgba(5,8,5,.2) 58%, rgba(5,8,5,.34)),
+        linear-gradient(0deg, rgba(5,8,5,.52), transparent 52%),
+        radial-gradient(circle at 52% 44%, transparent 0 18%, rgba(4,5,4,.28) 72%);
+      pointer-events: none;
+    }
+
+    .intro.is-imaged .intro__visual {
+      opacity: .78;
+      clip-path: inset(0 0 0 0);
+      transform: scale(1.022);
+      filter: blur(0) brightness(.82);
+    }
+
+    .intro__exposure {
+      position: absolute;
+      inset: -20%;
+      z-index: 1;
+      opacity: 0;
+      background:
+        radial-gradient(ellipse at 48% 48%, rgba(235,220,178,.24), transparent 22%),
+        linear-gradient(112deg, transparent 37%, rgba(255,246,218,.14) 48%, transparent 58%);
+      mix-blend-mode: screen;
+      transform: translate3d(-9%, 0, 0) scale(.92);
+      pointer-events: none;
+    }
+
+    .intro.is-imaged .intro__exposure {
+      animation: intro-exposure 1.85s var(--ease-in-out-cubic) .08s both;
+    }
+
     .intro::before,
     .intro::after {
       content: "";
@@ -162,7 +228,7 @@
       display: grid;
       justify-items: center;
       gap: 18px;
-      animation: brand-in 0.8s cubic-bezier(.2, .85, .2, 1) both;
+      animation: brand-in 1.18s var(--ease-spring) .08s both;
     }
 
     .intro__brand::before {
@@ -171,23 +237,14 @@
       top: 50%;
       left: 50%;
       z-index: -1;
-      width: clamp(190px, 30vw, 430px);
-      aspect-ratio: 1;
-      border: 1px solid rgba(185,161,108,.16);
+      width: clamp(230px, 36vw, 560px);
+      aspect-ratio: 1.8 / 1;
+      border: 0;
       border-radius: 50%;
       background:
-        conic-gradient(
-          from 0deg,
-          transparent 0 14%,
-          rgba(209,189,134,.32) 18%,
-          transparent 23% 64%,
-          rgba(209,189,134,.18) 70%,
-          transparent 76%
-        );
-      opacity: .76;
+        radial-gradient(ellipse, rgba(209,189,134,.16), transparent 66%);
+      opacity: .68;
       transform: translate3d(-50%, -50%, 0);
-      animation: intro-orbit 4.2s linear infinite;
-      will-change: transform;
       pointer-events: none;
     }
 
@@ -198,8 +255,9 @@
       font-size: clamp(68px, 10vw, 148px);
       font-weight: 700;
       line-height: 0.8;
+      gap: clamp(2px, .45vw, 8px);
       letter-spacing: -0.075em;
-      animation: intro-breathe 1.8s ease-in-out .8s infinite alternate;
+      animation: intro-word-settle 1.55s var(--ease-spring) .18s both;
       will-change: transform, filter;
     }
 
@@ -209,18 +267,23 @@
       will-change: transform, opacity, filter;
     }
 
+    .intro__letter:nth-child(1) { animation: intro-letter-in 1.1s var(--ease-out-expo) .06s both; }
+    .intro__letter:nth-child(2) { animation: intro-letter-in 1.18s var(--ease-out-expo) .13s both; }
+    .intro__letter:nth-child(3) { animation: intro-letter-in 1.26s var(--ease-out-expo) .2s both; }
+
     .intro__brand i {
       width: 72px;
       height: 1px;
       background: var(--gold);
       transform-origin: center;
-      animation: line-in 0.9s ease 0.25s both;
+      animation: line-in 1.05s var(--ease-out-expo) .45s both;
     }
 
     .intro__brand span {
       color: rgba(255, 255, 255, 0.58);
       font-size: 9px;
       letter-spacing: 0.5em;
+      animation: intro-kicker-in .9s var(--ease-out-quart) .58s both;
     }
 
     .intro__progress {
@@ -310,7 +373,7 @@
     }
 
     .intro.is-leaving {
-      animation: intro-out .96s cubic-bezier(.4, 0, .2, 1) forwards;
+      animation: intro-out 1.08s var(--ease-in-out-cubic) forwards;
     }
 
     .intro.is-leaving .intro__letter {
@@ -338,18 +401,71 @@
 
     .intro.is-leaving::before,
     .intro.is-leaving::after {
-      animation: intro-curtain-out .82s ease .08s forwards;
+      animation: intro-panel-top .92s var(--ease-in-out-cubic) .06s forwards;
+    }
+
+    .intro.is-leaving::after {
+      animation-name: intro-panel-bottom;
+    }
+
+    .intro.is-leaving .intro__visual {
+      opacity: .92;
+      clip-path: inset(0);
+      transform: scale(1);
+      filter: blur(0) brightness(.98);
+      transition-duration: 1.05s;
     }
 
     @keyframes brand-in {
       from {
         opacity: 0;
-        transform: translateY(18px) scale(0.96);
+        transform: translateY(26px) scale(.94);
       }
+      72% { transform: translateY(-2px) scale(1.012); }
       to {
         opacity: 1;
         transform: none;
       }
+    }
+
+    @keyframes intro-letter-in {
+      from {
+        opacity: 0;
+        filter: blur(12px);
+        transform: translate3d(0, 34px, 0) scaleY(.84);
+      }
+      68% {
+        opacity: 1;
+        filter: blur(0);
+        transform: translate3d(0, -2px, 0) scaleY(1.02);
+      }
+      to { opacity: 1; filter: blur(0); transform: none; }
+    }
+
+    @keyframes intro-word-settle {
+      from { letter-spacing: .18em; transform: scale(.965); }
+      72% { letter-spacing: -.09em; transform: scale(1.012); }
+      to { letter-spacing: -.075em; transform: scale(1); }
+    }
+
+    @keyframes intro-kicker-in {
+      from { opacity: 0; letter-spacing: .82em; transform: translateY(8px); }
+      to { opacity: 1; letter-spacing: .5em; transform: none; }
+    }
+
+    @keyframes intro-exposure {
+      0% { opacity: 0; transform: translate3d(-10%, 0, 0) scale(.92); }
+      38% { opacity: .8; }
+      64% { opacity: .34; }
+      100% { opacity: 0; transform: translate3d(10%, 0, 0) scale(1.08); }
+    }
+
+    @keyframes intro-panel-top {
+      to { opacity: 0; transform: translate3d(0, -102%, 0); }
+    }
+
+    @keyframes intro-panel-bottom {
+      to { opacity: 0; transform: translate3d(0, 102%, 0); }
     }
 
     @keyframes intro-orbit {
@@ -711,7 +827,9 @@
       background: #1b1d17;
     }
 
-    .hero__media > img {
+    .hero .hero__media.has-photo > img,
+    .hero .hero__media.has-photo:hover > img,
+    .hero .hero__media.has-photo:focus-visible > img {
       object-position: center 48%;
       image-rendering: auto;
       filter: saturate(1.015) contrast(1.02);
@@ -746,7 +864,7 @@
       pointer-events: none;
     }
 
-    .media.has-photo > img {
+    .works .media.has-photo > img {
       transition:
         transform .9s cubic-bezier(.18,.75,.2,1),
         filter .7s ease;
@@ -758,8 +876,8 @@
       opacity: 1;
     }
 
-    .media.has-photo:hover > img,
-    .media.has-photo:focus-visible > img {
+    .works .media.has-photo:hover > img,
+    .works .media.has-photo:focus-visible > img {
       filter: saturate(1.06) contrast(1.025);
       transform: scale(1.045);
     }
@@ -935,6 +1053,11 @@
       overflow: hidden;
       overflow: clip;
       padding: clamp(80px, 10vw, 160px) clamp(24px, 6vw, 96px);
+      scroll-margin-top: 72px;
+    }
+
+    .hero {
+      scroll-margin-top: 0;
     }
 
     @supports (content-visibility: auto) {
@@ -1694,6 +1817,7 @@
       grid-template-rows: auto 1fr auto;
       min-height: 100vh;
       min-height: 100svh;
+      min-height: 100dvh;
       color: var(--white);
       background:
         radial-gradient(circle at 74% 18%, rgba(102,105,77,.2), transparent 32%),
@@ -1803,6 +1927,7 @@
       max-width: 100%;
       height: auto;
       max-height: calc(100svh - 190px);
+      max-height: calc(100dvh - 190px);
       object-fit: contain;
       box-shadow: 0 34px 110px rgba(0,0,0,.48);
     }
@@ -2000,6 +2125,7 @@
       max-width: 100%;
       height: auto;
       max-height: calc(100vh - 112px);
+      max-height: calc(100dvh - 112px);
       object-fit: contain;
       box-shadow: 0 28px 90px rgba(0,0,0,.45);
     }
@@ -2172,6 +2298,443 @@
       grid-column: 1 / -1;
     }
 
+    /* Motion upgrade: one continuous photographic light system. */
+    .ambient-light {
+      position: fixed;
+      inset: -22vmax;
+      z-index: 2;
+      opacity: .13;
+      background:
+        radial-gradient(circle at 28% 34%, rgba(230,214,168,.32), transparent 18%),
+        radial-gradient(circle at 74% 62%, rgba(137,151,118,.22), transparent 20%);
+      mix-blend-mode: soft-light;
+      transform: translate3d(-2%, -1%, 0) rotate(-3deg);
+      animation: ambient-drift 26s var(--ease-in-out-cubic) infinite alternate;
+      pointer-events: none;
+    }
+
+    @keyframes ambient-drift {
+      to { transform: translate3d(3%, 2%, 0) rotate(3deg); }
+    }
+
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10004;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, #80714f, #d8c58d 72%, #f4e8be);
+      box-shadow: 0 0 16px rgba(216,197,141,.28);
+      transform: scaleX(var(--page-progress, 0));
+      transform-origin: left;
+      pointer-events: none;
+    }
+
+    html.intro-lock .scroll-progress {
+      opacity: 0;
+    }
+
+    html.intro-lock main {
+      opacity: 1;
+      transform: none;
+    }
+
+    html.intro-lock .hero__meta > span,
+    html.intro-lock .hero__copy > *,
+    html.intro-lock .scroll-cue {
+      opacity: 0;
+      filter: blur(8px);
+      transform: translate3d(0, 34px, 0) scale(.98);
+    }
+
+    .hero__meta > span,
+    .hero__copy > *,
+    .scroll-cue {
+      transition:
+        opacity 1s var(--ease-out-quart),
+        filter 1.1s var(--ease-out-quart),
+        transform 1.2s var(--ease-spring);
+    }
+
+    html.intro-reveal .hero__meta > span,
+    html.intro-reveal .hero__copy > *,
+    html.intro-reveal .scroll-cue {
+      opacity: 1;
+      filter: blur(0);
+      transform: none;
+    }
+
+    html.intro-reveal .hero__meta > span:nth-child(1) { transition-delay: .14s; }
+    html.intro-reveal .hero__meta > span:nth-child(2) { transition-delay: .21s; }
+    html.intro-reveal .hero__copy .eyebrow { transition-delay: .2s; }
+    html.intro-reveal .hero__copy h1 { transition-delay: .28s; }
+    html.intro-reveal .hero__copy .hero__intro { transition-delay: .4s; }
+    html.intro-reveal .scroll-cue { transition-delay: .5s; }
+
+    .hero {
+      height: min(100dvh, 960px);
+      min-height: min(680px, 100svh);
+      isolation: isolate;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: -18%;
+      z-index: 4;
+      opacity: .34;
+      background: linear-gradient(112deg, transparent 36%, rgba(255,247,218,.13) 48%, transparent 59%);
+      mix-blend-mode: screen;
+      transform: translate3d(-34%, 0, 0);
+      animation: hero-light-pass 15s var(--ease-in-out-cubic) 3.2s infinite;
+      pointer-events: none;
+    }
+
+    @keyframes hero-light-pass {
+      0%, 67% { opacity: 0; transform: translate3d(-34%, 0, 0); }
+      74% { opacity: .36; }
+      88%, 100% { opacity: 0; transform: translate3d(34%, 0, 0); }
+    }
+
+    .hero__media > img {
+      transform: translate3d(var(--hero-x, 0px), var(--hero-y, 0px), 0) scale(1.035);
+      transition:
+        transform 1.8s var(--ease-out-expo),
+        filter 1.1s ease;
+      will-change: auto;
+    }
+
+    html.intro-reveal .hero .hero__media.has-photo > img,
+    html.intro-reveal .hero .hero__media.has-photo:hover > img,
+    html.intro-reveal .hero .hero__media.has-photo:focus-visible > img {
+      transform: translate3d(var(--hero-x, 0px), var(--hero-y, 0px), 0) scale(1.018);
+    }
+
+    .hero h1 {
+      text-wrap: balance;
+      text-shadow: 0 16px 50px rgba(0,0,0,.18);
+    }
+
+    .scroll-cue i {
+      overflow: hidden;
+      background: rgba(255,255,255,.2);
+    }
+
+    .scroll-cue i::after {
+      content: "";
+      display: block;
+      width: 1px;
+      height: 44%;
+      background: rgba(255,255,255,.88);
+      animation: scroll-cue-line 2s var(--ease-in-out-cubic) infinite;
+    }
+
+    @keyframes scroll-cue-line {
+      from { transform: translateY(-120%); }
+      to { transform: translateY(330%); }
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      padding: 0;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 50%;
+      color: var(--white);
+      background: rgba(255,255,255,.04);
+      cursor: pointer;
+    }
+
+    .menu-toggle__lines {
+      position: relative;
+      display: block;
+      width: 15px;
+      height: 10px;
+    }
+
+    .menu-toggle__lines::before,
+    .menu-toggle__lines::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 15px;
+      height: 1px;
+      background: currentColor;
+      transition: transform .62s var(--ease-spring), top .62s var(--ease-out-expo);
+    }
+
+    .menu-toggle__lines::before { top: 2px; }
+    .menu-toggle__lines::after { top: 8px; }
+    html.menu-open .menu-toggle__lines::before { top: 5px; transform: rotate(45deg); }
+    html.menu-open .menu-toggle__lines::after { top: 5px; transform: rotate(-45deg); }
+
+    html.menu-open,
+    html.menu-open body {
+      overflow: hidden;
+    }
+
+    .mobile-nav {
+      position: fixed;
+      inset: 0;
+      z-index: 2900;
+      display: grid;
+      align-content: center;
+      padding:
+        max(96px, calc(env(safe-area-inset-top) + 82px))
+        max(28px, env(safe-area-inset-right))
+        max(42px, env(safe-area-inset-bottom))
+        max(28px, env(safe-area-inset-left));
+      color: var(--white);
+      background:
+        radial-gradient(circle at 82% 22%, rgba(185,161,108,.15), transparent 28%),
+        rgba(11,12,10,.985);
+      opacity: 0;
+      visibility: hidden;
+      transform: translate3d(0, -18px, 0);
+      transition:
+        opacity .55s ease,
+        visibility .55s,
+        transform .76s var(--ease-out-expo);
+      pointer-events: none;
+    }
+
+    html.menu-open .mobile-nav {
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      pointer-events: auto;
+    }
+
+    html.menu-open .floating-controls {
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+    }
+
+    .mobile-nav__eyebrow {
+      margin: 0 0 34px;
+      color: rgba(255,255,255,.38);
+      font-size: 8px;
+      letter-spacing: .38em;
+    }
+
+    .mobile-nav nav {
+      display: grid;
+    }
+
+    .mobile-nav a {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 13px 0;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+      font-family: "Songti SC", "STSong", "SimSun", "宋体", serif;
+      font-size: clamp(34px, 9vw, 54px);
+      letter-spacing: -.04em;
+      opacity: 0;
+      transform: translate3d(0, 24px, 0) scale(.98);
+      transition:
+        opacity .65s var(--ease-out-quart),
+        transform .8s var(--ease-spring);
+    }
+
+    .mobile-nav a::after {
+      content: attr(data-index);
+      color: rgba(255,255,255,.34);
+      font: 400 9px/1 Arial, Helvetica, sans-serif;
+      letter-spacing: .18em;
+    }
+
+    html.menu-open .mobile-nav a { opacity: 1; transform: none; }
+    html.menu-open .mobile-nav a:nth-child(1) { transition-delay: .08s; }
+    html.menu-open .mobile-nav a:nth-child(2) { transition-delay: .13s; }
+    html.menu-open .mobile-nav a:nth-child(3) { transition-delay: .18s; }
+    html.menu-open .mobile-nav a:nth-child(4) { transition-delay: .23s; }
+    html.menu-open .mobile-nav a:nth-child(5) { transition-delay: .28s; }
+    html.menu-open .mobile-nav a:nth-child(6) { transition-delay: .33s; }
+
+    .mobile-nav__foot {
+      margin: 38px 0 0;
+      color: rgba(255,255,255,.42);
+      font-size: 9px;
+      line-height: 1.8;
+      letter-spacing: .14em;
+    }
+
+    .about::after,
+    .works::after,
+    .services::after,
+    .booking::after {
+      content: "";
+      position: absolute;
+      top: -18vw;
+      right: -20vw;
+      z-index: -1;
+      width: 54vw;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      opacity: .24;
+      background: radial-gradient(circle, rgba(190,174,126,.22), transparent 66%);
+      pointer-events: none;
+    }
+
+    .works::after,
+    .booking::after {
+      top: auto;
+      right: auto;
+      bottom: -24vw;
+      left: -20vw;
+      opacity: .16;
+    }
+
+    [data-reveal] {
+      --reveal-y: 44px;
+      --reveal-scale: .985;
+      opacity: 0;
+      filter: blur(8px);
+      transform: translate3d(0, var(--reveal-y), 0) scale(var(--reveal-scale));
+      transition:
+        opacity 1s var(--ease-out-quart) var(--reveal-delay, 0ms),
+        filter 1.12s var(--ease-out-quart) var(--reveal-delay, 0ms),
+        transform 1.2s var(--ease-spring) var(--reveal-delay, 0ms),
+        clip-path 1.28s var(--ease-out-expo) var(--reveal-delay, 0ms);
+      will-change: auto;
+    }
+
+    [data-reveal].reveal-pending {
+      will-change: opacity, filter, transform, clip-path;
+    }
+
+    [data-reveal-kind="image"] {
+      --reveal-y: 58px;
+      --reveal-scale: .965;
+      clip-path: inset(0 0 16% 0);
+    }
+
+    [data-reveal-kind="title"] {
+      --reveal-y: 52px;
+      --reveal-scale: .975;
+    }
+
+    [data-reveal-kind="cell"] {
+      --reveal-y: 30px;
+      --reveal-scale: .992;
+    }
+
+    [data-reveal].is-visible {
+      opacity: 1;
+      filter: blur(0);
+      clip-path: inset(0);
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    .work-card:nth-child(2n) [data-photo] { transform-origin: 72% 44%; }
+    .work-card:nth-child(3n) [data-photo] { transform-origin: 28% 56%; }
+
+    .media.has-photo > img {
+      transform: translate3d(var(--media-x, 0px), var(--media-y, 0px), 0) scale(1.001);
+      transition:
+        transform 1.05s var(--ease-out-expo),
+        filter .82s var(--ease-out-quart);
+    }
+
+    .media.has-photo:hover > img,
+    .media.has-photo:focus-visible > img {
+      transform: translate3d(var(--media-x, 0px), var(--media-y, 0px), 0) scale(1.038);
+    }
+
+    .work-card figcaption::after {
+      content: "";
+      align-self: center;
+      width: 0;
+      height: 1px;
+      margin-left: auto;
+      background: var(--gold);
+      opacity: .7;
+      transition: width .8s var(--ease-out-expo);
+    }
+
+    .work-card:hover figcaption::after { width: clamp(28px, 4vw, 64px); }
+
+    .package,
+    .booking-step,
+    .contact-grid > div {
+      transition:
+        color .5s var(--ease-out-quart),
+        background .5s var(--ease-out-quart),
+        transform .8s var(--ease-spring),
+        box-shadow .55s ease;
+    }
+
+    .package:hover,
+    .booking-step:hover {
+      transform: translate3d(0, -7px, 0) scale(1.008);
+    }
+
+    .manifesto {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    .manifesto::before {
+      content: "";
+      position: absolute;
+      inset: -45%;
+      z-index: -1;
+      opacity: .22;
+      background: linear-gradient(112deg, transparent 38%, rgba(219,201,148,.24) 50%, transparent 62%);
+      transform: translate3d(-25%, 0, 0);
+      transition: transform 2.6s var(--ease-in-out-cubic), opacity 1.2s ease;
+    }
+
+    .manifesto.section-in-view::before {
+      opacity: .5;
+      transform: translate3d(25%, 0, 0);
+    }
+
+    .gallery-page__item {
+      opacity: 0;
+      filter: blur(8px);
+      transform: translate3d(44px, 0, 0) scale(.965);
+      transition:
+        opacity .82s var(--ease-out-quart),
+        filter .95s var(--ease-out-quart),
+        transform 1.05s var(--ease-spring);
+    }
+
+    .gallery-page.is-open .gallery-page__item {
+      opacity: 1;
+      filter: blur(0);
+      transform: none;
+    }
+
+    .gallery-page.is-open .gallery-page__item:nth-child(2) { transition-delay: .07s; }
+    .gallery-page.is-open .gallery-page__item:nth-child(3) { transition-delay: .12s; }
+    .gallery-page.is-open .gallery-page__item:nth-child(n+4) { transition-delay: .16s; }
+
+    .gallery-page__item img {
+      transition: transform 1.05s var(--ease-out-expo), filter .75s ease;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .gallery-page__item:hover img {
+        filter: brightness(1.035);
+        transform: scale(1.008);
+      }
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .header-cta,
+      .back-to-top,
+      .gallery-page__back {
+        translate: var(--magnet-x, 0px) var(--magnet-y, 0px);
+      }
+    }
+
     @media (max-width: 900px) {
       .site-header {
         grid-template-columns: 1fr auto;
@@ -2183,6 +2746,14 @@
       }
 
       .site-nav {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: grid;
+      }
+
+      .header-cta {
         display: none;
       }
 
@@ -2198,7 +2769,53 @@
       .hero {
         height: 100vh;
         height: 100svh;
+        height: 100dvh;
         min-height: 640px;
+      }
+
+      .ambient-light,
+      .hero::after {
+        display: none;
+      }
+
+      .hero .hero__media.has-photo > img,
+      .hero .hero__media.has-photo:hover > img,
+      .hero .hero__media.has-photo:focus-visible > img,
+      html.intro-reveal .hero .hero__media.has-photo > img,
+      html.intro-reveal .hero .hero__media.has-photo:hover > img,
+      html.intro-reveal .hero .hero__media.has-photo:focus-visible > img {
+        transform: scale(1.018);
+        will-change: auto;
+      }
+
+      [data-reveal] {
+        --reveal-y: 30px;
+        filter: blur(4px);
+        transition-duration: .82s, .82s, 1s, 1s;
+      }
+
+      .gallery-page__item {
+        filter: none;
+        transform: translate3d(18px, 0, 0) scale(.99);
+        transition-duration: .68s, .01s, .82s;
+      }
+
+      .works .media.has-photo > img,
+      .works .media.has-photo:hover > img,
+      .works .media.has-photo:focus-visible > img {
+        transform: none;
+      }
+
+      .site-header,
+      .floating-controls,
+      .gallery-page__header,
+      .gallery-page__item figcaption {
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+      }
+
+      body::after {
+        display: none;
       }
 
       .gallery-page__header {
@@ -2309,6 +2926,34 @@
         grid-template-columns: 1fr auto;
       }
 
+      .intro__brand {
+        gap: 14px;
+      }
+
+      .intro__brand strong {
+        font-size: clamp(72px, 25vw, 104px);
+      }
+
+      .intro__brand span {
+        max-width: calc(100vw - 48px);
+        font-size: 8px;
+        letter-spacing: .36em;
+        text-align: center;
+      }
+
+      .intro__progress {
+        bottom: max(48px, calc(env(safe-area-inset-bottom) + 30px));
+      }
+
+      .intro__skip {
+        right: max(14px, env(safe-area-inset-right));
+        bottom: max(10px, env(safe-area-inset-bottom));
+      }
+
+      .mobile-nav a {
+        font-size: clamp(34px, 12vw, 48px);
+      }
+
       .floating-controls {
         width: min(calc(100vw - 24px), 340px);
       }
@@ -2374,6 +3019,7 @@
       .gallery-page__item img {
         max-height: calc(100vh - 166px);
         max-height: calc(100svh - 166px);
+        max-height: calc(100dvh - 166px);
       }
 
       .hero__meta span:last-child {
@@ -2480,6 +3126,27 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
+      .ambient-light,
+      .hero::after {
+        display: none !important;
+      }
+
+      .intro__visual,
+      .intro.is-imaged .intro__visual {
+        opacity: .78;
+        clip-path: inset(0);
+        filter: none;
+        transform: none;
+      }
+
+      [data-reveal],
+      [data-reveal].is-visible {
+        opacity: 1;
+        filter: none;
+        clip-path: inset(0);
+        transform: none;
+      }
+
       *,
       *::before,
       *::after {
@@ -2489,10 +3156,845 @@
         transition-duration: 0.01ms !important;
       }
     }
+
+    /* Motion system v3: staged depth without a continuous scroll render loop. */
+    .spatial-v3 .hero__media {
+      transform: translate3d(var(--hero-parallax-x, 0px), var(--hero-parallax-y, 0px), var(--hero-camera-z, 0px)) scale(var(--hero-camera-scale, 1));
+      transition: transform 900ms cubic-bezier(.16, 1, .3, 1);
+    }
+
+    .spatial-v3 .hero__copy h1 > span,
+    .spatial-v3 .hero__copy .eyebrow,
+    .spatial-v3 .hero__copy .hero__intro > span {
+      display: inline-block;
+      clip-path: inset(0 0 112% 0);
+      transform: translate3d(0, 1.12em, 56px) skewY(5deg);
+      transform-origin: 0 100%;
+      transition: clip-path 1.15s cubic-bezier(.16, 1, .3, 1), transform 1.15s cubic-bezier(.16, 1, .3, 1), letter-spacing 1.05s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    .spatial-v3.intro-reveal .hero__copy h1 > span,
+    .spatial-v3.intro-reveal .hero__copy .eyebrow,
+    .spatial-v3.intro-reveal .hero__copy .hero__intro > span {
+      clip-path: inset(0 0 0 0);
+      transform: translate3d(0, 0, 0) skewY(0);
+    }
+
+    .spatial-v3.intro-reveal .hero__copy h1 > span:nth-child(2) {
+      transition-delay: 140ms;
+      letter-spacing: -.035em;
+    }
+
+    .spatial-v3.intro-reveal .hero__copy .eyebrow { transition-delay: 80ms; }
+    .spatial-v3.intro-reveal .hero__copy .hero__intro > span:nth-child(1) { transition-delay: 285ms; }
+    .spatial-v3.intro-reveal .hero__copy .hero__intro > span:nth-child(2) { transition-delay: 360ms; }
+
+    .spatial-v3 .spatial-section-v3 {
+      perspective: 1200px;
+      perspective-origin: 50% 46%;
+    }
+
+    .spatial-v3 [data-spatial-stage] {
+      --stage-delay: 0ms;
+      --stage-depth: 1;
+      opacity: 0 !important;
+      clip-path: inset(0 0 14% 0) !important;
+      filter: blur(7px) !important;
+      transform: translate3d(0, calc(84px * var(--stage-depth)), calc(-250px * var(--stage-depth))) rotateX(7deg) scale(.94) !important;
+      transform-origin: 50% 72%;
+      transition:
+        opacity 800ms cubic-bezier(.16, 1, .3, 1) var(--stage-delay),
+        clip-path 1040ms cubic-bezier(.16, 1, .3, 1) var(--stage-delay),
+        filter 680ms cubic-bezier(.16, 1, .3, 1) var(--stage-delay),
+        transform 1100ms cubic-bezier(.16, 1, .3, 1) var(--stage-delay) !important;
+      will-change: auto;
+    }
+
+    .spatial-v3 [data-spatial-stage].is-spatial-moving { will-change: transform, opacity, clip-path, filter; }
+
+    .spatial-v3 [data-spatial-stage].is-spatial-visible {
+      opacity: 1 !important;
+      clip-path: inset(0 0 0 0) !important;
+      filter: none !important;
+      transform: translate3d(0, 0, 0) rotateX(0) scale(1) !important;
+    }
+
+    .spatial-v3 .works .work-card:nth-child(odd)[data-spatial-stage] {
+      transform: translate3d(-36px, calc(96px * var(--stage-depth)), calc(-280px * var(--stage-depth))) rotateY(4deg) rotateX(7deg) scale(.94) !important;
+    }
+
+    .spatial-v3 .works .work-card:nth-child(even)[data-spatial-stage] {
+      transform: translate3d(36px, calc(96px * var(--stage-depth)), calc(-280px * var(--stage-depth))) rotateY(-4deg) rotateX(7deg) scale(.94) !important;
+    }
+
+    .spatial-v3 .works .work-card.is-spatial-visible { transform: translate3d(0, 0, 0) rotateX(0) rotateY(0) scale(1) !important; }
+
+    .spatial-v3 .work-card .media.has-photo > img {
+      transition: transform 850ms cubic-bezier(.16, 1, .3, 1), filter 850ms cubic-bezier(.16, 1, .3, 1);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .spatial-v3 .work-card:hover .media.has-photo > img { transform: scale(1.022); filter: brightness(.97); }
+    }
+
+    a, button, img, .media, .media.has-photo, .hero__media, .work-card, [role="button"] {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    img, .media, .media.has-photo, .hero__media, .work-card, [role="button"] {
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    a:focus:not(:focus-visible), button:focus:not(:focus-visible), [role="button"]:focus:not(:focus-visible) { outline: none; }
+    a:focus-visible, button:focus-visible, [role="button"]:focus-visible { outline: 1px solid rgba(255,255,255,.78); outline-offset: 4px; }
+
+    .spatial-tier-low [data-spatial-stage] {
+      filter: none !important;
+      transform: translate3d(0, 32px, 0) scale(.985) !important;
+      transition-duration: 620ms !important;
+    }
+
+    .spatial-tier-low [data-spatial-stage].is-spatial-visible { transform: translate3d(0, 0, 0) scale(1) !important; }
+
+    @media (max-width: 900px) {
+      .spatial-v3 .hero__media { transform: translate3d(0, var(--hero-camera-y, 0px), var(--hero-camera-z, 0px)) scale(var(--hero-camera-scale, 1)); }
+      .spatial-v3 [data-spatial-stage] { filter: blur(3px) !important; transform: translate3d(0, 48px, -90px) rotateX(3deg) scale(.975) !important; }
+      .spatial-v3 .works .work-card:nth-child(odd)[data-spatial-stage], .spatial-v3 .works .work-card:nth-child(even)[data-spatial-stage] { transform: translate3d(0, 48px, -90px) rotateX(3deg) scale(.975) !important; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .spatial-v3 .hero__copy h1 > span, .spatial-v3 .hero__copy .eyebrow, .spatial-v3 .hero__copy .hero__intro > span, .spatial-v3 [data-spatial-stage] {
+        clip-path: none !important;
+        filter: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+  <style id="len-spatial-motion-v2">
+    /*
+      LEN spatial motion v2
+      The original photography, ordering, copy and responsive grid remain intact.
+      This layer adds a real CSS 3D camera, multi-depth backgrounds and scroll-led
+      object emergence without introducing a WebGL dependency.
+    */
+    :root {
+      --spatial-perspective: 1180px;
+      --camera-x: 0px;
+      --camera-y: 0px;
+      --camera-z: 0px;
+      --camera-rx: 0deg;
+      --camera-ry: 0deg;
+    }
+
+    body {
+      perspective-origin: 50% 45%;
+    }
+
+    .intro {
+      perspective: 1300px;
+      background:
+        radial-gradient(ellipse at 50% 48%, rgba(197,181,137,.09), transparent 28%),
+        linear-gradient(145deg, #12130f 0%, #090a08 58%, #10110e 100%);
+    }
+
+    .intro::before,
+    .intro::after {
+      z-index: 0;
+      background: #0b0c09;
+    }
+
+    .intro__stage {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      overflow: hidden;
+      perspective: 1200px;
+      perspective-origin: 50% 48%;
+      transform-style: preserve-3d;
+      pointer-events: none;
+    }
+
+    .intro__stage::before {
+      content: "";
+      position: absolute;
+      inset: -42%;
+      opacity: .2;
+      background:
+        linear-gradient(rgba(232,219,183,.095) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,219,183,.075) 1px, transparent 1px),
+        radial-gradient(circle at 50% 50%, rgba(209,189,134,.11), transparent 28%);
+      background-size: clamp(82px, 9vw, 144px) clamp(82px, 9vw, 144px), clamp(82px, 9vw, 144px) clamp(82px, 9vw, 144px), auto;
+      transform: translate3d(0, 20%, -440px) rotateX(66deg) rotateZ(-13deg) scale(1.48);
+      animation: intro-grid-settle 2s var(--ease-out-expo) both;
+    }
+
+    .intro__camera {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: min(76vw, 980px);
+      aspect-ratio: 1.56;
+      transform-style: preserve-3d;
+      transform: translate3d(-50%, -50%, 0) rotateX(58deg) rotateZ(-13deg);
+      animation: intro-camera-build 1.75s var(--ease-out-expo) both;
+      will-change: transform, filter;
+    }
+
+    .intro__glass {
+      --gx: 0px;
+      --gy: 0px;
+      --gz: 0px;
+      --gr: 0deg;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 46%;
+      height: 62%;
+      border: 1px solid rgba(235,226,200,.29);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.13), rgba(255,255,255,.018) 44%, rgba(185,161,108,.075)),
+        rgba(255,255,255,.018);
+      box-shadow:
+        inset 0 0 50px rgba(255,255,255,.025),
+        0 32px 90px rgba(0,0,0,.32);
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+      transform-style: preserve-3d;
+      animation: intro-glass-build 1.48s var(--ease-spring) both;
+      will-change: transform, opacity, filter;
+    }
+
+    .intro__glass::after {
+      content: "";
+      position: absolute;
+      inset: 8%;
+      border: 1px solid rgba(255,255,255,.055);
+      background: linear-gradient(118deg, transparent 38%, rgba(255,245,214,.085) 50%, transparent 62%);
+    }
+
+    .intro__glass--a { --gx: -54%; --gy: -61%; --gz: -90px; --gr: -7deg; animation-delay: .02s; }
+    .intro__glass--b { --gx: -2%; --gy: -40%; --gz: 64px; --gr: 6deg; animation-delay: .09s; }
+    .intro__glass--c { --gx: -74%; --gy: -8%; --gz: 155px; --gr: 4deg; animation-delay: .16s; }
+    .intro__glass--d { --gx: 18%; --gy: 8%; --gz: -12px; --gr: -5deg; animation-delay: .23s; }
+
+    .intro__axis {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: min(72vw, 920px);
+      height: 1px;
+      opacity: .68;
+      background: linear-gradient(90deg, transparent, rgba(209,189,134,.7), rgba(255,255,255,.38), transparent);
+      box-shadow: 0 0 24px rgba(209,189,134,.16);
+      transform: translate3d(-50%, -50%, 190px) rotateZ(-13deg) scaleX(0);
+      transform-origin: center;
+      animation: intro-axis-open 1.32s var(--ease-out-expo) .34s forwards;
+    }
+
+    .intro__aperture {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: clamp(210px, 27vw, 420px);
+      aspect-ratio: 1;
+      border: 1px solid rgba(232,219,183,.19);
+      border-radius: 50%;
+      opacity: 0;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.025) inset,
+        0 0 90px rgba(185,161,108,.055);
+      transform: translate3d(-50%, -50%, 260px) rotateX(67deg) scale(.42);
+      animation: intro-aperture-build 1.58s var(--ease-spring) .2s forwards;
+    }
+
+    .intro__aperture::before,
+    .intro__aperture::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(232,219,183,.1);
+      border-radius: 50%;
+    }
+
+    .intro__aperture::before { inset: 14%; }
+    .intro__aperture::after { inset: 31%; }
+
+    .intro__light-slice {
+      position: absolute;
+      inset: -22%;
+      opacity: 0;
+      background: linear-gradient(111deg, transparent 43%, rgba(245,233,196,.13) 49.5%, rgba(255,255,255,.035) 51%, transparent 57%);
+      mix-blend-mode: screen;
+      transform: translate3d(-16%, 0, 310px);
+      animation: intro-light-cut 1.72s var(--ease-in-out-cubic) .42s forwards;
+    }
+
+    .intro__iris {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 8vmax;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      opacity: 0;
+      background:
+        radial-gradient(circle, rgba(250,248,239,.98) 0 16%, rgba(221,211,179,.9) 32%, rgba(13,14,12,.92) 68%);
+      transform: translate3d(-50%, -50%, 420px) scale(.08);
+      filter: blur(2px);
+      will-change: transform, opacity, filter;
+    }
+
+    .intro__brand {
+      z-index: 3;
+      opacity: 1;
+      animation: none;
+      text-shadow: 0 18px 50px rgba(0,0,0,.4);
+      transform-style: preserve-3d;
+    }
+
+    .intro__progress,
+    .intro__skip {
+      z-index: 4;
+    }
+
+    .intro.is-leaving {
+      animation: intro-spatial-curtain 1.38s var(--ease-in-out-cubic) forwards;
+    }
+
+    .intro.is-leaving .intro__camera {
+      animation: intro-camera-open 1.28s var(--ease-in-out-cubic) forwards;
+    }
+
+    .intro.is-leaving .intro__aperture {
+      animation: intro-aperture-open 1.22s var(--ease-in-out-cubic) forwards;
+    }
+
+    .intro.is-leaving .intro__iris {
+      animation: intro-iris-fullscreen 1.28s var(--ease-in-out-cubic) forwards;
+    }
+
+    .intro.is-leaving::before,
+    .intro.is-leaving::after {
+      animation: intro-space-panel-top 1.16s var(--ease-in-out-cubic) .08s forwards;
+    }
+
+    .intro.is-leaving::after {
+      animation-name: intro-space-panel-bottom;
+    }
+
+    @keyframes intro-camera-build {
+      from { opacity: 0; filter: blur(18px); transform: translate3d(-50%, -48%, -780px) rotateX(74deg) rotateZ(-22deg) scale(.58); }
+      72% { opacity: 1; }
+      to { opacity: 1; filter: blur(0); transform: translate3d(-50%, -50%, 0) rotateX(58deg) rotateZ(-13deg) scale(1); }
+    }
+
+    @keyframes intro-grid-settle {
+      from { opacity: 0; filter: blur(12px); transform: translate3d(0, 28%, -780px) rotateX(72deg) rotateZ(-18deg) scale(1.7); }
+      to { opacity: .2; filter: blur(0); transform: translate3d(0, 20%, -440px) rotateX(66deg) rotateZ(-13deg) scale(1.48); }
+    }
+
+    @keyframes intro-glass-build {
+      from { opacity: 0; filter: blur(15px); transform: translate3d(-50%, -50%, -760px) rotateY(56deg) scale(.24); }
+      to { opacity: .82; filter: blur(0); transform: translate3d(var(--gx), var(--gy), var(--gz)) rotateZ(var(--gr)) scale(1); }
+    }
+
+    @keyframes intro-axis-open {
+      to { transform: translate3d(-50%, -50%, 190px) rotateZ(-13deg) scaleX(1); }
+    }
+
+    @keyframes intro-aperture-build {
+      from { opacity: 0; filter: blur(14px); transform: translate3d(-50%, -50%, -380px) rotateX(76deg) scale(.3); }
+      to { opacity: .72; filter: blur(0); transform: translate3d(-50%, -50%, 260px) rotateX(67deg) scale(1); }
+    }
+
+    @keyframes intro-light-cut {
+      0% { opacity: 0; transform: translate3d(-22%, 0, 310px); }
+      38% { opacity: .62; }
+      100% { opacity: 0; transform: translate3d(22%, 0, 310px); }
+    }
+
+    @keyframes intro-camera-open {
+      0% { transform: translate3d(-50%, -50%, 0) rotateX(58deg) rotateZ(-13deg) scale(1); }
+      100% { opacity: 0; filter: blur(7px); transform: translate3d(-50%, -50%, 620px) rotateX(20deg) rotateZ(0) scale(2.7); }
+    }
+
+    @keyframes intro-aperture-open {
+      to { opacity: 0; transform: translate3d(-50%, -50%, 780px) rotateX(0) scale(5.4); }
+    }
+
+    @keyframes intro-iris-fullscreen {
+      0% { opacity: 0; transform: translate3d(-50%, -50%, 420px) scale(.08); filter: blur(5px); }
+      22% { opacity: .8; }
+      70% { opacity: 1; filter: blur(0); }
+      100% { opacity: 0; transform: translate3d(-50%, -50%, 420px) scale(34); filter: blur(0); }
+    }
+
+    @keyframes intro-spatial-curtain {
+      0%, 72% { opacity: 1; background-color: #0b0c09; }
+      100% { opacity: 0; background-color: transparent; visibility: hidden; }
+    }
+
+    @keyframes intro-space-panel-top {
+      to { transform: translate3d(0, -102%, 260px) rotateX(-8deg); }
+    }
+
+    @keyframes intro-space-panel-bottom {
+      to { transform: translate3d(0, 102%, 260px) rotateX(8deg); }
+    }
+
+    .spatial-world {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      overflow: hidden;
+      opacity: .16;
+      perspective: var(--spatial-perspective);
+      perspective-origin: 50% 44%;
+      mix-blend-mode: soft-light;
+      pointer-events: none;
+    }
+
+    .spatial-world__camera {
+      position: absolute;
+      inset: -14%;
+      transform-style: preserve-3d;
+      transform:
+        translate3d(var(--camera-x), var(--camera-y), var(--camera-z))
+        rotateX(var(--camera-rx))
+        rotateY(var(--camera-ry));
+      will-change: transform;
+    }
+
+    .spatial-world__layer {
+      position: absolute;
+      inset: 0;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+    }
+
+    .spatial-world__layer--far {
+      opacity: .32;
+      background:
+        linear-gradient(rgba(255,255,255,.075) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+      background-size: 11vw 11vw;
+      transform: translate3d(0, -2%, -520px) rotateX(57deg) scale(1.72);
+    }
+
+    .spatial-world__layer--mid {
+      inset: 10% 7%;
+      border: 1px solid rgba(255,255,255,.1);
+      box-shadow: 0 0 0 12vw rgba(255,255,255,.012);
+      transform: translate3d(2%, 1%, -180px) rotateZ(-4deg) scale(1.18);
+    }
+
+    .spatial-world__layer--near {
+      inset: -28%;
+      opacity: .5;
+      background:
+        linear-gradient(112deg, transparent 37%, rgba(241,228,191,.15) 49%, transparent 59%),
+        radial-gradient(circle at 72% 38%, rgba(255,255,255,.08), transparent 16%);
+      transform: translate3d(-3%, 0, 180px) rotateZ(3deg);
+    }
+
+    .spatial-section {
+      perspective: var(--spatial-perspective);
+      perspective-origin: 50% 44%;
+      transform-style: preserve-3d;
+    }
+
+    .hero {
+      perspective: 1400px;
+      perspective-origin: 50% 46%;
+      transform-style: preserve-3d;
+    }
+
+    .hero__media {
+      transform:
+        translate3d(0, var(--hero-camera-y, 0px), var(--hero-camera-z, 0px))
+        scale(var(--hero-camera-scale, 1));
+      transform-origin: 50% 50%;
+      will-change: transform;
+    }
+
+    .hero__shade { transform: translateZ(18px); }
+    .hero__meta { transform: translateZ(72px); }
+    .hero__copy { transform: translateZ(94px); }
+    .scroll-cue { transform: translateZ(66px); }
+
+    .spatial-section > :not(.section-spatial-field) {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-spatial-field {
+      position: absolute;
+      inset: -24%;
+      z-index: 0;
+      overflow: hidden;
+      opacity: var(--field-opacity, .22);
+      perspective: 900px;
+      transform-style: preserve-3d;
+      transform: translate3d(var(--field-x, 0px), var(--field-y, 0px), 0) rotateZ(var(--field-r, 0deg));
+      pointer-events: none;
+    }
+
+    .section-depth-plane {
+      position: absolute;
+      inset: 0;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+    }
+
+    .section-depth-plane--far {
+      opacity: .32;
+      background:
+        linear-gradient(var(--depth-line, rgba(20,20,18,.11)) 1px, transparent 1px),
+        linear-gradient(90deg, var(--depth-line, rgba(20,20,18,.09)) 1px, transparent 1px);
+      background-size: clamp(76px, 9vw, 150px) clamp(76px, 9vw, 150px);
+      transform: translate3d(0, -7%, -360px) rotateX(60deg) scale(1.65);
+    }
+
+    .section-depth-plane--mid {
+      inset: 18% 12%;
+      border: 1px solid var(--depth-line, rgba(20,20,18,.09));
+      background: linear-gradient(132deg, transparent 44%, var(--depth-glow, rgba(185,161,108,.12)), transparent 59%);
+      transform: translate3d(4%, -2%, -120px) rotateZ(-5deg) scale(1.1);
+    }
+
+    .section-depth-plane--near {
+      inset: -10%;
+      opacity: .65;
+      background: linear-gradient(112deg, transparent 38%, var(--depth-glow, rgba(185,161,108,.13)) 49.5%, transparent 61%);
+      transform: translate3d(-4%, 0, 160px) rotateZ(2deg);
+    }
+
+    .booking,
+    .manifesto {
+      --depth-line: rgba(255,255,255,.095);
+      --depth-glow: rgba(209,189,134,.14);
+    }
+
+    [data-spatial-item] {
+      --spatial-x: 0px;
+      --spatial-y: 0px;
+      --spatial-z: 0px;
+      --spatial-rx: 0deg;
+      --spatial-ry: 0deg;
+      --spatial-rz: 0deg;
+      --spatial-scale: 1;
+      --spatial-opacity: 1;
+      --spatial-blur: 0px;
+      --spatial-clip: 0%;
+      opacity: var(--spatial-opacity) !important;
+      filter: blur(var(--spatial-blur)) !important;
+      clip-path: inset(0 0 var(--spatial-clip) 0) !important;
+      transform:
+        translate3d(var(--spatial-x), var(--spatial-y), var(--spatial-z))
+        rotateX(var(--spatial-rx))
+        rotateY(var(--spatial-ry))
+        rotateZ(var(--spatial-rz))
+        scale(var(--spatial-scale)) !important;
+      transform-style: preserve-3d;
+      transform-origin: var(--spatial-origin, 50% 50%);
+      backface-visibility: hidden;
+      will-change: transform, opacity, filter;
+    }
+
+    [data-spatial-item][data-motion] {
+      translate: 0 var(--spatial-hover-y, 0px) !important;
+    }
+
+    .package[data-spatial-item]:hover,
+    .booking-step[data-spatial-item]:hover {
+      --spatial-hover-y: -7px;
+    }
+
+    .work-card[data-spatial-item] {
+      transform-origin: var(--spatial-origin, 50% 58%);
+    }
+
+    .manifesto.section-in-view .manifesto__inner[data-spatial-item] {
+      text-shadow: 0 26px 80px rgba(0,0,0,.24);
+    }
+
+    .spatial-tier-low .spatial-world__layer--near,
+    .spatial-tier-low .section-depth-plane--near {
+      display: none;
+    }
+
+    .spatial-tier-low .intro__glass--c,
+    .spatial-tier-low .intro__glass--d {
+      display: none;
+    }
+
+    .spatial-tier-low .intro__glass {
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+
+    .spatial-tier-low [data-spatial-item] {
+      --spatial-blur: 0px !important;
+    }
+
+    @media (max-width: 900px) {
+      :root { --spatial-perspective: 920px; }
+
+      .spatial-world {
+        display: block;
+        opacity: .1;
+      }
+
+      .spatial-world__layer--far {
+        background-size: 24vw 24vw;
+      }
+
+      .section-spatial-field {
+        inset: -15%;
+        opacity: var(--field-opacity, .16);
+      }
+
+      .section-depth-plane--near {
+        opacity: .42;
+      }
+
+      [data-spatial-item] {
+        will-change: auto;
+      }
+
+      .intro__camera {
+        width: 118vw;
+      }
+
+      .intro__glass {
+        -webkit-backdrop-filter: blur(2px);
+        backdrop-filter: blur(2px);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .spatial-world,
+      .section-spatial-field,
+      .intro__stage {
+        display: none !important;
+      }
+
+      [data-spatial-item] {
+        opacity: 1 !important;
+        filter: none !important;
+        clip-path: inset(0) !important;
+        transform: none !important;
+      }
+    }
+  </style>
+  <style id="reference-video-calibration">
+    /* Video 1: soft 3D editorial sculpture. Video 2: quiet, oversized type. */
+    .intro {
+      background:
+        radial-gradient(circle at 52% 47%, rgba(255,255,255,.98) 0 6%, transparent 7%),
+        radial-gradient(ellipse at 45% 58%, rgba(120,172,208,.38), transparent 28%),
+        linear-gradient(145deg, #eef2f8 0%, #c9d4e6 52%, #90b2cf 100%);
+    }
+    .intro::before, .intro::after { background: rgba(236,242,249,.94); }
+    .intro__stage::before {
+      opacity: .46;
+      background:
+        linear-gradient(rgba(39,86,126,.13) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(39,86,126,.11) 1px, transparent 1px),
+        radial-gradient(ellipse at 48% 68%, rgba(75,145,197,.22), transparent 42%);
+      background-size: clamp(72px, 8vw, 132px) clamp(72px, 8vw, 132px), clamp(72px, 8vw, 132px) clamp(72px, 8vw, 132px), auto;
+    }
+    .intro__camera { width: min(84vw, 1060px); transform: translate3d(-50%, -50%, 0) rotateX(47deg) rotateZ(-9deg); }
+    .intro__glass {
+      border: 0;
+      border-radius: 48% 52% 54% 46% / 55% 45% 55% 45%;
+      background: linear-gradient(135deg, rgba(255,255,255,.92), rgba(180,230,241,.78) 47%, rgba(95,145,204,.6));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.82), inset -12px -18px 34px rgba(27,86,153,.18), 0 28px 70px rgba(46,84,124,.2);
+      filter: saturate(.92);
+    }
+    .intro__glass::after { display: none; }
+    .intro__glass--a { width: 27%; height: 78%; --gx: -66%; --gy: -52%; --gz: 82px; --gr: -28deg; background: linear-gradient(160deg, rgba(255,255,255,.96), rgba(143,214,230,.77) 50%, rgba(57,105,176,.57)); }
+    .intro__glass--b { width: 47%; height: 21%; --gx: -12%; --gy: -36%; --gz: 172px; --gr: 16deg; border-radius: 50%; background: linear-gradient(150deg, #f6c9fa, #bd86d3 56%, #623c9b); }
+    .intro__glass--c { width: 34%; height: 18%; --gx: -59%; --gy: -6%; --gz: 240px; --gr: 7deg; border-radius: 50%; background: linear-gradient(150deg, #f6f9ff, #bde6ea 48%, #7fc6cf); }
+    .intro__glass--d { width: 32%; height: 47%; --gx: 22%; --gy: 2%; --gz: 20px; --gr: 31deg; background: linear-gradient(150deg, rgba(255,255,255,.9), rgba(198,229,243,.6) 48%, rgba(81,146,195,.56)); }
+    .intro__axis { width: min(76vw, 980px); height: min(27vw, 350px); border: 1px solid rgba(28,91,145,.5); border-left-color: transparent; border-bottom-color: transparent; border-radius: 50%; background: transparent; box-shadow: 0 0 28px rgba(255,255,255,.54); transform: translate3d(-50%, -50%, 315px) rotateX(67deg) rotateZ(-19deg) scale(.05); }
+    .intro__aperture { display: none; }
+    .intro__light-slice { background: linear-gradient(104deg, transparent 42%, rgba(255,255,255,.78) 49.5%, rgba(188,224,247,.28) 51%, transparent 58%); }
+    .intro__iris { width: clamp(70px, 8vmax, 122px); background: radial-gradient(circle at 34% 27%, #fff 0 12%, #edf8fb 16%, #b6e5ec 44%, #6da9c4 74%, #4f87b7 100%); box-shadow: -14px 18px 35px rgba(21,68,119,.33), inset -12px -16px 25px rgba(18,79,137,.2); }
+    .intro__orbit { position:absolute; top:50%; left:50%; border:1px solid rgba(232,249,255,.86); border-radius:50%; transform-style:preserve-3d; opacity:0; box-shadow:0 0 18px rgba(217,246,255,.48); }
+    .intro__orbit--one { width:min(64vw,820px); height:min(18vw,230px); transform:translate3d(-50%,-50%,280px) rotateX(69deg) rotateZ(-13deg); animation: reference-orbit-in 1.45s var(--ease-out-expo) .36s forwards, reference-orbit-turn 8s linear 1.8s infinite; }
+    .intro__orbit--two { width:min(45vw,560px); height:min(13vw,160px); transform:translate3d(-50%,-50%,345px) rotateX(71deg) rotateZ(35deg); animation: reference-orbit-in 1.5s var(--ease-out-expo) .48s forwards, reference-orbit-turn 9s linear 2s reverse infinite; }
+    .intro__orbit--three { width:min(28vw,350px); height:min(9vw,108px); transform:translate3d(-50%,-50%,375px) rotateX(68deg) rotateZ(-70deg); animation: reference-orbit-in 1.3s var(--ease-out-expo) .58s forwards, reference-orbit-turn 7s linear 2.2s infinite; }
+    .intro__brand { color:#17263c; text-shadow:0 18px 42px rgba(32,73,112,.19); }
+    .intro__brand strong { color:#142a45; letter-spacing:.15em; }
+    .intro__brand span, .intro__progress, .intro__skip { color:#253e5c; }
+    .intro__progress-track { background:rgba(27,70,113,.16); }
+    .intro__progress-track i { background:linear-gradient(90deg,#163d66,#4c9ed1); }
+    .intro.is-leaving { animation: reference-intro-out 1.24s var(--ease-in-out-cubic) forwards; }
+    .intro.is-leaving .intro__camera { animation: reference-camera-out 1.12s var(--ease-in-out-cubic) forwards; }
+    .intro.is-leaving .intro__orbit { opacity:0; transition:opacity .35s ease; }
+    @keyframes reference-orbit-in { from { opacity:0; filter:blur(8px); } to { opacity:.9; filter:blur(0); } }
+    @keyframes reference-orbit-turn { to { rotate: 0 0 1 360deg; } }
+    @keyframes reference-intro-out { to { opacity:0; visibility:hidden; background:transparent; } }
+    @keyframes reference-camera-out { to { opacity:0; filter:blur(3px); transform:translate3d(-50%,-50%,720px) rotateX(12deg) rotateZ(0) scale(2.35); } }
+    .hero__copy { max-width:min(78vw, 900px); }
+    .hero__copy::before { content:""; display:block; width:clamp(38px,5vw,76px); height:1px; margin:0 0 1.1rem; background:currentColor; opacity:.64; transform-origin:left; animation: reference-rule-in .9s var(--ease-out-expo) .28s both; }
+    .hero .eyebrow { font-family:Georgia, "Times New Roman", serif; font-size:clamp(.68rem,.86vw,.86rem); letter-spacing:.18em; }
+    .hero h1 { font-family:Georgia, "Times New Roman", "Noto Serif SC", serif; font-weight:400; letter-spacing:-.075em; line-height:.88; text-wrap:balance; }
+    .hero h1 span { display:block; overflow:hidden; padding:.08em .12em .15em 0; transform:translate3d(0,1.25em,0) scaleY(1.15); opacity:0; filter:blur(4px); transition:transform 1.2s cubic-bezier(.16,1,.3,1), opacity .78s ease, filter .9s ease; }
+    html.intro-reveal .hero h1 span { transform:translate3d(0,0,0) scaleY(1); opacity:1; filter:none; }
+    html.intro-reveal .hero h1 span:nth-child(2) { transition-delay:.13s; }
+    .hero__intro { font-family:Georgia, "Noto Serif SC", serif; letter-spacing:.035em; }
+    @keyframes reference-rule-in { from { transform:scaleX(0); opacity:0; } to { transform:scaleX(1); opacity:.64; } }
+    @media (max-width: 700px) { .intro__camera { width:126vw; } .intro__glass--a { width:31%; } .intro__glass--b { width:53%; } .intro__orbit--one { width:96vw; height:30vw; } .intro__orbit--two { width:74vw; height:22vw; } .intro__orbit--three { width:47vw; height:14vw; } .hero h1 { letter-spacing:-.1em; } }
+    @media (prefers-reduced-motion: reduce) { .intro__orbit { display:none; } .hero h1 span { transform:none; opacity:1; filter:none; } .hero__copy::before { animation:none; } }
+  </style>
+  <link rel="stylesheet" href="assets/minimal-orbit-theme.css">
+  <link rel="stylesheet" href="assets/refined-v3.css">
+  <link rel="stylesheet" href="assets/experience-v4.css">
+  <link rel="stylesheet" href="assets/service-orbit-v5.css">
+  <link rel="stylesheet" href="assets/cinematic-v6.css">
+  <link rel="stylesheet" href="assets/github-depth-v7.css">
+  <link rel="stylesheet" href="assets/paper-editorial-v8.css">
+  <link rel="stylesheet" href="assets/blue-continuity-v9.css">
+  <link rel="stylesheet" href="assets/warm-editorial-v10.css">
+  <link rel="stylesheet" href="assets/reference-palette-v11.css">
+  <script src="assets/performance-quality.js"></script>
+
+  <style id="len-v12-performance-and-plan-motion">
+    /* v12: lightweight plan-text interaction + low-tier GPU safeguards */
+    #service-intro [data-edit],
+    #service-intro .service-plan__top span,
+    #service-intro .service-plan__price,
+    #service-intro .service-plan li,
+    #service-intro .service-extra p,
+    #service-intro .service-rules p,
+    #service-intro .makeup-showcase figcaption {
+      --plan-float-x: 0px;
+      --plan-float-y: 0px;
+      --plan-float-r: 0deg;
+      transition:
+        transform .58s cubic-bezier(.16,1,.3,1),
+        text-shadow .42s ease,
+        opacity .42s ease;
+      transform-origin: 50% 60%;
+    }
+
+    #service-intro .plan-float-target {
+      position: relative;
+      z-index: 2;
+      transform: translate3d(var(--plan-float-x), calc(-3px + var(--plan-float-y)), 0)
+        rotate(var(--plan-float-r)) scale(1.008);
+      text-shadow: 0 10px 26px rgba(41, 92, 119, .13);
+    }
+
+    #service-intro .plan-float-target.is-plan-float-tap {
+      transform: translate3d(var(--plan-float-x), calc(-6px + var(--plan-float-y)), 0)
+        rotate(var(--plan-float-r)) scale(1.014);
+      text-shadow: 0 13px 30px rgba(41, 92, 119, .18);
+    }
+
+    #service-intro .service-plan__top span,
+    #service-intro .makeup-showcase figcaption {
+      display: inline-block;
+    }
+
+    /* Low-memory devices keep the design, but remove the most expensive persistent compositing. */
+    .quality-low .spatial-world__layer--near { display: none !important; }
+    .quality-low .ambient-light { opacity: .34 !important; }
+    .quality-low .service-intro__halo { filter: none !important; opacity: .34 !important; }
+    .quality-low .len-motes { display: none !important; }
+    .quality-low .plan-fireflies { opacity: .72; }
+    .quality-low .site-header,
+    .quality-low .floating-controls {
+      -webkit-backdrop-filter: blur(6px) saturate(105%) !important;
+      backdrop-filter: blur(6px) saturate(105%) !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #service-intro [data-edit],
+      #service-intro .service-plan__top span,
+      #service-intro .service-plan__price,
+      #service-intro .service-plan li,
+      #service-intro .service-extra p,
+      #service-intro .service-rules p,
+      #service-intro .makeup-showcase figcaption {
+        transition: none !important;
+        transform: none !important;
+        text-shadow: none !important;
+      }
+    }
+  </style>
+
+  <style id="len-v13-about-tilt-and-work-title-edit">
+    /* v13: readable 3D photographer portrait response + explicit local work-title editing. */
+    .about__portrait {
+      --portrait-tilt-z: 0deg;
+      --portrait-shift-x: 0px;
+      --portrait-shift-y: 0px;
+      transform: perspective(1050px) translate3d(var(--portrait-shift-x), var(--portrait-shift-y), 0) rotateX(var(--portrait-tilt-x)) rotateY(var(--portrait-tilt-y)) rotateZ(var(--portrait-tilt-z)) !important;
+      transform-style: preserve-3d;
+      transition: transform .62s cubic-bezier(.16,1,.3,1), box-shadow .62s cubic-bezier(.16,1,.3,1) !important;
+    }
+    .about__portrait.is-len-portrait-interacting {
+      will-change: transform;
+      box-shadow: 0 38px 92px rgba(38, 62, 74, .21), 0 0 0 1px rgba(132, 171, 190, .16) !important;
+    }
+    html.local-mode.editing .works-exhibit .work-card h3[data-work-title] {
+      min-width: 4.5em;
+      cursor: text;
+      border-radius: 4px;
+      box-shadow: inset 0 -1px 0 rgba(43, 103, 133, .42);
+      background: rgba(218, 234, 241, .16);
+      transition: background .2s ease, box-shadow .2s ease;
+    }
+    html.local-mode.editing .works-exhibit .work-card h3[data-work-title]:hover,
+    html.local-mode.editing .works-exhibit .work-card h3[data-work-title]:focus {
+      background: rgba(218, 234, 241, .34);
+      box-shadow: inset 0 -2px 0 rgba(43, 103, 133, .66), 0 8px 22px rgba(28, 72, 94, .08);
+      outline: none;
+    }
+    @media (max-width: 900px) {
+      .about__portrait {
+        transform: perspective(880px) translate3d(var(--portrait-shift-x), var(--portrait-shift-y), 0) rotateX(var(--portrait-tilt-x)) rotateY(var(--portrait-tilt-y)) rotateZ(var(--portrait-tilt-z)) !important;
+        transition-duration: .52s !important;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .about__portrait {
+        --portrait-tilt-x: 0deg !important;
+        --portrait-tilt-y: 0deg !important;
+        --portrait-tilt-z: 0deg !important;
+        --portrait-shift-x: 0px !important;
+        --portrait-shift-y: 0px !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="intro" id="intro" aria-label="LEN 摄影入场动画">
+    <div class="intro__stage" aria-hidden="true">
+      <i class="intro__ring intro__ring--outer"></i>
+      <i class="intro__ring intro__ring--inner"></i>
+      <span class="intro__cube">
+        <i class="intro__cube-face intro__cube-face--front"></i>
+        <i class="intro__cube-face intro__cube-face--back"></i>
+        <i class="intro__cube-face intro__cube-face--right"></i>
+        <i class="intro__cube-face intro__cube-face--left"></i>
+        <i class="intro__cube-face intro__cube-face--top"></i>
+        <i class="intro__cube-face intro__cube-face--bottom"></i>
+      </span>
+      <i class="intro__blur intro__blur--a"></i>
+      <i class="intro__blur intro__blur--b"></i>
+      <i class="intro__orb"></i>
+      <i class="intro__line"></i>
+    </div>
+    <div class="intro__exposure" aria-hidden="true"></div>
     <div class="intro__brand">
       <strong aria-label="LEN"><b class="intro__letter">L</b><b class="intro__letter">E</b><b class="intro__letter">N</b></strong>
       <i></i>
@@ -2509,31 +4011,116 @@
   </div>
   <script>
     (() => {
+      const intro = document.getElementById("intro");
       const progress = document.getElementById("intro-progress");
       const fill = document.getElementById("intro-progress-fill");
       const value = document.getElementById("intro-progress-value");
-      const state = { value: 2, frame: 0, stopped: false };
-      const startedAt = performance.now();
+      const state = {
+        value: 0,
+        target: 0,
+        frame: 0,
+        failsafe: 0,
+        stopped: false,
+        startedAt: performance.now()
+      };
 
-      const paint = (now) => {
-        if (state.stopped) return;
-        const elapsed = Math.max(0, now - startedAt);
-        state.value = Math.min(88, 2 + (1 - Math.exp(-elapsed / 1450)) * 86);
+      const render = () => {
         const rounded = Math.round(state.value);
         fill.style.transform = `scaleX(${rounded / 100})`;
         value.textContent = String(rounded);
         progress.setAttribute("aria-valuenow", String(rounded));
+      };
+
+      const paint = () => {
+        if (state.stopped) return;
+        const distance = state.target - state.value;
+        state.value += Math.abs(distance) < .04 ? distance : distance * .085;
+        render();
         state.frame = requestAnimationFrame(paint);
+      };
+
+      state.setTarget = (nextTarget) => {
+        state.target = Math.max(state.target, Math.min(96, nextTarget));
       };
 
       state.stop = () => {
         state.stopped = true;
         cancelAnimationFrame(state.frame);
       };
+
+      const markStageReady = () => {
+        intro.classList.add("is-imaged");
+        state.setTarget(82);
+      };
+
+      window.setTimeout(() => state.setTarget(14), 160);
+      window.setTimeout(markStageReady, 520);
+
+      document.addEventListener("DOMContentLoaded", () => state.setTarget(48), { once: true });
+      window.addEventListener("load", () => state.setTarget(96), { once: true });
+      state.failsafe = window.setTimeout(() => {
+        if (intro.classList.contains("is-hidden")) return;
+        state.stop();
+        state.value = 100;
+        render();
+        window.setTimeout(() => {
+          document.documentElement.classList.add("intro-reveal");
+          intro.classList.add("is-leaving");
+          window.setTimeout(() => {
+            intro.classList.add("is-hidden");
+            document.documentElement.classList.remove("intro-lock");
+          }, 1440);
+        }, 220);
+      }, 4800);
       window.__lenIntroBoot = state;
+      render();
       state.frame = requestAnimationFrame(paint);
     })();
   </script>
+
+  <div class="about-envelope-experience" id="about-envelope-experience" aria-hidden="true" hidden>
+    <div class="about-envelope-stage">
+      <i class="about-envelope-shadow" aria-hidden="true"></i>
+      <div class="len-envelope" aria-label="一封来自 LEN 的摄影师介绍信">
+        <div class="len-envelope__back">
+          <i class="len-envelope__paper-fiber" aria-hidden="true"></i>
+          <i class="len-envelope__edge-wear" aria-hidden="true"></i>
+        </div>
+        <div class="len-envelope__letter">
+          <i class="len-envelope__letter-crease len-envelope__letter-crease--top" aria-hidden="true"></i>
+          <i class="len-envelope__letter-crease len-envelope__letter-crease--bottom" aria-hidden="true"></i>
+          <strong>阿兰 · LEN PHOTOGRAPHY</strong>
+          <span></span>
+          <small>A LETTER FROM ALAN<br>LIGHT · EMOTION · STORY<br>NANJING · 2026</small>
+        </div>
+        <div class="len-envelope__pocket"></div>
+        <div class="len-envelope__flap"></div>
+        <div class="len-envelope__seal" aria-hidden="true">L</div>
+      </div>
+      <button class="about-envelope-open" id="about-envelope-open" type="button" disabled>OPEN / 开启来信</button>
+    </div>
+  </div>
+
+  <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;overflow:hidden">
+    <filter id="len-liquid-filter" x="-8%" y="-8%" width="116%" height="116%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.008 0.035" numOctaves="1" seed="12" result="noise">
+        <animate attributeName="baseFrequency" values="0.008 0.035;0.012 0.027;0.008 0.035" dur="2.8s" repeatCount="indefinite"></animate>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="7" xChannelSelector="R" yChannelSelector="B"></feDisplacementMap>
+    </filter>
+  </svg>
+
+  <div class="spatial-world" aria-hidden="true">
+    <div class="spatial-world__camera">
+      <i class="spatial-world__layer spatial-world__layer--far"></i>
+      <i class="spatial-world__layer spatial-world__layer--mid"></i>
+      <i class="spatial-world__layer spatial-world__layer--near"></i>
+    </div>
+  </div>
+  <div class="ambient-light" aria-hidden="true"></div>
+  <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+  <audio id="background-music" src="assets/possible-dreams-web.mp3" preload="metadata" autoplay loop playsinline></audio>
 
   <div class="floating-controls" aria-label="页面快捷控制">
     <button class="music-toggle is-pending" id="music-toggle" type="button" aria-label="暂停或播放背景音乐" aria-pressed="false">
@@ -2549,17 +4136,35 @@
       <span class="wordmark__meta">PHOTOGRAPHY · 2026</span>
     </a>
     <nav class="site-nav" aria-label="主导航">
-      <a href="#top" data-section-link="top" class="">首页</a>
-      <a href="#about" data-section-link="about" data-edit="" class="">摄影师</a>
-      <a href="#works" data-section-link="works" data-edit="" class="">作品</a>
-      <a href="#services" data-section-link="services" data-edit="" class="">方案</a>
-      <a href="#booking" data-section-link="booking" data-edit="" class="">流程</a>
-      <a href="#contact" data-section-link="contact" data-edit="" class="">联系</a>
+      <a href="#top" data-section-link="top" data-note="首页 / HOME" aria-label="首页 · Home"><span class="site-nav__en">HOME</span><span class="site-nav__cn">首页</span></a>
+      <a href="#about" data-section-link="about" data-note="摄影师 / ABOUT" data-edit="" aria-label="摄影师 · About"><span class="site-nav__en">ABOUT</span><span class="site-nav__cn">摄影师</span></a>
+      <a href="#works" data-section-link="works" data-note="作品 / WORKS" data-edit="" aria-label="作品 · Works"><span class="site-nav__en">WORKS</span><span class="site-nav__cn">作品</span></a>
+      <a href="#booking" data-section-link="booking" data-note="流程 / BOOKING" data-edit="" aria-label="流程 · Booking"><span class="site-nav__en">BOOKING</span><span class="site-nav__cn">流程</span></a>
+      <a href="#services" data-section-link="services" data-note="服务 / SERVICE" data-edit="" aria-label="服务 · Service"><span class="site-nav__en">SERVICE</span><span class="site-nav__cn">服务</span></a>
+      <a href="#service-intro" data-section-link="service-intro" data-note="方案 / PLANS" data-edit="" aria-label="方案 · Plans"><span class="site-nav__en">PLANS</span><span class="site-nav__cn">方案</span></a>
+      <a href="#contact" data-section-link="contact" data-note="联系 / CONTACT" data-edit="" aria-label="联系 · Contact"><span class="site-nav__en">CONTACT</span><span class="site-nav__cn">联系</span></a>
     </nav>
     <div class="header-actions">
       <a class="header-cta" href="#contact" data-edit="">预约拍摄</a>
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-label="打开导航" aria-controls="mobile-nav" aria-expanded="false">
+        <span class="menu-toggle__lines" aria-hidden="true"></span>
+      </button>
     </div>
   </header>
+
+  <aside class="mobile-nav" id="mobile-nav" aria-label="移动端导航" aria-hidden="true" inert>
+    <p class="mobile-nav__eyebrow">LEN · PHOTOGRAPHY</p>
+    <nav aria-label="移动端主导航">
+      <a href="#top" data-index="01">首页</a>
+      <a href="#about" data-index="02">摄影师</a>
+      <a href="#works" data-index="03">作品</a>
+      <a href="#booking" data-index="04">流程</a>
+      <a href="#services" data-index="05">服务</a>
+      <a href="#service-intro" data-index="06">方案</a>
+      <a href="#contact" data-index="07">联系</a>
+    </nav>
+    <p class="mobile-nav__foot">专注光影，也专注你真实的情绪。<br>南京 · AVAILABLE 2026</p>
+  </aside>
 
   <main>
     <section class="hero" id="top">
@@ -2568,13 +4173,21 @@
         <img data-photo="" alt="LEN 摄影首页主视觉" src="assets/hero.webp" decoding="async" loading="eager" fetchpriority="high" width="1800" height="1010">
       </div>
       <div class="hero__shade"></div>
+      <div class="hero__object-layer" aria-hidden="true">
+        <i class="hero__soft-orb"></i>
+        <span class="hero__glass-cube">
+          <i class="hero__glass-cube-face hero__glass-cube-face--front"></i>
+          <i class="hero__glass-cube-face hero__glass-cube-face--right"></i>
+          <i class="hero__glass-cube-face hero__glass-cube-face--top"></i>
+        </span>
+      </div>
       <div class="hero__meta">
         <span data-edit="">写真 · 人像</span>
         <span data-edit="">AVAILABLE 2026</span>
       </div>
       <div class="hero__copy">
         <p class="eyebrow" data-edit="">LIGHT · EMOTION · STORY</p>
-        <h1>
+        <h1 class="hero__statement">
           <span data-edit="">让光，</span>
           <span data-edit="">替情绪说话。</span>
         </h1>
@@ -2589,8 +4202,13 @@
     </section>
 
     <section class="section about" id="about">
+      <div class="about-letter-folds" aria-hidden="true">
+        <i class="about-letter-fold about-letter-fold--top"></i>
+        <i class="about-letter-fold about-letter-fold--middle"></i>
+        <i class="about-letter-fold about-letter-fold--bottom"></i>
+      </div>
       <div class="about__visual">
-        <div class="about__portrait">
+        <div class="about__portrait" data-portrait-card>
           <img data-about-photo="" alt="摄影师阿兰手持相机" src="assets/about.png" decoding="async" loading="lazy" fetchpriority="low" width="2048" height="1152">
         </div>
         <span class="about__index">ABOUT · 01</span>
@@ -2609,84 +4227,138 @@
       </div>
     </section>
 
-    <section class="section works" id="works">
-      <div class="section-heading">
+    <section class="section works works-exhibit" id="works">
+      <div class="section-heading works-exhibit__intro">
         <div>
-          <p class="eyebrow" data-edit="">SELECTED WORKS · 2026</p>
+          <p class="eyebrow" data-edit="">DEPTH PARALLAX · SELECTED WORKS</p>
           <h2 data-edit="">作品，不止是照片。</h2>
         </div>
         <p>
           <span data-edit="">我会更在意光落下来的方式、人物没有防备的一瞬，</span><br>
-          <span data-edit="">以及一张照片多年以后仍能唤起的情绪。</span>
+          <span data-edit="">向下滚动，沿二维画面向光影深处穿梭；点击任一作品进入完整故事。</span>
         </p>
       </div>
 
-      <div class="works-grid">
-        <figure class="work-card">
+      <div class="works-exhibit__scroll" id="works-exhibit-scroll">
+        <div class="works-exhibit__sticky">
+          <div class="works-exhibit__scene" aria-hidden="true">
+            <div class="works-tunnel-guides">
+              <i></i><i></i><i></i><i></i><i></i><i></i>
+              <span class="works-depth-line works-depth-line--lt"></span>
+              <span class="works-depth-line works-depth-line--lb"></span>
+              <span class="works-depth-line works-depth-line--rt"></span>
+              <span class="works-depth-line works-depth-line--rb"></span>
+            </div>
+            <i class="works-depth-vanish"></i>
+          </div>
+          <div class="works-exhibit__hud" aria-live="polite">
+            <span>2D PERSPECTIVE PASSAGE · 03</span>
+            <b id="works-exhibit-index">01 / 06</b>
+            <strong id="works-exhibit-title">林间薄雾</strong>
+            <p id="works-exhibit-note">我没有让人物去“摆进”树林，而是等枝叶、风和阴影慢慢把她围起来。画面里的轻微遮挡，让情绪比表情先被看见。</p>
+            <div class="works-depth-indicator" aria-label="作品位置指示">
+              <span class="works-depth-indicator__track"><i id="works-depth-indicator-ball"></i></span>
+              <small id="works-scroll-hint">轻滚一次 · 先聚焦当前作品</small>
+            </div>
+            <em>SEMI-AUTO TURN · ENTER THE FRAME</em>
+          </div>
+          <div class="works-grid">
+        <figure class="work-card" data-work-id="work-1" data-exhibit-title="林间薄雾" data-exhibit-note="我没有让人物去“摆进”树林，而是等枝叶、风和阴影慢慢把她围起来。画面里的轻微遮挡，让情绪比表情先被看见。">
           <div class="media has-photo has-gallery" data-image-slot="work-1" data-gallery-count="3" role="button" tabindex="0" aria-label="林间薄雾，点击进入3张组图页面">
             <div class="card-placeholder tone-1" hidden=""><span>PORTRAIT / 01</span></div>
             <img data-photo="" alt="林间人像作品" src="assets/work-01-cover.webp" data-gallery="[&quot;assets/work-01-02.webp&quot;,&quot;assets/work-01-03.webp&quot;]" decoding="async" loading="lazy" fetchpriority="low" width="1350" height="1800">
           </div>
           <figcaption>
-            <div><h3 data-edit="">林间薄雾</h3><p data-edit="">PORTRAIT · NANJING</p></div>
+            <div><h3 data-edit="" data-work-title="">林间薄雾</h3><p data-edit="">PORTRAIT · NANJING</p><p class="work-card__editor-note" data-edit="">我没有让人物去“摆进”树林，而是等枝叶、风和阴影慢慢把她围起来。画面里的轻微遮挡，让情绪比表情先被看见。</p></div>
             <b>01</b>
           </figcaption>
         </figure>
 
-        <figure class="work-card">
+        <figure class="work-card" data-work-id="work-2" data-exhibit-title="静默日系" data-exhibit-note="暖色房间、低下来的视线和桌面上的静物，构成一种不需要解释的停顿。我想把日常里最安静的几秒，拍成能被重新回忆的情绪。">
           <div class="media has-photo has-gallery" data-image-slot="work-2" data-gallery-count="3" role="button" tabindex="0" aria-label="静默日系，点击进入3张组图页面">
             <div class="card-placeholder tone-2" hidden=""><span>PORTRAIT / 02</span></div>
             <img data-photo="" alt="建筑人像作品" src="assets/work-02-cover.webp" data-gallery="[&quot;assets/work-02-02.webp&quot;,&quot;assets/work-02-03.webp&quot;]" decoding="async" loading="lazy" fetchpriority="low" width="1013" height="1800">
           </div>
           <figcaption>
-            <div><h3 data-edit="">静默日系</h3><p data-edit="">PORTRAIT · CITY</p></div>
+            <div><h3 data-edit="" data-work-title="">静默日系</h3><p data-edit="">PORTRAIT · CITY</p><p class="work-card__editor-note" data-edit="">暖色房间、低下来的视线和桌面上的静物，构成一种不需要解释的停顿。我想把日常里最安静的几秒，拍成能被重新回忆的情绪。</p></div>
             <b>02</b>
           </figcaption>
         </figure>
 
-        <figure class="work-card">
+        <figure class="work-card" data-work-id="work-3" data-exhibit-title="青春与她" data-exhibit-note="这一组没有把青春拍成端正的纪念照，而是让奔跑、裙摆和失去控制的瞬间先发生。光落下来时，人物真正拥有了空间。">
           <div class="media has-photo has-gallery" data-image-slot="work-3" data-gallery-count="3" role="button" tabindex="0" aria-label="青春与她，点击进入3张组图页面">
             <div class="card-placeholder tone-3" hidden=""><span>WEDDING / 03</span></div>
             <img data-photo="" alt="婚礼纪实作品" src="assets/work-03-cover.webp" data-gallery="[&quot;assets/work-03-02.webp&quot;,&quot;assets/work-03-03.webp&quot;]" decoding="async" loading="lazy" fetchpriority="low" width="1800" height="1125">
           </div>
           <figcaption>
-            <div><h3 data-edit="">青春与她</h3><p data-edit="">WEDDING · DOCUMENTARY</p></div>
+            <div><h3 data-edit="" data-work-title="">青春与她</h3><p data-edit="">WEDDING · DOCUMENTARY</p><p class="work-card__editor-note" data-edit="">这一组没有把青春拍成端正的纪念照，而是让奔跑、裙摆和失去控制的瞬间先发生。光落下来时，人物真正拥有了空间。</p></div>
             <b>03</b>
           </figcaption>
         </figure>
 
-        <figure class="work-card">
+        <figure class="work-card" data-work-id="work-4" data-exhibit-title="光影万千" data-exhibit-note="雨伞隔开了雨，却没有隔开光。我利用半透明材质和近距离的视线，把人物藏进一层柔软的光里，让画面像一段正在被保护的记忆。">
           <div class="media has-photo has-gallery" data-image-slot="work-4" data-gallery-count="4" role="button" tabindex="0" aria-label="光影万千，点击进入4张组图页面">
             <div class="card-placeholder tone-4" hidden=""><span>NIGHT / 04</span></div>
             <img data-photo="" alt="夜景人像作品" src="assets/work-04-cover.webp" data-gallery="[&quot;assets/work-04-02.webp&quot;,&quot;assets/work-04-03.webp&quot;,&quot;assets/work-04-04.webp&quot;]" decoding="async" loading="lazy" fetchpriority="low" width="1012" height="1800">
           </div>
           <figcaption>
-            <div><h3 data-edit="">光影万千</h3><p data-edit="">NIGHT · EMOTION</p></div>
+            <div><h3 data-edit="" data-work-title="">光影万千</h3><p data-edit="">NIGHT · EMOTION</p><p class="work-card__editor-note" data-edit="">雨伞隔开了雨，却没有隔开光。我利用半透明材质和近距离的视线，把人物藏进一层柔软的光里，让画面像一段正在被保护的记忆。</p></div>
             <b>04</b>
           </figcaption>
         </figure>
 
-        <figure class="work-card">
+        <figure class="work-card" data-work-id="work-5" data-exhibit-title="雨停以前" data-exhibit-note="玻璃、水汽与反射故意让画面不那么清楚。比起描摹一个人的轮廓，我更想留下她在雨后、在光线里被看见的感觉。">
           <div class="media has-photo has-gallery" data-image-slot="work-5" data-gallery-count="4" role="button" tabindex="0" aria-label="雨停以前，点击进入4张组图页面">
             <div class="card-placeholder tone-5" hidden=""><span>COUPLE / 05</span></div>
             <img data-photo="" alt="情侣写真作品" src="assets/work-05-cover.webp" data-gallery="[&quot;assets/work-05-02.webp&quot;,&quot;assets/work-05-03.webp&quot;,&quot;assets/work-05-04.webp&quot;]" decoding="async" loading="lazy" fetchpriority="low" width="1351" height="1800">
           </div>
           <figcaption>
-            <div><h3 data-edit="">雨停以前</h3><p data-edit="">COUPLE · STORY</p></div>
+            <div><h3 data-edit="" data-work-title="">雨停以前</h3><p data-edit="">COUPLE · STORY</p><p class="work-card__editor-note" data-edit="">玻璃、水汽与反射故意让画面不那么清楚。比起描摹一个人的轮廓，我更想留下她在雨后、在光线里被看见的感觉。</p></div>
             <b>05</b>
           </figcaption>
         </figure>
 
-        <figure class="work-card">
+        <figure class="work-card" data-work-id="work-6" data-exhibit-title="生命留白" data-exhibit-note="最后把人物放到很大的天空和留白里。画面不是要证明孤独，而是想让呼吸、风和向前跑的方向，都有足够的空间发生。">
           <div class="media has-photo has-gallery" data-image-slot="work-6" data-gallery-count="2" role="button" tabindex="0" aria-label="生命留白，点击进入2张组图页面">
             <div class="card-placeholder tone-6" hidden=""><span>STUDIO / 06</span></div>
             <img data-photo="" alt="棚拍人像作品" src="assets/work-06-cover.webp" data-gallery="[&quot;assets/work-06-02.webp&quot;]" decoding="async" loading="lazy" fetchpriority="low" width="1350" height="1800">
           </div>
           <figcaption>
-            <div><h3 data-edit="">生命留白</h3><p data-edit="">STUDIO · PORTRAIT</p></div>
+            <div><h3 data-edit="" data-work-title="">生命留白</h3><p data-edit="">STUDIO · PORTRAIT</p><p class="work-card__editor-note" data-edit="">最后把人物放到很大的天空和留白里。画面不是要证明孤独，而是想让呼吸、风和向前跑的方向，都有足够的空间发生。</p></div>
             <b>06</b>
           </figcaption>
         </figure>
+
+        <figure class="work-card work-card--empty" data-work-id="work-7" data-empty-slot="true" data-reserved-group="7" data-reserved-theme="cos洛丽塔" data-exhibit-title="绮夜幻装" data-exhibit-note="以暗黑哥特与甜美洛丽塔融合的视觉语言，呈现少女的神秘、叛逆与浪漫。画面强调蕾丝、缎带、暗色裙装与复古妆容，营造童话般危险的氛围感。">
+          <div class="media" data-image-slot="work-7" data-gallery-count="0">
+            <div class="card-placeholder" hidden></div>
+            <img data-photo="" alt="" hidden decoding="async" loading="lazy" fetchpriority="low">
+          </div>
+          <figcaption><div><h3 data-edit="" data-work-title="">绮夜幻装</h3><p data-edit="">cos洛丽塔</p></div><b>07</b></figcaption>
+        </figure>
+
+        <figure class="work-card work-card--empty" data-work-id="work-8" data-empty-slot="true" data-reserved-group="8" data-reserved-theme="植物系少女" data-exhibit-title="林间少女" data-exhibit-note="将自然植物与少女形象相融，构建安静松弛富有呼吸感的画面。依托花草藤蔓与柔和光影，以低饱和色调演绎温柔治愈的人像美学。">
+          <div class="media" data-image-slot="work-8" data-gallery-count="0">
+            <div class="card-placeholder" hidden></div>
+            <img data-photo="" alt="" hidden decoding="async" loading="lazy" fetchpriority="low">
+          </div>
+          <figcaption><div><h3 data-edit="" data-work-title="">林间少女</h3><p data-edit="">植物系少女</p></div><b>08</b></figcaption>
+        </figure>
+
+        <figure class="work-card work-card--empty" data-work-id="work-9" data-empty-slot="true" data-reserved-group="9" data-reserved-theme="中式古风" data-exhibit-title="云岫青衣" data-exhibit-note="萃取东方古典诗意，结合云雾山水、飘逸衣袂，塑造含蓄沉静的东方意境，侧重留白构图，传递雅致缥缈的古风氛围感。">
+          <div class="media" data-image-slot="work-9" data-gallery-count="0">
+            <div class="card-placeholder" hidden></div>
+            <img data-photo="" alt="" hidden decoding="async" loading="lazy" fetchpriority="low">
+          </div>
+          <figcaption><div><h3 data-edit="" data-work-title="">云岫青衣</h3><p data-edit="">中式古风</p></div><b>09</b></figcaption>
+        </figure>
+          </div>
+          <div class="works-loop-controls" aria-label="作品纵深浏览控制">
+            <button id="works-loop-prev" type="button" aria-label="上一组作品">←</button>
+            <span>DEPTH</span>
+            <button id="works-loop-next" type="button" aria-label="下一组作品">→</button>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -2698,60 +4370,6 @@
           <span data-edit="">应该被好好留下。</span>
         </p>
         <span data-edit="">LEN STUDIO · NANJING</span>
-      </div>
-    </section>
-
-    <section class="section services" id="services">
-      <div class="section-heading" data-reveal="" style="--reveal-delay: 0ms;">
-        <div>
-          <p class="eyebrow" data-edit="">SERVICES · PACKAGES</p>
-          <h2 data-edit="">选择适合你的记录方式。</h2>
-        </div>
-        <p>
-          <span data-edit="">不套模板，不过度摆拍。</span><br>
-          <span data-edit="">每一次拍摄都会根据人物、场景与光线重新设计。</span>
-        </p>
-      </div>
-
-      <div class="package-grid">
-        <article class="package" data-reveal="" style="--reveal-delay: 75ms;">
-          <span class="package__tag" data-edit="">01&nbsp;</span>
-          <h3 data-edit="">私人情绪写真</h3>
-          <p class="package__price"><small>¥</small><span data-edit="">外景1199 <br>&nbsp;室内999</span></p>
-          <p class="package__note" data-edit="">适合个人写真、生日记录、轻主题拍摄</p>
-          <ul>
-            <li data-edit="">拍摄约 2-3 小时</li>
-            <li data-edit="">精修 9 张，底片保底50张全送</li>
-            <li data-edit="">1 个场景 / 1 套造型</li>
-            <li data-edit="">拍摄前方案沟通</li>
-          </ul>
-        </article>
-
-        <article class="package package--featured" data-reveal="" style="--reveal-delay: 150ms;">
-          <span class="package__tag" data-edit="">02&nbsp;&nbsp;</span>
-          <h3 data-edit="">深度私人定制</h3>
-          <p class="package__price"><small>¥</small><span data-edit="">外景2099<br>&nbsp;室内1899<br></span></p>
-          <p class="package__note" data-edit="">适合氛围写真、电影感,个人形象主图</p>
-          <ul>
-            <li data-edit="">拍摄约 3-5 小时</li>
-            <li data-edit="">精修 12张，底片保底150张全送</li>
-            <li data-edit="">1个场景 / 1套造型</li>
-            <li data-edit="">定制策划与动作引导</li>
-          </ul>
-        </article>
-
-        <article class="package" data-reveal="" style="--reveal-delay: 225ms;">
-          <span class="package__tag" data-edit="">03 · 独家定制拍摄</span>
-          <h3 data-edit="">为你的故事特别创作</h3>
-          <p class="package__price"><small>¥</small><span data-edit="">面议</span></p>
-          <p class="package__note" data-edit="">适合婚礼纪实、COS、商业与长时段拍摄</p>
-          <ul>
-            <li data-edit="">按项目制定拍摄时间</li>
-            <li data-edit="">精修数量按方案确认</li>
-            <li data-edit="">多场景与完整视觉策划</li>
-            <li data-edit="">可选灯光与短视频服务</li>
-          </ul>
-        </article>
       </div>
     </section>
 
@@ -2785,6 +4403,159 @@
           <h3 data-edit="">收到你的故事</h3>
           <p data-edit="">拍摄后成片和底片，保留真实肤质、光影和情绪。</p>
         </article>
+      </div>
+    </section>
+
+    <section class="section services" id="services">
+      <div class="section-heading" data-reveal="" style="--reveal-delay: 0ms;">
+        <div>
+          <p class="eyebrow" data-edit="">SERVICE · CREATIVE APPROACH</p>
+          <h2 data-edit="">镜头之前，先理解你。</h2>
+        </div>
+        <p>
+          <span data-edit="">不套模板，不过度摆拍。</span><br>
+          <span data-edit="">先了解你的需求与拍摄流程，再进入适合你的具体方案。</span>
+        </p>
+      </div>
+
+      <div class="package-grid">
+        <article class="package" data-reveal="" style="--reveal-delay: 75ms;">
+          <span class="package__tag" data-edit="">01 · PORTRAIT DIRECTION</span>
+          <h3 data-edit="">人物与情绪表达</h3>
+          <p class="package__note" data-edit="">适合个人写真、生日记录与带有故事感的轻主题创作。</p>
+          <ul>
+            <li data-edit="">日系、故事感、情绪与电影感方向</li>
+            <li data-edit="">根据自然光、环境与人物状态设计画面</li>
+            <li data-edit="">现场提供动作、视线和情绪引导</li>
+            <li data-edit="">结合脸型与五官分析合适角度和构图</li>
+          </ul>
+        </article>
+
+        <article class="package package--featured" data-reveal="" style="--reveal-delay: 150ms;">
+          <span class="package__tag" data-edit="">02 · PRIVATE CREATION</span>
+          <h3 data-edit="">深度私人创作</h3>
+          <p class="package__note" data-edit="">适合氛围写真、电影感叙事与个人形象主视觉。</p>
+          <ul>
+            <li data-edit="">从前期风格沟通开始建立视觉方向</li>
+            <li data-edit="">提供完整策划 PPT 与拍摄节奏建议</li>
+            <li data-edit="">协助判断地点、妆容、服装与配饰</li>
+            <li data-edit="">让光线、氛围和人物状态形成同一段叙事</li>
+          </ul>
+        </article>
+
+        <article class="package" data-reveal="" style="--reveal-delay: 225ms;">
+          <span class="package__tag" data-edit="">03 · PROJECT STORY</span>
+          <h3 data-edit="">为具体故事特别创作</h3>
+          <p class="package__note" data-edit="">适合婚礼纪实、COS、商业与需要完整叙事的项目拍摄。</p>
+          <ul>
+            <li data-edit="">根据项目内容制定拍摄时间与场景</li>
+            <li data-edit="">多场景与完整视觉策划</li>
+            <li data-edit="">按故事需要配置现场灯光</li>
+            <li data-edit="">短视频与第三视角记录可按项目沟通</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section service-intro plans" id="service-intro">
+      <i class="service-intro__halo service-intro__halo--one" aria-hidden="true"></i>
+      <i class="service-intro__halo service-intro__halo--two" aria-hidden="true"></i>
+      <canvas class="plan-fireflies" id="plan-fireflies" aria-hidden="true"></canvas>
+
+      <div class="service-intro__layout">
+        <div class="service-intro__copy">
+          <header class="service-intro__header" data-reveal="">
+            <p class="eyebrow" data-edit="">PLANS · PERSONAL SERVICE</p>
+            <h2 data-edit="">先理解你的故事，<br>再选择合适方案。</h2>
+            <p class="service-intro__lead" data-edit="">我只接写真，擅长日系、故事感、情绪与电影感。拍摄里会重点处理光线、氛围、动作引导和情绪状态；也会根据你的脸型与五官分析合适的角度和构图，一步一步带你进入画面。</p>
+            <p class="service-intro__aside" data-edit="">方案一是完整体验款，包含前期风格沟通和完整策划 PPT、拍摄方向与地点建议。想要更强的电影大片即视感，建议选择深度私人定制。</p>
+          </header>
+
+          <div class="service-ball-code-slot" id="service-ball-code-slot" data-user-code-slot="ball-animation" aria-label="用户小球动画代码挂载区域">
+            <!-- USER BALL ANIMATION CODE START: 这里仅接入用户后续提供的完整原始代码，不改写其动画逻辑。 -->
+            <!-- USER BALL ANIMATION CODE END -->
+          </div>
+
+          <div class="service-plan-list" aria-label="写真方案">
+            <article class="service-plan" data-reveal="">
+              <div class="service-plan__top">
+                <span>01 · ADVANCED PLAN</span>
+                <h3 data-edit="">私人情绪写真</h3>
+              </div>
+              <div class="service-plan__price" aria-label="外景1199元，室内999元">
+                <p><small>外景</small><strong data-edit="">¥1199</strong></p>
+                <p><small>室内</small><strong data-edit="">¥999</strong></p>
+              </div>
+              <ul>
+                <li data-edit="">1 份定制化拍摄策划 PPT，含妆容建议、服装搭配</li>
+                <li data-edit="">9 张精修调色美颜（摄影师选片）</li>
+                <li data-edit="">有效底片全送</li>
+                <li data-edit="">拍摄时长 3h</li>
+              </ul>
+            </article>
+
+            <article class="service-plan service-plan--premium" data-reveal="">
+              <div class="service-plan__top">
+                <span>02 · PREMIUM PLAN</span>
+                <h3 data-edit="">深度私人定制写真</h3>
+              </div>
+              <div class="service-plan__price" aria-label="外景2099元，室内1899元">
+                <p><small>外景</small><strong data-edit="">¥2099</strong></p>
+                <p><small>室内</small><strong data-edit="">¥1899</strong></p>
+              </div>
+              <ul>
+                <li data-edit="">从业 3 年化妆师定制个性妆容，包含发型定制</li>
+                <li data-edit="">1 份定制化拍摄策划 PPT，含妆容建议、服装搭配</li>
+                <li data-edit="">12 张精修调色美颜（摄影师选片）</li>
+                <li data-edit="">有效底片保底 150 张全送</li>
+                <li data-edit="">拍摄时长 4–5h</li>
+                <li data-edit="">返图后 1 个月内，每张图可以调整 1 次</li>
+              </ul>
+            </article>
+          </div>
+
+          <div class="service-extra" data-reveal="">
+            <div class="service-extra__heading">
+              <span>VALUE-ADDED SERVICE</span>
+              <h3 data-edit="">其他增值服务</h3>
+            </div>
+            <div class="service-extra__grid">
+              <p><span data-edit="">两天内交片</span><b data-edit="">¥300</b></p>
+              <p><span data-edit="">增加后期精修</span><b data-edit="">¥50 / 张</b></p>
+              <p><span data-edit="">第三视角拍摄花絮</span><b data-edit="">¥200</b></p>
+              <p><span data-edit="">双人或夜间拍摄</span><b data-edit="">加收 ¥400</b></p>
+            </div>
+            <small data-edit="">暂不接三人及以上拍摄。</small>
+          </div>
+
+          <div class="service-rules" data-reveal="" aria-label="预约与交付细则">
+            <div class="service-rules__title">
+              <span>BOOKING NOTES</span>
+              <h3 data-edit="">预约、交付与拍摄说明</h3>
+            </div>
+            <div class="service-rules__list">
+              <p><b>01</b><span data-edit="">档期需提前一周预约，并提前查看天气、确认晴天或雨天是否介意。确认档期后支付 30% 定金；因会为原档期推掉其他客人，定金不退。</span></p>
+              <p><b>02</b><span data-edit="">两天内临时约拍属于加急，各方案价格乘以二；二次约拍的客人，所有方案优惠 ¥100。</span></p>
+              <p><b>03</b><span data-edit="">服装和场地不包含在方案内，需要自备自费。我会提前协助判断服装的颜色、款式、配饰、场景和整体氛围。</span></p>
+              <p><b>04</b><span data-edit="">返图时间为 14 个工作日；尾款在返图结束后 24h 内支付。拍摄产生的车马费、道具费与场地费由客人报销。</span></p>
+              <p><b>05</b><span data-edit="">约拍流程：咨询档期 → 定金留档 → 沟通策划 → 确定策划 → 拍摄 → 付尾款 → 交付精修和底片。</span></p>
+              <p><b>06</b><span data-edit="">我们保留作品著作权与版权，并可用于宣传；如需增加保密条款，版权费为拍摄费用的 30%。</span></p>
+            </div>
+          </div>
+
+          <div class="makeup-showcase" data-reveal="">
+            <div class="makeup-showcase__copy">
+              <span>MAKEUP REFERENCE</span>
+              <h3 data-edit="">妆造说明</h3>
+              <p data-edit="">化妆老师会根据脸型与五官分布比例设计妆容，单独收费 ¥188 / 位；也可以自备妆造。</p>
+            </div>
+            <div class="makeup-showcase__images" aria-label="化妆老师例图作品">
+              <figure><img src="assets/makeup-reference-01.jpg" alt="化妆老师例图作品一" loading="lazy" decoding="async" width="1280" height="960"><figcaption>MAKEUP · 01</figcaption></figure>
+              <figure><img src="assets/makeup-reference-02.jpg" alt="化妆老师例图作品二" loading="lazy" decoding="async" width="1280" height="960"><figcaption>MAKEUP · 02</figcaption></figure>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -2865,7 +4636,7 @@
       <button class="primary" id="edit-toggle" type="button">开始编辑</button>
       <button id="export-html" type="button">导出 index.html</button>
     </div>
-    <p class="owner-tools__hint" id="owner-hint">点击“开始编辑”后可修改文字；点击作品图可管理组图。完成后导出并重新上传 Zeabur。</p>
+    <p class="owner-tools__hint" id="owner-hint">点击“开始编辑”后可直接修改每组作品名称与其他文字；点击作品图可更换封面、添加或清除组图。完成后导出新版 index.html。</p>
   </aside>
 
   <input id="owner-file-input" type="file" accept="image/jpeg,image/png,image/webp,image/avif" hidden="" multiple="">
@@ -2895,8 +4666,14 @@
       const lightboxNext = document.getElementById("lightbox-next");
       const musicToggle = document.getElementById("music-toggle");
       const musicLabel = document.getElementById("music-label");
+      const backgroundMusic = document.getElementById("background-music");
       const backToTop = document.getElementById("back-to-top");
       const siteHeader = document.querySelector(".site-header");
+      const scrollProgress = document.getElementById("scroll-progress");
+      const menuToggle = document.getElementById("menu-toggle");
+      const mobileNav = document.getElementById("mobile-nav");
+      const mobileNavLinks = Array.from(mobileNav.querySelectorAll("a"));
+      const hero = document.getElementById("top");
       const sectionStatus = document.getElementById("section-status");
       const navLinks = Array.from(document.querySelectorAll("[data-section-link]"));
       const galleryPage = document.getElementById("gallery-page");
@@ -2917,6 +4694,9 @@
       const isLocalFile = location.protocol === "file:";
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const canUsePointerEffects = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+      const isIOSWebKit = /iP(?:hone|ad|od)/.test(navigator.userAgent) || (
+        navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1
+      );
       let editing = false;
       let activeImageSlot = null;
       let fileAction = "add";
@@ -2930,289 +4710,135 @@
       let galleryPageTimer = 0;
       let galleryPageTrigger = null;
       let galleryPageScrollFrame = 0;
-      let audioContext = null;
-      let audioMaster = null;
-      let audioDry = null;
-      let audioReverb = null;
-      let audioNoiseBuffer = null;
-      let audioScheduled = false;
       let audioMuted = false;
       let audioUserPaused = false;
-      let audioPrimed = false;
-      let audioScheduleTimer = 0;
+      let audioFadeFrame = 0;
+      let audioPausedByVisibility = false;
+      const audioTargetVolume = .48;
 
       const updateMusicControl = () => {
-        const isRunning = Boolean(audioContext && audioContext.state === "running");
+        const isRunning = Boolean(backgroundMusic && !backgroundMusic.paused && !backgroundMusic.ended);
         musicToggle.classList.toggle("is-playing", isRunning && !audioMuted);
-        musicToggle.classList.toggle("is-pending", !isRunning);
+        musicToggle.classList.toggle("is-pending", !isRunning && !audioUserPaused);
         musicToggle.setAttribute("aria-pressed", String(isRunning && !audioMuted));
         musicLabel.textContent = audioMuted
           ? "音乐 · 已暂停"
           : isRunning
             ? "音乐 · 点击暂停"
-            : "音乐 · 自动播放";
+            : audioUserPaused
+              ? "音乐 · 已暂停"
+              : "音乐 · 自动播放";
       };
 
-      const createAudioGraph = () => {
-        if (audioContext) return;
-        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-        if (!AudioContextClass) {
-          musicToggle.hidden = true;
-          return;
-        }
+      const fadeAudioTo = (target, duration = 420, onComplete) => {
+        if (!backgroundMusic) return;
+        if (audioFadeFrame) cancelAnimationFrame(audioFadeFrame);
+        const startedAt = performance.now();
+        const from = backgroundMusic.volume;
+        const safeTarget = clampAudioVolume(target);
 
-        audioContext = new AudioContextClass();
-        audioMaster = audioContext.createGain();
-        audioDry = audioContext.createGain();
-        const convolver = audioContext.createConvolver();
-        const wet = audioContext.createGain();
-        const compressor = audioContext.createDynamicsCompressor();
-        const impulseLength = Math.floor(audioContext.sampleRate * 2.6);
-        const impulse = audioContext.createBuffer(2, impulseLength, audioContext.sampleRate);
-        const noiseLength = Math.floor(audioContext.sampleRate * .42);
-        audioNoiseBuffer = audioContext.createBuffer(1, noiseLength, audioContext.sampleRate);
-
-        for (let channel = 0; channel < impulse.numberOfChannels; channel += 1) {
-          const data = impulse.getChannelData(channel);
-          for (let index = 0; index < impulseLength; index += 1) {
-            const decay = Math.pow(1 - index / impulseLength, 2.7);
-            data[index] = (Math.random() * 2 - 1) * decay;
+        const stepVolume = (time) => {
+          const progress = Math.min(1, (time - startedAt) / Math.max(duration, 1));
+          const eased = 1 - Math.pow(1 - progress, 3);
+          backgroundMusic.volume = clampAudioVolume(from + (safeTarget - from) * eased);
+          if (progress < 1) {
+            audioFadeFrame = requestAnimationFrame(stepVolume);
+          } else {
+            audioFadeFrame = 0;
+            onComplete?.();
           }
-        }
+        };
 
-        const noiseData = audioNoiseBuffer.getChannelData(0);
-        for (let index = 0; index < noiseLength; index += 1) {
-          noiseData[index] = Math.random() * 2 - 1;
-        }
-
-        convolver.buffer = impulse;
-        audioDry.gain.value = 0.94;
-        wet.gain.value = 0.22;
-        audioMaster.gain.value = 0.0001;
-        compressor.threshold.value = -16;
-        compressor.knee.value = 14;
-        compressor.ratio.value = 4;
-        compressor.attack.value = 0.018;
-        compressor.release.value = 0.42;
-
-        audioDry.connect(audioMaster);
-        convolver.connect(wet);
-        wet.connect(audioMaster);
-        audioMaster.connect(compressor);
-        compressor.connect(audioContext.destination);
-        audioReverb = convolver;
-        audioContext.addEventListener("statechange", updateMusicControl);
+        audioFadeFrame = requestAnimationFrame(stepVolume);
       };
 
-      const primeAudioOutput = () => {
-        if (!audioContext || audioPrimed || audioContext.state !== "running") return;
-        const silentBuffer = audioContext.createBuffer(1, 1, audioContext.sampleRate);
-        const silentSource = audioContext.createBufferSource();
-        silentSource.buffer = silentBuffer;
-        silentSource.connect(audioContext.destination);
-        silentSource.start(0);
-        audioPrimed = true;
-      };
-
-      const playAmbientNote = (frequency, start, duration, volume, type = "sine") => {
-        if (!audioContext || !audioDry || !audioReverb) return;
-        const oscillator = audioContext.createOscillator();
-        const tone = audioContext.createBiquadFilter();
-        const envelope = audioContext.createGain();
-
-        oscillator.type = type;
-        oscillator.frequency.setValueAtTime(frequency, start);
-        tone.type = "lowpass";
-        tone.frequency.setValueAtTime(type === "sine" ? 1800 : 1200, start);
-        tone.Q.value = 0.55;
-        envelope.gain.setValueAtTime(0.0001, start);
-        envelope.gain.exponentialRampToValueAtTime(volume, start + Math.min(.85, duration * .28));
-        envelope.gain.exponentialRampToValueAtTime(0.0001, start + duration);
-
-        oscillator.connect(tone);
-        tone.connect(envelope);
-        envelope.connect(audioDry);
-        envelope.connect(audioReverb);
-        oscillator.start(start);
-        oscillator.stop(start + duration + .08);
-      };
-
-      const playKick = (start, volume = .2) => {
-        if (!audioContext || !audioDry) return;
-        const oscillator = audioContext.createOscillator();
-        const envelope = audioContext.createGain();
-        oscillator.type = "sine";
-        oscillator.frequency.setValueAtTime(158, start);
-        oscillator.frequency.exponentialRampToValueAtTime(48, start + .22);
-        envelope.gain.setValueAtTime(volume, start);
-        envelope.gain.exponentialRampToValueAtTime(.0001, start + .36);
-        oscillator.connect(envelope);
-        envelope.connect(audioDry);
-        oscillator.start(start);
-        oscillator.stop(start + .4);
-      };
-
-      const playSnare = (start, volume = .085) => {
-        if (!audioContext || !audioDry || !audioNoiseBuffer) return;
-        const noise = audioContext.createBufferSource();
-        const highpass = audioContext.createBiquadFilter();
-        const envelope = audioContext.createGain();
-        noise.buffer = audioNoiseBuffer;
-        highpass.type = "highpass";
-        highpass.frequency.setValueAtTime(1450, start);
-        envelope.gain.setValueAtTime(volume, start);
-        envelope.gain.exponentialRampToValueAtTime(.0001, start + .18);
-        noise.connect(highpass);
-        highpass.connect(envelope);
-        envelope.connect(audioDry);
-        if (audioReverb) envelope.connect(audioReverb);
-        noise.start(start);
-        noise.stop(start + .2);
-      };
-
-      const playHat = (start, volume = .024) => {
-        if (!audioContext || !audioDry || !audioNoiseBuffer) return;
-        const noise = audioContext.createBufferSource();
-        const highpass = audioContext.createBiquadFilter();
-        const envelope = audioContext.createGain();
-        noise.buffer = audioNoiseBuffer;
-        highpass.type = "highpass";
-        highpass.frequency.setValueAtTime(6800, start);
-        envelope.gain.setValueAtTime(volume, start);
-        envelope.gain.exponentialRampToValueAtTime(.0001, start + .055);
-        noise.connect(highpass);
-        highpass.connect(envelope);
-        envelope.connect(audioDry);
-        noise.start(start);
-        noise.stop(start + .065);
-      };
-
-      const scheduleAmbientBlock = () => {
-        audioScheduleTimer = 0;
-        if (!audioContext || audioContext.state !== "running") return;
-        const start = audioContext.currentTime + .12;
-        const beat = 60 / 108;
-        const chords = [
-          [164.81, 246.94, 293.66, 392],
-          [130.81, 196, 246.94, 329.63],
-          [98, 146.83, 220, 246.94],
-          [146.83, 220, 329.63, 369.99]
-        ];
-        const melody = [
-          493.88, 587.33, 659.25, 587.33,
-          440, 523.25, 659.25, 493.88,
-          392, 493.88, 587.33, 523.25,
-          440, 493.88, 659.25, 587.33
-        ];
-
-        chords.forEach((chord, chordIndex) => {
-          chord.forEach((note, noteIndex) => {
-            playAmbientNote(note, start + chordIndex * beat * 4 + noteIndex * .035, beat * 4.45, .011, "sine");
-          });
-          playAmbientNote(chord[0] / 2, start + chordIndex * beat * 4, beat * 3.7, .028, "triangle");
-        });
-
-        melody.forEach((note, noteIndex) => {
-          playAmbientNote(note, start + beat * (.5 + noteIndex), beat * .82, .029, "triangle");
-        });
-
-        Array.from({ length: 32 }).forEach((unused, pulseIndex) => {
-          const chordIndex = Math.floor(pulseIndex / 8) % chords.length;
-          const chord = chords[chordIndex];
-          const note = chord[pulseIndex % chord.length] * 2;
-          playAmbientNote(note, start + beat * pulseIndex * .5, beat * .42, .0095, "sine");
-          playHat(start + beat * pulseIndex * .5, pulseIndex % 4 === 2 ? .032 : .021);
-        });
-
-        Array.from({ length: 16 }).forEach((unused, beatIndex) => {
-          const hitAt = start + beat * beatIndex;
-          if (beatIndex % 4 === 0 || beatIndex % 4 === 2) playKick(hitAt, .21);
-          if (beatIndex % 4 === 3) playKick(hitAt + beat * .5, .12);
-          if (beatIndex % 4 === 1 || beatIndex % 4 === 3) playSnare(hitAt, .088);
-        });
-
-        window.clearTimeout(audioScheduleTimer);
-        audioScheduleTimer = window.setTimeout(scheduleAmbientBlock, 8600);
-      };
+      const clampAudioVolume = (value) => Math.min(1, Math.max(0, value));
 
       const startAmbientAudio = async ({ force = false } = {}) => {
-        if (audioUserPaused && !force) return false;
-        createAudioGraph();
-        if (!audioContext) return false;
-        updateMusicControl();
-
+        if (!backgroundMusic || (audioUserPaused && !force)) return false;
         try {
-          if (audioContext.state !== "running") {
-            await audioContext.resume();
+          if (backgroundMusic.paused) {
+            backgroundMusic.volume = 0;
+            await backgroundMusic.play();
+            fadeAudioTo(audioTargetVolume, force ? 720 : 1800);
+          } else if (backgroundMusic.volume < audioTargetVolume * .82) {
+            fadeAudioTo(audioTargetVolume, 520);
           }
-
-          if (audioContext.state === "running") {
-            primeAudioOutput();
-            if (!audioScheduled || !audioScheduleTimer) {
-              audioScheduled = true;
-              scheduleAmbientBlock();
-              const now = audioContext.currentTime;
-              audioMaster.gain.cancelScheduledValues(now);
-              audioMaster.gain.setValueAtTime(0.0001, now);
-              audioMaster.gain.exponentialRampToValueAtTime(1, now + 3.1);
-            }
-            audioMuted = false;
-            updateMusicControl();
-            return true;
-          }
+          audioMuted = false;
+          audioPausedByVisibility = false;
+          updateMusicControl();
+          return true;
         } catch (error) {
           updateMusicControl();
+          return false;
         }
-
-        updateMusicControl();
-        return false;
       };
 
       const setAudioMuted = (muted) => {
+        if (!backgroundMusic) return;
         audioMuted = muted;
-        if (audioContext && audioMaster && audioContext.state === "running") {
-          const now = audioContext.currentTime;
-          audioMaster.gain.cancelScheduledValues(now);
-          audioMaster.gain.setTargetAtTime(muted ? 0.0001 : 1, now, .24);
+        if (muted) {
+          fadeAudioTo(0, 260, () => {
+            backgroundMusic.pause();
+            updateMusicControl();
+          });
+        } else {
+          startAmbientAudio({ force: true });
         }
         updateMusicControl();
       };
 
       musicToggle.addEventListener("click", async () => {
-        if (!audioContext || audioContext.state !== "running") {
+        if (!backgroundMusic) return;
+        if (backgroundMusic.paused || audioMuted) {
           audioUserPaused = false;
+          audioMuted = false;
           await startAmbientAudio({ force: true });
           return;
         }
-        audioUserPaused = !audioMuted;
-        setAudioMuted(!audioMuted);
+        audioUserPaused = true;
+        setAudioMuted(true);
       });
 
       document.addEventListener("pointerdown", (event) => {
         if (event.target.closest("#music-toggle")) return;
-        if (!audioUserPaused && (!audioContext || audioContext.state !== "running")) {
-          startAmbientAudio();
+        if (!audioUserPaused && backgroundMusic?.paused) {
+          startAmbientAudio({ force: true });
         }
-      }, { passive: true });
+      }, { passive: true, once: true });
 
       document.addEventListener("keydown", () => {
-        if (!audioUserPaused && (!audioContext || audioContext.state !== "running")) {
-          startAmbientAudio();
+        if (!audioUserPaused && backgroundMusic?.paused) {
+          startAmbientAudio({ force: true });
         }
       }, { once: true });
+
+      backgroundMusic?.addEventListener("play", updateMusicControl);
+      backgroundMusic?.addEventListener("pause", updateMusicControl);
+      backgroundMusic?.addEventListener("waiting", () => {
+        if (!audioUserPaused) musicLabel.textContent = "音乐 · 载入中";
+      });
+      backgroundMusic?.addEventListener("canplay", updateMusicControl);
+      backgroundMusic?.addEventListener("error", () => {
+        musicToggle.classList.remove("is-playing", "is-pending");
+        musicLabel.textContent = "音乐 · 点击重试";
+      });
 
       window.addEventListener("load", () => startAmbientAudio(), { once: true });
       window.addEventListener("pageshow", () => startAmbientAudio(), { once: true });
       document.addEventListener("visibilitychange", () => {
-        if (!document.hidden && !audioUserPaused) startAmbientAudio();
+        if (!backgroundMusic) return;
+        if (document.hidden && !backgroundMusic.paused) {
+          audioPausedByVisibility = true;
+          backgroundMusic.pause();
+        } else if (!document.hidden && audioPausedByVisibility && !audioUserPaused) {
+          startAmbientAudio({ force: true });
+        }
       });
-      window.requestAnimationFrame(() => startAmbientAudio());
 
       root.classList.add("intro-lock");
       const introBoot = window.__lenIntroBoot;
-      const introStartProgress = Math.max(0, Math.min(88, Number(introBoot?.value) || 0));
-      if (introBoot?.stop) introBoot.stop();
-      window.__lenIntroBoot = null;
+      const introStartedAt = Number(introBoot?.startedAt) || performance.now();
 
       const setIntroProgress = (value) => {
         const safeValue = Math.max(0, Math.min(100, Math.round(value)));
@@ -3225,13 +4851,18 @@
         if (introLeaving) return;
         introLeaving = true;
         window.cancelAnimationFrame(introFrame);
+        if (introBoot?.stop) introBoot.stop();
+        if (introBoot?.failsafe) window.clearTimeout(introBoot.failsafe);
+        window.__lenIntroBoot = null;
         setIntroProgress(100);
-        root.classList.add("intro-reveal");
-        intro.classList.add("is-leaving");
         window.setTimeout(() => {
-          intro.classList.add("is-hidden");
-          root.classList.remove("intro-lock");
-        }, reduceMotion ? 50 : 960);
+          root.classList.add("intro-reveal");
+          intro.classList.add("is-leaving");
+          window.setTimeout(() => {
+            intro.classList.add("is-hidden");
+            root.classList.remove("intro-lock");
+          }, reduceMotion ? 50 : 1440);
+        }, reduceMotion ? 50 : 220);
       };
 
       const enterSite = () => {
@@ -3244,27 +4875,36 @@
         const heroImage = document.querySelector(".hero__media > img");
         if (!heroImage) return Promise.resolve();
 
-        const loaded = heroImage.complete
+        const loaded = heroImage.complete && heroImage.naturalWidth
           ? Promise.resolve()
           : new Promise((resolve) => {
               heroImage.addEventListener("load", resolve, { once: true });
               heroImage.addEventListener("error", resolve, { once: true });
             });
 
-        const decoded = loaded.then(() => {
+        return loaded.then(() => {
+          intro.classList.add("is-imaged");
+          introBoot?.setTarget?.(84);
           if (!heroImage.decode) return;
           return heroImage.decode().catch(() => {});
         });
-
-        return Promise.race([
-          decoded,
-          new Promise((resolve) => window.setTimeout(resolve, 1400))
-        ]);
       };
+
+      const waitForWindowLoad = () => document.readyState === "complete"
+        ? Promise.resolve()
+        : new Promise((resolve) => window.addEventListener("load", resolve, { once: true }));
+
+      const delay = (milliseconds) => new Promise((resolve) => {
+        window.setTimeout(resolve, Math.max(0, milliseconds));
+      });
 
       const finishIntro = async () => {
         startAmbientAudio();
-        await waitForHero();
+        const criticalReady = Promise.all([waitForHero(), waitForWindowLoad()]);
+        const elapsed = performance.now() - introStartedAt;
+        const minimumHold = delay((reduceMotion ? 80 : 2300) - elapsed);
+        const guardedReady = Promise.race([criticalReady, delay(4000)]);
+        await Promise.all([minimumHold, guardedReady]);
         revealSite();
       };
 
@@ -3273,39 +4913,41 @@
         if (!audioUserPaused) startAmbientAudio({ force: true });
       }, { passive: true, once: true });
 
-      if (reduceMotion) {
-        setIntroProgress(100);
-        window.setTimeout(finishIntro, 120);
-      } else {
-        const introStartedAt = performance.now();
-        const introDuration = Math.max(620, 1500 * (1 - introStartProgress / 100));
-
-        const updateIntroProgress = (now) => {
-          const elapsed = Math.min(1, (now - introStartedAt) / introDuration);
-          const eased = 1 - Math.pow(1 - elapsed, 2.15);
-          const nextProgress = introStartProgress + (96 - introStartProgress) * eased;
-          setIntroProgress(elapsed < 1 ? nextProgress : 96);
-
-          if (elapsed < 1) {
-            introFrame = window.requestAnimationFrame(updateIntroProgress);
-          } else {
-            window.setTimeout(finishIntro, 180);
-          }
-        };
-
-        introFrame = window.requestAnimationFrame(updateIntroProgress);
-      }
+      finishIntro();
 
       if (isLocalFile) {
         root.classList.add("local-mode");
       }
 
+      const setMenuOpen = (open) => {
+        root.classList.toggle("menu-open", open);
+        menuToggle.setAttribute("aria-expanded", String(open));
+        menuToggle.setAttribute("aria-label", open ? "关闭导航" : "打开导航");
+        mobileNav.setAttribute("aria-hidden", String(!open));
+        mobileNav.inert = !open;
+      };
+
+      menuToggle.addEventListener("click", () => {
+        setMenuOpen(!root.classList.contains("menu-open"));
+      });
+
+      mobileNavLinks.forEach((link) => {
+        link.addEventListener("click", () => setMenuOpen(false));
+      });
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 900 && root.classList.contains("menu-open")) {
+          setMenuOpen(false);
+        }
+      }, { passive: true });
+
       const sectionLabels = {
         top: "首页",
         about: "摄影师",
         works: "作品",
-        services: "方案",
         booking: "流程",
+        services: "服务",
+        "service-intro": "方案",
         contact: "联系"
       };
       const trackedSections = Object.keys(sectionLabels)
@@ -3315,6 +4957,8 @@
 
       const syncScrollUi = () => {
         const scrollPosition = window.scrollY;
+        const scrollRange = Math.max(1, root.scrollHeight - window.innerHeight);
+        const pageProgress = Math.max(0, Math.min(1, scrollPosition / scrollRange));
         const probe = scrollPosition + window.innerHeight * .38;
         let currentSection = trackedSections[0];
 
@@ -3323,8 +4967,9 @@
         });
 
         const currentId = currentSection?.id || "top";
-        siteHeader.classList.toggle("is-scrolled", scrollPosition > 24);
+        siteHeader.classList.toggle("is-scrolled", currentId !== "top");
         backToTop.classList.toggle("is-visible", scrollPosition > window.innerHeight * .62);
+        scrollProgress.style.setProperty("--page-progress", pageProgress.toFixed(4));
         if (sectionStatus) sectionStatus.textContent = sectionLabels[currentId] || "首页";
 
         navLinks.forEach((link) => {
@@ -3352,8 +4997,8 @@
 
       const revealTargets = Array.from(document.querySelectorAll(
         ".about__visual, .about__copy, .works .section-heading, .work-card, " +
-        ".manifesto__inner, .services .section-heading, .package, .booking .section-heading, " +
-        ".booking-step, .contact__lead, .contact-grid > div, .site-footer"
+        ".manifesto__inner, .booking .section-heading, .booking-step, .services .section-heading, " +
+        ".package, .contact__lead, .contact-grid > div, .site-footer"
       ));
 
       const revealGroupCounts = new Map();
@@ -3362,19 +5007,29 @@
         const order = revealGroupCounts.get(group) || 0;
         revealGroupCounts.set(group, order + 1);
         target.setAttribute("data-reveal", "");
+        target.classList.add("reveal-pending");
+        target.dataset.revealKind = target.matches(".about__visual, .work-card")
+          ? "image"
+          : target.matches(".section-heading, .about__copy, .manifesto__inner, .contact__lead")
+            ? "title"
+            : "cell";
         target.style.setProperty("--reveal-delay", `${Math.min(order * 90, 270)}ms`);
       });
 
       if (reduceMotion || !("IntersectionObserver" in window)) {
-        revealTargets.forEach((target) => target.classList.add("is-visible"));
+        revealTargets.forEach((target) => {
+          target.classList.add("is-visible");
+          target.classList.remove("reveal-pending");
+        });
       } else {
         const revealObserver = new IntersectionObserver((entries, observer) => {
           entries.forEach((entry) => {
             if (!entry.isIntersecting) return;
             entry.target.classList.add("is-visible");
+            window.setTimeout(() => entry.target.classList.remove("reveal-pending"), 1700);
             observer.unobserve(entry.target);
           });
-        }, { threshold: .08, rootMargin: "0px 0px -10% 0px" });
+        }, { threshold: .02, rootMargin: "0px 0px 14% 0px" });
 
         revealTargets.forEach((target) => revealObserver.observe(target));
       }
@@ -3391,68 +5046,20 @@
         sectionMotionTargets.forEach((section) => sectionObserver.observe(section));
       }
 
-      const motionTargets = Array.from(document.querySelectorAll(
-        ".about__visual, .about__copy, .section-heading, .work-card, " +
-        ".manifesto__inner, .package, .booking-step, .contact__lead, .contact-grid"
-      ));
-      motionTargets.forEach((target) => target.setAttribute("data-motion", ""));
-      const motionStates = motionTargets.map((target) => ({
-        target,
-        current: 0,
-        destination: 0,
-        depth: target.matches(".section-heading, .about__copy, .contact__lead")
-          ? .5
-          : target.matches(".manifesto__inner")
-            ? .35
-            : target.matches(".package, .booking-step, .contact-grid")
-              ? .7
-              : 1
-      }));
-      let motionFrame = 0;
-
-      const measureMotion = () => {
-        if (reduceMotion) return;
-        const viewportCenter = window.innerHeight * .5;
-        motionStates.forEach((state) => {
-          const bounds = state.target.getBoundingClientRect();
-          if (bounds.bottom < -180 || bounds.top > window.innerHeight + 180) return;
-          const naturalCenter = bounds.top - state.current + bounds.height * .5;
-          state.destination = Math.max(
-            -16,
-            Math.min(16, (viewportCenter - naturalCenter) * .023 * state.depth)
-          );
-        });
-      };
-
-      const animateMotion = () => {
-        let keepMoving = false;
-        motionStates.forEach((state) => {
-          const delta = state.destination - state.current;
-          if (Math.abs(delta) > .035) {
-            state.current += delta * .12;
-            keepMoving = true;
-          } else {
-            state.current = state.destination;
-          }
-          const motionValue = `${state.current.toFixed(2)}px`;
-          state.target.style.translate = `0 ${motionValue}`;
-          state.target.style.setProperty("--motion-y", motionValue);
-        });
-        motionFrame = keepMoving ? window.requestAnimationFrame(animateMotion) : 0;
-      };
-
-      const requestMotionSync = () => {
-        measureMotion();
-        if (!motionFrame && !reduceMotion) {
-          motionFrame = window.requestAnimationFrame(animateMotion);
-        }
-      };
-
-      window.addEventListener("scroll", requestMotionSync, { passive: true });
-      window.addEventListener("resize", requestMotionSync, { passive: true });
-      requestMotionSync();
-
       if (canUsePointerEffects) {
+        hero.addEventListener("pointermove", (event) => {
+          const bounds = hero.getBoundingClientRect();
+          const normalizedX = (event.clientX - bounds.left) / bounds.width - .5;
+          const normalizedY = (event.clientY - bounds.top) / bounds.height - .5;
+          hero.style.setProperty("--hero-x", `${(normalizedX * -7).toFixed(2)}px`);
+          hero.style.setProperty("--hero-y", `${(normalizedY * -5).toFixed(2)}px`);
+        }, { passive: true });
+
+        hero.addEventListener("pointerleave", () => {
+          hero.style.setProperty("--hero-x", "0px");
+          hero.style.setProperty("--hero-y", "0px");
+        });
+
         const pointerSurfaces = Array.from(document.querySelectorAll(
           ".about__visual, .work-card, .package, .booking-step, .contact-grid > div"
         ));
@@ -3464,10 +5071,35 @@
             const y = ((event.clientY - bounds.top) / bounds.height) * 100;
             surface.style.setProperty("--pointer-x", `${x.toFixed(1)}%`);
             surface.style.setProperty("--pointer-y", `${y.toFixed(1)}%`);
+            if (surface.matches(".work-card")) {
+              const image = surface.querySelector("[data-photo]");
+              image?.style.setProperty("--media-x", `${((x - 50) * -.055).toFixed(2)}px`);
+              image?.style.setProperty("--media-y", `${((y - 50) * -.045).toFixed(2)}px`);
+            }
           }, { passive: true });
           surface.addEventListener("pointerleave", () => {
             surface.style.setProperty("--pointer-x", "50%");
             surface.style.setProperty("--pointer-y", "50%");
+            const image = surface.querySelector("[data-photo]");
+            image?.style.setProperty("--media-x", "0px");
+            image?.style.setProperty("--media-y", "0px");
+          });
+        });
+
+        const magneticTargets = Array.from(document.querySelectorAll(
+          ".header-cta, .back-to-top, .gallery-page__back"
+        ));
+        magneticTargets.forEach((target) => {
+          target.addEventListener("pointermove", (event) => {
+            const bounds = target.getBoundingClientRect();
+            const offsetX = event.clientX - (bounds.left + bounds.width / 2);
+            const offsetY = event.clientY - (bounds.top + bounds.height / 2);
+            target.style.setProperty("--magnet-x", `${Math.max(-5, Math.min(5, offsetX * .13)).toFixed(2)}px`);
+            target.style.setProperty("--magnet-y", `${Math.max(-4, Math.min(4, offsetY * .13)).toFixed(2)}px`);
+          }, { passive: true });
+          target.addEventListener("pointerleave", () => {
+            target.style.setProperty("--magnet-x", "0px");
+            target.style.setProperty("--magnet-y", "0px");
           });
         });
 
@@ -3502,8 +5134,8 @@
 
         editToggle.textContent = editing ? "结束编辑" : "开始编辑";
         hint.textContent = editing
-          ? "正在编辑：点击文字直接修改；点击任意作品图可更换封面、添加或清除组图。"
-          : "点击“开始编辑”后可修改文字；点击作品图可管理组图。完成后导出并重新上传 Zeabur。";
+          ? "正在编辑：每组作品名称可直接点击修改；点击任意作品图可更换封面、添加或清除组图。"
+          : "点击“开始编辑”后可直接修改每组作品名称与其他文字；点击作品图可更换封面、添加或清除组图。完成后导出新版 index.html。";
 
         if (!editing && !galleryManager.hidden) {
           galleryManager.hidden = true;
@@ -3561,8 +5193,10 @@
       };
 
       const getSlotLabel = (slot, targetImage) => {
-        const workTitle = slot.closest(".work-card")?.querySelector("figcaption h3")?.textContent?.trim();
-        return workTitle || targetImage?.alt || "LEN 摄影作品";
+        const workCard = slot.closest(".work-card");
+        const workTitle = workCard?.querySelector("figcaption h3")?.textContent?.trim();
+        const reservedTitle = workCard?.dataset.exhibitTitle?.trim();
+        return workTitle || reservedTitle || targetImage?.alt || "LEN 摄影作品";
       };
 
       const updateGalleryPagePosition = () => {
@@ -3719,10 +5353,29 @@
         const targetImage = slot.querySelector("[data-photo]");
         const gallery = getGallery(targetImage);
         const hasPhoto = Boolean(targetImage && !targetImage.hidden && gallery.length);
+        const workCard = slot.closest(".work-card");
 
         slot.classList.toggle("has-photo", hasPhoto);
         slot.classList.toggle("has-gallery", gallery.length > 1);
         slot.dataset.galleryCount = String(gallery.length);
+
+        if (workCard?.dataset.reservedGroup) {
+          workCard.dataset.emptySlot = String(!hasPhoto);
+          workCard.classList.toggle("work-card--empty", !hasPhoto);
+          if (hasPhoto) {
+            const reservedTitle = workCard.dataset.exhibitTitle || "";
+            const reservedTheme = workCard.dataset.reservedTheme || "";
+            const heading = workCard.querySelector("figcaption h3");
+            const category = workCard.querySelector("figcaption p");
+            const number = workCard.querySelector("figcaption b");
+            if (heading && !heading.textContent.trim()) heading.textContent = reservedTitle;
+            if (category && !category.textContent.trim()) category.textContent = reservedTheme;
+            if (number && !number.textContent.trim()) {
+              number.textContent = String(workCard.dataset.reservedGroup).padStart(2, "0");
+            }
+            if (targetImage && !targetImage.alt) targetImage.alt = `${reservedTitle || "LEN"} 摄影作品`;
+          }
+        }
 
         if (hasPhoto) {
           const label = getSlotLabel(slot, targetImage);
@@ -3814,7 +5467,10 @@
 
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") {
-          if (!galleryManager.hidden) {
+          if (root.classList.contains("menu-open")) {
+            setMenuOpen(false);
+            menuToggle.focus();
+          } else if (!galleryManager.hidden) {
             closeGalleryManager();
           } else if (!galleryPage.hidden) {
             closeGalleryPage(false);
@@ -3954,8 +5610,23 @@
           "intro-lock",
           "intro-reveal",
           "lightbox-open",
-          "gallery-page-open"
+          "gallery-page-open",
+          "menu-open",
+          "len-touch",
+          "spatial-tier-low",
+          "spatial-tier-high",
+          "spatial-v3",
+          "quality-low",
+          "quality-medium",
+          "quality-high",
+          "len-wave-active",
+          "len-hero-interaction-ready",
+          "len-ambient-ready",
+          "about-story-lock",
+          "about-story-active",
+          "works-scroll-engaged"
         );
+        clone.removeAttribute("data-quality");
         clone.classList.add("intro-lock");
 
         clone.querySelectorAll("[contenteditable]").forEach((item) => {
@@ -3965,7 +5636,7 @@
 
         const clonedIntro = clone.querySelector("#intro");
         const clonedIntroSkip = clone.querySelector("#intro-skip");
-        if (clonedIntro) clonedIntro.classList.remove("is-hidden", "is-leaving", "is-ready");
+        if (clonedIntro) clonedIntro.classList.remove("is-hidden", "is-leaving", "is-ready", "is-imaged");
         if (clonedIntroSkip) {
           clonedIntroSkip.textContent = "跳过";
           clonedIntroSkip.removeAttribute("aria-label");
@@ -3981,15 +5652,28 @@
         const clonedHeader = clone.querySelector(".site-header");
         const clonedBackToTop = clone.querySelector("#back-to-top");
         const clonedSectionStatus = clone.querySelector("#section-status");
+        const clonedScrollProgress = clone.querySelector("#scroll-progress");
+        const clonedMenuToggle = clone.querySelector("#menu-toggle");
+        const clonedMobileNav = clone.querySelector("#mobile-nav");
         if (clonedHeader) clonedHeader.classList.remove("is-scrolled");
         if (clonedBackToTop) clonedBackToTop.classList.remove("is-visible");
+        if (clonedScrollProgress) clonedScrollProgress.style.removeProperty("--page-progress");
+        if (clonedMenuToggle) {
+          clonedMenuToggle.setAttribute("aria-expanded", "false");
+          clonedMenuToggle.setAttribute("aria-label", "打开导航");
+        }
+        if (clonedMobileNav) {
+          clonedMobileNav.setAttribute("aria-hidden", "true");
+          clonedMobileNav.setAttribute("inert", "");
+        }
         if (clonedSectionStatus) clonedSectionStatus.textContent = "首页";
         clone.querySelectorAll("[data-section-link]").forEach((link) => {
           link.classList.remove("is-active");
           link.removeAttribute("aria-current");
         });
         clone.querySelectorAll("[data-reveal]").forEach((item) => {
-          item.classList.remove("is-visible");
+          item.classList.remove("is-visible", "reveal-pending");
+          item.removeAttribute("data-reveal-kind");
         });
         clone.querySelectorAll("[data-motion]").forEach((item) => {
           item.removeAttribute("data-motion");
@@ -4001,9 +5685,175 @@
           item.style.removeProperty("--pointer-x");
           item.style.removeProperty("--pointer-y");
         });
+        clone.querySelectorAll("[data-photo]").forEach((item) => {
+          item.style.removeProperty("--media-x");
+          item.style.removeProperty("--media-y");
+        });
+        clone.querySelectorAll(".header-cta, .back-to-top, .gallery-page__back").forEach((item) => {
+          item.style.removeProperty("--magnet-x");
+          item.style.removeProperty("--magnet-y");
+        });
+        const clonedHero = clone.querySelector("#top");
+        if (clonedHero) {
+          clonedHero.style.removeProperty("--hero-x");
+          clonedHero.style.removeProperty("--hero-y");
+          [
+            "--len-hero-image-x", "--len-hero-image-y", "--len-hero-image-scale",
+            "--len-hero-bg-x", "--len-hero-bg-y", "--len-hero-mid-x", "--len-hero-mid-y",
+            "--len-hero-copy-x", "--len-hero-copy-y"
+          ].forEach((name) => clonedHero.style.removeProperty(name));
+        }
+        clone.querySelectorAll(".wave-letter").forEach((item) => {
+          item.style.removeProperty("--wave-y");
+          item.style.removeProperty("--wave-r");
+          item.style.removeProperty("--wave-sy");
+        });
+        clone.querySelectorAll(".hero__statement").forEach((item) => {
+          item.classList.remove("is-energized", "is-touch-lift");
+          item.style.removeProperty("--statement-x");
+          item.style.removeProperty("--statement-y");
+        });
+        clone.querySelectorAll(".about-rise-managed").forEach((item) => {
+          item.classList.remove("about-rise-managed", "is-about-risen");
+        });
+        clone.querySelectorAll("[data-portrait-card]").forEach((item) => {
+          item.classList.remove("is-portrait-active", "is-len-portrait-interacting");
+          [
+            "--portrait-x", "--portrait-y",
+            "--portrait-tilt-x", "--portrait-tilt-y", "--portrait-tilt-z",
+            "--portrait-shift-x", "--portrait-shift-y"
+          ].forEach((name) => item.style.removeProperty(name));
+        });
+        clone.querySelectorAll("#about").forEach((item) => {
+          item.classList.remove(
+            "about-story-armed", "about-story-complete", "is-about-story-awaiting",
+            "is-about-liquid-reveal", "is-about-quick-reveal", "is-about-up-reveal",
+            "is-about-letter-unfolding", "is-about-letter-open"
+          );
+        });
+        const clonedEnvelope = clone.querySelector("#about-envelope-experience");
+        const clonedEnvelopeButton = clone.querySelector("#about-envelope-open");
+        if (clonedEnvelope) {
+          clonedEnvelope.className = "about-envelope-experience";
+          clonedEnvelope.hidden = true;
+          clonedEnvelope.setAttribute("aria-hidden", "true");
+        }
+        if (clonedEnvelopeButton) clonedEnvelopeButton.setAttribute("disabled", "");
+        clone.querySelectorAll(".len-ambient-section").forEach((item) => {
+          item.classList.remove("len-ambient-active");
+        });
         clone.querySelectorAll(".section-in-view").forEach((item) => {
           item.classList.remove("section-in-view");
         });
+        clone.querySelectorAll(".section-spatial-field").forEach((item) => item.remove());
+        clone.querySelectorAll("[data-spatial-item]").forEach((item) => {
+          item.removeAttribute("data-spatial-item");
+          item.removeAttribute("data-spatial-order");
+          [
+            "--spatial-x", "--spatial-y", "--spatial-z",
+            "--spatial-rx", "--spatial-ry", "--spatial-rz",
+            "--spatial-scale", "--spatial-opacity", "--spatial-blur",
+            "--spatial-clip", "--spatial-origin", "--spatial-hover-y"
+          ].forEach((name) => item.style.removeProperty(name));
+        });
+        clone.querySelectorAll(".spatial-section").forEach((item) => item.classList.remove("spatial-section"));
+        clone.querySelectorAll(".spatial-section-v3").forEach((item) => item.classList.remove("spatial-section-v3"));
+        clone.querySelectorAll("[data-spatial-stage]").forEach((item) => {
+          item.removeAttribute("data-spatial-stage");
+          item.classList.remove("is-spatial-visible", "is-spatial-moving");
+          item.style.removeProperty("--stage-delay");
+          item.style.removeProperty("--stage-depth");
+        });
+        clone.removeAttribute("data-spatial-motion");
+
+        clone.querySelectorAll(".works-exhibit .work-card").forEach((item) => {
+          item.removeAttribute("data-exhibit-active");
+          item.removeAttribute("data-ring-end");
+          item.removeAttribute("data-depth-current");
+          item.removeAttribute("data-depth-outgoing");
+          item.removeAttribute("data-depth-incoming");
+          item.removeAttribute("data-depth-state");
+          item.removeAttribute("aria-hidden");
+          item.classList.remove("is-touch-lift");
+          [
+            "--exhibit-x", "--exhibit-y", "--exhibit-z", "--exhibit-rx", "--exhibit-ry",
+            "--exhibit-rz", "--exhibit-scale", "--exhibit-opacity", "--exhibit-blur",
+            "--exhibit-caption", "--ring-x", "--ring-y", "--ring-z", "--ring-scale",
+            "--ring-opacity", "--ring-blur", "--ring-ry", "--ring-rz", "--ring-depth", "--ring-saturate",
+            "--ring-rx", "--ring-veil",
+            "--depth-x", "--depth-y", "--depth-scale", "--depth-opacity",
+            "--depth-blur", "--depth-light", "--page-rotate-y", "--page-rotate-z",
+            "z-index", "pointer-events"
+          ].forEach((name) => item.style.removeProperty(name));
+        });
+        clone.querySelectorAll(".works-exhibit [data-image-slot]").forEach((item) => {
+          item.removeAttribute("aria-current");
+          const image = item.querySelector("[data-photo]");
+          if (image && !image.hidden && image.getAttribute("src")) item.setAttribute("tabindex", "0");
+          else item.removeAttribute("tabindex");
+        });
+        const clonedExhibitScene = clone.querySelector(".works-exhibit__scene");
+        if (clonedExhibitScene) {
+          [
+            "--exhibit-orb-x", "--exhibit-orb-y", "--exhibit-orb-scale",
+            "--exhibit-shadow-x", "--exhibit-shadow-y", "--exhibit-shadow-scale",
+            "--exhibit-shadow-opacity", "--exhibit-shadow-rotation",
+            "--exhibit-light-x", "--exhibit-light-y", "--exhibit-light-opacity",
+            "--exhibit-light-scale", "--exhibit-light-rotation",
+            "--exhibit-poly-x", "--exhibit-poly-y", "--exhibit-poly-z",
+            "--exhibit-poly-scale", "--exhibit-poly-opacity", "--exhibit-poly-blur",
+            "--exhibit-poly-rx", "--exhibit-poly-ry", "--exhibit-poly-rz",
+            "--ring-scene-pulse", "--tunnel-offset",
+            "--depth-phase",
+            "--v6-ball-x", "--v6-ball-y", "--v6-ball-z", "--v6-ball-scale",
+            "--v6-ball-opacity", "--v6-ball-blur", "--v6-ball-spin",
+            "--v6-ball-shadow-y", "--v6-ball-shadow-opacity", "--v6-ball-shadow-scale"
+          ].forEach((name) => {
+            clonedExhibitScene.style.removeProperty(name);
+          });
+        }
+        const clonedExhibitHud = clone.querySelector(".works-exhibit__hud");
+        if (clonedExhibitHud) {
+          clonedExhibitHud.classList.remove("is-story-changing", "is-copy-lifted", "is-touch-lift");
+          clonedExhibitHud.removeAttribute("data-exhibit-active");
+          clonedExhibitHud.removeAttribute("data-scroll-state");
+        }
+        const clonedExhibitSticky = clone.querySelector(".works-exhibit__sticky");
+        if (clonedExhibitSticky) {
+          clonedExhibitSticky.classList.remove(
+            "is-page-turning", "is-awaiting-second", "is-stage-focused",
+            "is-copy-hidden", "is-switching", "is-releasing", "is-initializing"
+          );
+          clonedExhibitSticky.style.removeProperty("--works-progress");
+          clonedExhibitSticky.style.removeProperty("--depth-position");
+          clonedExhibitSticky.style.removeProperty("--depth-phase");
+          clonedExhibitSticky.removeAttribute("aria-busy");
+        }
+        const clonedIndicatorTrack = clone.querySelector(".works-depth-indicator__track");
+        clonedIndicatorTrack?.style.removeProperty("--indicator-progress");
+        clone.querySelector("#works-depth-indicator-ball")?.style.removeProperty("--indicator-x");
+        const clonedScrollHint = clone.querySelector("#works-scroll-hint");
+        if (clonedScrollHint) clonedScrollHint.textContent = "轻滚一次 · 先聚焦当前作品";
+        clone.querySelector(".works-loop-controls")?.style.removeProperty("--works-progress");
+        const clonedMobiusCanvas = clone.querySelector("#works-mobius-canvas");
+        if (clonedMobiusCanvas) {
+          clonedMobiusCanvas.removeAttribute("width");
+          clonedMobiusCanvas.removeAttribute("height");
+          clonedMobiusCanvas.removeAttribute("style");
+        }
+
+        const clonedPlanSection = clone.querySelector("#service-intro");
+        clonedPlanSection?.classList.remove("is-fireflies-active");
+        const clonedFireflyCanvas = clone.querySelector("#plan-fireflies");
+        if (clonedFireflyCanvas) {
+          clonedFireflyCanvas.removeAttribute("width");
+          clonedFireflyCanvas.removeAttribute("height");
+        }
+
+        const clonedServiceMotion = clone.querySelector("#service-motion");
+        if (clonedServiceMotion) clonedServiceMotion.classList.remove("is-awake", "is-resetting");
+        clone.querySelector("#service-motion-plants")?.replaceChildren();
+        clone.querySelector("#service-motion-particles")?.replaceChildren();
 
         const clonedContact = clone.querySelector("#contact");
         if (clonedContact) {
@@ -4059,7 +5909,7 @@
           clonedInput.setAttribute("multiple", "");
         }
 
-        return "<!doctype html>\n" + clone.outerHTML;
+        return "<!DOCTYPE html>\n" + clone.outerHTML;
       };
 
       exportButton.addEventListener("click", () => {
@@ -4079,6 +5929,92 @@
       });
     })();
   </script>
+
+  <script src="assets/spatial-motion.js"></script>
+  <script src="assets/works-exhibit.js"></script>
+  <script src="assets/refined-v3.js"></script>
+  <script src="assets/hero-interaction.js"></script>
+  <script src="assets/about-envelope.js"></script>
+  <script src="assets/ambient-motion.js"></script>
+
+  <script id="len-v12-plan-text-float">
+    (() => {
+      "use strict";
+      const section = document.getElementById("service-intro");
+      if (!section || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      const selector = [
+        "[data-edit]",
+        ".service-plan__top span",
+        ".service-plan__price",
+        ".service-plan li",
+        ".service-extra p",
+        ".service-rules p",
+        ".makeup-showcase figcaption"
+      ].join(",");
+      const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+      let active = null;
+      let tapTimer = 0;
+
+      const reset = (target) => {
+        if (!target) return;
+        target.classList.remove("plan-float-target", "is-plan-float-tap");
+        target.style.removeProperty("--plan-float-x");
+        target.style.removeProperty("--plan-float-y");
+        target.style.removeProperty("--plan-float-r");
+      };
+
+      const activate = (target, clientX, clientY, tap = false) => {
+        if (!target || !section.contains(target)) return;
+        if (active && active !== target) reset(active);
+        active = target;
+        const rect = target.getBoundingClientRect();
+        const nx = Math.max(-1, Math.min(1, ((clientX - rect.left) / Math.max(1, rect.width) - .5) * 2));
+        const ny = Math.max(-1, Math.min(1, ((clientY - rect.top) / Math.max(1, rect.height) - .5) * 2));
+        target.style.setProperty("--plan-float-x", `${(nx * 3.2).toFixed(2)}px`);
+        target.style.setProperty("--plan-float-y", `${(ny * 1.6).toFixed(2)}px`);
+        target.style.setProperty("--plan-float-r", `${(nx * .22).toFixed(2)}deg`);
+        target.classList.add("plan-float-target");
+        target.classList.toggle("is-plan-float-tap", tap);
+      };
+
+      if (finePointer) {
+        section.addEventListener("pointermove", (event) => {
+          const target = event.target.closest?.(selector);
+          if (!target) {
+            reset(active);
+            active = null;
+            return;
+          }
+          activate(target, event.clientX, event.clientY, false);
+        }, { passive: true });
+        section.addEventListener("pointerleave", () => {
+          reset(active);
+          active = null;
+        }, { passive: true });
+      }
+
+      section.addEventListener("pointerdown", (event) => {
+        const target = event.target.closest?.(selector);
+        if (!target) return;
+        window.clearTimeout(tapTimer);
+        activate(target, event.clientX, event.clientY, true);
+        tapTimer = window.setTimeout(() => {
+          reset(target);
+          if (active === target) active = null;
+        }, 520);
+      }, { passive: true });
+
+      window.addEventListener("pagehide", () => {
+        window.clearTimeout(tapTimer);
+        reset(active);
+        active = null;
+      }, { once: true });
+    })();
+  </script>
+  <script src="assets/plan-fireflies.js"></script>
+  <script src="assets/warm-editorial-v10.js"></script>
+  <script src="assets/v13-interactions.js"></script>
 
 
 
