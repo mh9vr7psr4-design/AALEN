@@ -1,0 +1,269 @@
+/* LEN v54 — mobile fluid curves, safe sizing and portrait clarity. */
+
+@media (max-width: 900px) {
+  :root {
+    --v54-gutter: clamp(18px, 5.5vw, 28px);
+    --v54-work-width: min(86vw, 520px);
+    --v54-curve: #9c7254;
+    --v54-curve-soft: rgba(156, 114, 84, .36);
+    --v54-ease: cubic-bezier(.16, 1, .3, 1);
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: clip;
+  }
+
+  body {
+    min-height: 100svh;
+    min-height: 100dvh;
+  }
+
+  main,
+  main > section,
+  .section,
+  .site-footer,
+  .site-header,
+  .mobile-nav,
+  .about__visual,
+  .about__copy,
+  .contact__lead,
+  .contact-grid,
+  .contact-copy-picker,
+  #service-intro .service-intro__header,
+  #service-intro .service-plan,
+  #service-intro .service-basics,
+  #service-intro .service-disclosures {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    max-inline-size: 100%;
+  }
+
+  .section {
+    padding-inline: var(--v54-gutter) !important;
+  }
+
+  /* The horizontal gallery uses mathematically equal side insets, so each work locks to center. */
+  #works .works-grid {
+    --v54-work-inset: calc((100% - var(--v54-work-width)) / 2);
+    padding-inline: var(--v54-work-inset) !important;
+    scroll-padding-inline: var(--v54-work-inset) !important;
+    justify-content: flex-start !important;
+  }
+
+  #works .work-card,
+  #works .work-card[data-depth-state],
+  #works .work-card[data-depth-current] {
+    flex: 0 0 var(--v54-work-width) !important;
+    width: var(--v54-work-width) !important;
+    margin-inline: 0 !important;
+    scroll-snap-align: center !important;
+  }
+
+  /* A portrait-specific source and true 3:4 frame avoid enlarging the old wide, compressed asset. */
+  #about .about__visual {
+    width: min(100%, 460px) !important;
+    margin-inline: auto !important;
+  }
+
+  #about .about__portrait {
+    width: 100% !important;
+    max-height: min(72svh, 660px) !important;
+    aspect-ratio: 3 / 4 !important;
+    background: #d6d0ca !important;
+    box-shadow: 0 24px 54px rgba(38, 30, 24, .15) !important;
+  }
+
+  #about .about__portrait > img[data-about-photo] {
+    position: absolute !important;
+    inset: 0 !important;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: cover !important;
+    object-position: 50% 50% !important;
+    filter: none !important;
+    transform: none !important;
+  }
+
+  #about .about__portrait-mono {
+    display: none !important;
+  }
+
+  /* Contact copy remains editorial while fitting 320px through large phones. */
+  #contact .contact__lead {
+    width: 100% !important;
+  }
+
+  #contact .contact-title {
+    display: block !important;
+    width: 100% !important;
+    max-width: 11.5em !important;
+    margin-inline: 0 !important;
+    color: var(--v53-ink, #24211f) !important;
+    font-size: clamp(29px, 8.9vw, 47px) !important;
+    line-height: 1.12 !important;
+    letter-spacing: -.055em !important;
+    overflow-wrap: anywhere;
+    text-wrap: balance;
+    transform: none !important;
+  }
+
+  #contact .contact-title__line {
+    display: block !important;
+    max-width: 100%;
+  }
+
+  #contact .contact-title__line--accent {
+    padding-left: 0 !important;
+  }
+
+  #contact .contact-title__accent {
+    white-space: normal !important;
+  }
+
+  #contact .contact__lead > p:last-child {
+    max-width: 34em !important;
+    font-size: clamp(14px, 3.85vw, 18px) !important;
+    line-height: 1.76 !important;
+  }
+
+  /* Replace the heavy brown ink wash with one GPU-cheap, touch-triggered Bézier stroke. */
+  #service-intro .ink-ripple,
+  #service-intro .plan-render-field {
+    display: none !important;
+  }
+
+  #service-intro .plan-float-target,
+  #service-intro .plan-float-target.is-plan-float-tap {
+    transform: none !important;
+    text-shadow: none !important;
+  }
+
+  #service-intro .service-intro__header,
+  #service-intro .service-journey article,
+  #service-intro .service-plan,
+  #service-intro .service-extra,
+  #service-intro .service-rules,
+  #service-intro .makeup-showcase,
+  #service-intro .service-basics,
+  #service-intro .service-disclosures {
+    position: relative !important;
+    isolation: isolate;
+    overflow: hidden !important;
+  }
+
+  #service-intro .service-plan,
+  #service-intro .service-plan.is-v19-gold {
+    transition:
+      border-color .58s var(--v54-ease),
+      background .58s var(--v54-ease),
+      box-shadow .58s var(--v54-ease) !important;
+  }
+
+  #service-intro .service-plan.is-v19-gold {
+    border-color: rgba(137, 96, 67, .27) !important;
+    background:
+      radial-gradient(ellipse at 83% 14%, rgba(150, 102, 73, .10), transparent 35%),
+      linear-gradient(135deg, rgba(255,255,255,.88), rgba(238,224,212,.80)) !important;
+    box-shadow: 0 22px 48px rgba(75, 55, 41, .12) !important;
+  }
+
+  #service-intro .v54-plan-curve {
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 1 !important;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    overflow: visible;
+    pointer-events: none !important;
+  }
+
+  #service-intro .v54-plan-curve path {
+    fill: none;
+    stroke: var(--v54-curve);
+    stroke-width: .82;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    opacity: 0;
+    vector-effect: non-scaling-stroke;
+  }
+
+  #service-intro .v54-plan-curve path + path {
+    stroke: var(--v54-curve-soft);
+    stroke-width: .34;
+  }
+
+  #service-intro .v54-plan-curve circle {
+    fill: #9c7254;
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  #service-intro .v54-plan-curve.is-playing path {
+    animation: v54-curve-trace 1120ms var(--v54-ease) both;
+  }
+
+  #service-intro .v54-plan-curve.is-playing path + path {
+    animation-delay: 66ms;
+  }
+
+  #service-intro .v54-plan-curve.is-playing circle {
+    animation: v54-curve-origin 760ms var(--v54-ease) both;
+  }
+
+  @keyframes v54-curve-trace {
+    0% { stroke-dashoffset: 1; opacity: 0; }
+    12% { opacity: .76; }
+    64% { stroke-dashoffset: .04; opacity: .42; }
+    100% { stroke-dashoffset: -.12; opacity: 0; }
+  }
+
+  @keyframes v54-curve-origin {
+    0% { opacity: 0; transform: scale(.55); }
+    18% { opacity: .62; transform: scale(1); }
+    100% { opacity: 0; transform: scale(1.85); }
+  }
+}
+
+@media (max-width: 380px) {
+  :root { --v54-work-width: 88vw; }
+
+  #contact .contact-title {
+    max-width: 10.7em !important;
+    font-size: clamp(28px, 8.75vw, 34px) !important;
+  }
+
+  #service-intro .service-plan__facts {
+    gap: 5px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #service-intro .v54-plan-curve,
+  #service-intro .v54-plan-curve * {
+    animation-duration: 1ms !important;
+  }
+}
