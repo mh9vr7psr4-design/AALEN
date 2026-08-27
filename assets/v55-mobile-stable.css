@@ -1,0 +1,345 @@
+/* LEN v55 — mobile stability, exact centering and AE-eased brown rendering. */
+
+@media (max-width: 900px) {
+  :root {
+    --v55-work-width: min(86vw, 520px);
+    --v55-work-gap: clamp(14px, 4vw, 20px);
+    --v55-ae-ease: cubic-bezier(.16, 1, .3, 1);
+  }
+
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  /* Reserving approximate off-screen heights caused visible jumps on mobile WebKit. */
+  .section:not(#works) {
+    content-visibility: visible !important;
+    contain: none !important;
+  }
+
+  .len-motes,
+  .hero__object-layer,
+  .intro__orbit,
+  #works .works-exhibit__scene,
+  #works .works-step-rail,
+  #works .works-touch-aura,
+  #works .gesture-light-pulse {
+    display: none !important;
+  }
+
+  [data-ambient-float],
+  .len-ambient-active .manifesto__inner {
+    animation: none !important;
+    transform: none !important;
+    will-change: auto !important;
+  }
+
+  .hero::after,
+  .intro__progress-track::after,
+  .opening-ink__progress-track::after {
+    animation: none !important;
+  }
+
+  /* Works: native horizontal rail only. No legacy depth opacity or transform writes. */
+  #works.works {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 0 !important;
+    padding-inline: 0 !important;
+    overflow: clip !important;
+  }
+
+  #works .works-exhibit__intro {
+    padding-inline: var(--v54-gutter, clamp(18px, 5.5vw, 28px)) !important;
+  }
+
+  #works .works-exhibit__scroll,
+  #works .works-exhibit__sticky {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    perspective: none !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  #works .works-exhibit__sticky::before,
+  #works .works-exhibit__sticky::after {
+    display: none !important;
+  }
+
+  #works .works-exhibit__hud,
+  #works .works-exhibit__sticky.is-copy-hidden .works-exhibit__hud,
+  #works .works-exhibit__sticky.is-stage-focused .works-exhibit__hud {
+    position: relative !important;
+    inset: auto !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    filter: none !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  #works .works-grid {
+    --v55-work-inset: calc((100% - var(--v55-work-width)) / 2);
+    position: relative !important;
+    inset: auto !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: var(--v55-work-gap) !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 4px var(--v55-work-inset) 22px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-padding-inline: var(--v55-work-inset) !important;
+    scroll-snap-type: x mandatory !important;
+    scroll-behavior: auto !important;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x pan-y !important;
+    perspective: none !important;
+    transform: none !important;
+    filter: none !important;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #works .works-grid::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  #works .work-card,
+  #works .work-card:nth-child(n),
+  #works .work-card[data-depth-state],
+  #works .work-card[data-depth-current],
+  #works .work-card[data-depth-outgoing],
+  #works .work-card[data-depth-incoming],
+  html.spatial-v3 #works .work-card:nth-child(n)[data-spatial-stage] {
+    --v45-swipe-drift: 0px !important;
+    position: relative !important;
+    inset: auto !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    z-index: 1 !important;
+    flex: 0 0 var(--v55-work-width) !important;
+    display: grid !important;
+    width: var(--v55-work-width) !important;
+    max-width: 520px !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    filter: none !important;
+    clip-path: none !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+    pointer-events: auto !important;
+    scroll-snap-align: center !important;
+    scroll-snap-stop: normal !important;
+    will-change: auto !important;
+  }
+
+  #works .work-card::before,
+  #works .work-card::after {
+    display: none !important;
+  }
+
+  #works .work-card .media,
+  #works .work-card[data-exhibit-active] .media,
+  #works .work-card[data-depth-current] .media {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: min(64svh, 610px) !important;
+    overflow: hidden !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+    contain: paint;
+    isolation: isolate;
+  }
+
+  #works .work-card .media img,
+  #works .work-card[data-exhibit-active] .media img,
+  #works .work-card[data-depth-current] .media img,
+  #works .work-card.v53-tap .media img,
+  #works .work-card:focus-within .media img {
+    width: 100% !important;
+    height: 100% !important;
+    opacity: 1 !important;
+    object-fit: cover !important;
+    filter: none !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  #works .work-card figcaption,
+  #works .works-exhibit__sticky.is-copy-hidden .work-card figcaption,
+  #works .works-exhibit__sticky.is-switching .work-card figcaption {
+    max-height: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    filter: none !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  #works .works-v18-float,
+  #works .works-v18-float.plan-float-target,
+  #works .works-v18-float.plan-float-target.is-plan-float-tap {
+    transform: none !important;
+    text-shadow: none !important;
+  }
+
+  #works .works-loop-controls,
+  #works .works-exhibit__sticky.is-copy-hidden .works-loop-controls {
+    opacity: 1 !important;
+    visibility: visible !important;
+    filter: none !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  /* Photographer: mobile and desktop now point to the clean portrait asset only. */
+  #about-envelope-experience,
+  .about-letter-preview,
+  .about-letter-bridge,
+  #about .about-letter-folds,
+  #about .about-letter-trigger {
+    display: none !important;
+  }
+
+  #about .about__visual {
+    width: min(100%, 450px) !important;
+    margin-inline: auto !important;
+  }
+
+  #about .about__portrait {
+    width: 100% !important;
+    max-height: min(68svh, 620px) !important;
+    aspect-ratio: 4 / 5 !important;
+    overflow: hidden !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  #about .about__portrait::before,
+  #about .about__portrait::after,
+  #about .about__portrait-mono {
+    display: none !important;
+  }
+
+  #about .about__portrait > img[data-about-photo] {
+    position: absolute !important;
+    inset: 0 !important;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: 50% 26% !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* The curve is the speed graph: keep brown rendering, remove visible line art. */
+  #service-intro .v54-plan-curve {
+    display: none !important;
+  }
+
+  #service-intro .ink-ripple.ink-ripple--brown {
+    position: absolute !important;
+    top: var(--ink-y, 50%) !important;
+    left: var(--ink-x, 50%) !important;
+    z-index: 1 !important;
+    display: block !important;
+    width: min(var(--ink-size, 820px), 148vw) !important;
+    height: auto !important;
+    aspect-ratio: 4.8 / 1 !important;
+    border-radius: 0 !important;
+    opacity: 0;
+    background:
+      radial-gradient(ellipse at 24% 50%, rgba(104, 69, 52, .28) 0 17%, rgba(112, 73, 54, .16) 38%, transparent 70%),
+      radial-gradient(ellipse at 57% 44%, rgba(122, 80, 58, .34) 0 18%, rgba(98, 65, 49, .18) 42%, transparent 74%),
+      linear-gradient(92deg, transparent 2%, rgba(112, 73, 54, .12) 18%, rgba(96, 62, 47, .25) 48%, rgba(123, 82, 60, .12) 81%, transparent 98%) !important;
+    -webkit-clip-path: polygon(0 44%, 7% 30%, 16% 36%, 25% 16%, 37% 27%, 49% 11%, 61% 25%, 73% 15%, 84% 32%, 94% 25%, 100% 48%, 95% 68%, 84% 63%, 72% 82%, 60% 70%, 48% 89%, 36% 73%, 23% 85%, 12% 67%, 3% 73%);
+    clip-path: polygon(0 44%, 7% 30%, 16% 36%, 25% 16%, 37% 27%, 49% 11%, 61% 25%, 73% 15%, 84% 32%, 94% 25%, 100% 48%, 95% 68%, 84% 63%, 72% 82%, 60% 70%, 48% 89%, 36% 73%, 23% 85%, 12% 67%, 3% 73%);
+    -webkit-mask: none !important;
+    mask: none !important;
+    filter: none !important;
+    mix-blend-mode: multiply;
+    transform-origin: var(--ink-origin, 50%) 50%;
+    transform: translate3d(-50%, -50%, 0) scaleX(.06) scaleY(.58);
+    animation: v55-brown-render 1260ms var(--v55-ae-ease) both !important;
+    will-change: transform, opacity;
+    pointer-events: none !important;
+    contain: paint;
+  }
+
+  #service-intro .ink-ripple.ink-ripple--brown::before,
+  #service-intro .ink-ripple.ink-ripple--brown::after {
+    display: none !important;
+    animation: none !important;
+  }
+
+  @keyframes v55-brown-render {
+    0% {
+      opacity: 0;
+      transform: translate3d(-50%, -50%, 0) scaleX(.06) scaleY(.58);
+    }
+    14% {
+      opacity: .44;
+      transform: translate3d(-50%, -50%, 0) scaleX(.72) scaleY(.88);
+    }
+    48% {
+      opacity: .34;
+      transform: translate3d(-50%, -50%, 0) scaleX(.98) scaleY(1);
+    }
+    76% {
+      opacity: .20;
+      transform: translate3d(-50%, -50%, 0) scaleX(1.045) scaleY(1.025);
+    }
+    100% {
+      opacity: 0;
+      transform: translate3d(-50%, -50%, 0) scaleX(1.08) scaleY(1.04);
+    }
+  }
+}
+
+@media (max-width: 380px) {
+  :root { --v55-work-width: 88vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #service-intro .ink-ripple.ink-ripple--brown {
+    animation-duration: 1ms !important;
+  }
+}

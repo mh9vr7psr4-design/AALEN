@@ -726,6 +726,7 @@
       const next = document.getElementById("works-loop-next");
       const sticky = section.querySelector(".works-exhibit__sticky");
       let activeIndex = 0;
+      let renderedIndex = -1;
       let frame = 0;
       const pad = (value) => String(value).padStart(2, "0");
       const nearestIndex = () => {
@@ -743,17 +744,17 @@
         return nearest;
       };
       const paintParallax = () => {
-        const viewportCenter = grid.scrollLeft + grid.clientWidth / 2;
         cards.forEach((card) => {
-          const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-          const delta = Math.max(-1, Math.min(1, (cardCenter - viewportCenter) / Math.max(1, grid.clientWidth)));
-          card.style.setProperty("--v45-swipe-drift", `${(delta * -9).toFixed(2)}px`);
+          card.style.removeProperty("--v45-swipe-drift");
         });
-        sticky?.style.setProperty("--v45-guide-shift", `${(grid.scrollLeft % Math.max(1, grid.clientWidth) / Math.max(1, grid.clientWidth) * 8 - 4).toFixed(2)}px`);
+        sticky?.style.removeProperty("--v45-guide-shift");
       };
       const render = (nextIndex = nearestIndex()) => {
         if (!cards.length) return;
-        activeIndex = Math.max(0, Math.min(cards.length - 1, nextIndex));
+        const resolvedIndex = Math.max(0, Math.min(cards.length - 1, nextIndex));
+        if (resolvedIndex === renderedIndex) return;
+        activeIndex = resolvedIndex;
+        renderedIndex = resolvedIndex;
         const card = cards[activeIndex];
         const title = card.dataset.exhibitTitle || card.querySelector("h3")?.textContent || "\u4F5C\u54C1\u7EC4\u56FE";
         const note = card.dataset.exhibitNote || "";
@@ -795,12 +796,16 @@
       next?.addEventListener("click", () => scrollToCard(activeIndex + 1));
       window.addEventListener("len:works-changed", () => {
         collectCards();
+        renderedIndex = -1;
         window.requestAnimationFrame(() => {
           paintParallax();
           render(Math.min(activeIndex, Math.max(0, cards.length - 1)));
         });
       });
-      window.addEventListener("resize", () => render(), { passive: true });
+      window.addEventListener("resize", () => {
+        renderedIndex = -1;
+        render();
+      }, { passive: true });
       paintParallax();
       render(0);
     };
