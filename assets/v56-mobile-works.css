@@ -1,0 +1,415 @@
+/* LEN v56 — compact mobile Works navigation, native swipe and description disclosure. */
+
+.works-description-toggle {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  :root {
+    --v56-works-ease: cubic-bezier(.16, 1, .3, 1);
+    --v56-works-gutter: var(--v54-gutter, clamp(18px, 5.5vw, 28px));
+  }
+
+  /* Remove the legacy full-screen stage geometry. Its pan-y value blocked x-axis gestures. */
+  #works .works-exhibit__scroll,
+  #works .works-exhibit__sticky {
+    box-sizing: border-box !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    touch-action: auto !important;
+    scroll-anchor: none;
+    overflow-anchor: none;
+  }
+
+  #works .works-exhibit__sticky {
+    padding-bottom: clamp(10px, 2.8vw, 18px) !important;
+  }
+
+  /* The active work title remains visible; its longer note starts collapsed. */
+  #works .works-exhibit__hud,
+  #works .works-exhibit__sticky.is-copy-hidden .works-exhibit__hud,
+  #works .works-exhibit__sticky.is-stage-focused .works-exhibit__hud {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    grid-template-rows: auto auto auto !important;
+    gap: 8px 16px !important;
+    width: auto !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 var(--v56-works-gutter) 10px !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    pointer-events: auto !important;
+  }
+
+  #works .works-exhibit__hud > span,
+  #works .works-exhibit__hud > em,
+  #works .works-depth-indicator {
+    display: none !important;
+  }
+
+  #works #works-exhibit-title {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    align-self: end;
+    min-width: 0;
+    font-size: clamp(27px, 8vw, 39px) !important;
+    line-height: 1.05 !important;
+  }
+
+  #works #works-exhibit-index {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    align-self: end;
+    padding-bottom: 3px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  #works.v56-description-ready .works-description-toggle {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 42px;
+    margin: 0;
+    padding: 10px 0 7px;
+    color: #4f443d;
+    border: 0;
+    border-top: 1px solid rgba(101, 75, 57, .17);
+    background: transparent;
+    font: 400 12px/1.4 Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+    letter-spacing: .12em;
+    text-align: left;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  #works .works-description-toggle i {
+    position: relative;
+    flex: 0 0 24px;
+    width: 24px;
+    height: 24px;
+    margin-left: 14px;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    background: transparent;
+    transition:
+      color 320ms ease,
+      background 320ms ease,
+      transform 560ms var(--v56-works-ease);
+  }
+
+  #works .works-description-toggle i::before,
+  #works .works-description-toggle i::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 1px;
+    background: currentColor;
+    transform: translate(-50%, -50%);
+  }
+
+  #works .works-description-toggle i::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+    transition: opacity 240ms ease;
+  }
+
+  #works.v56-description-open .works-description-toggle i {
+    color: #fff;
+    background: #493d35;
+    transform: rotate(180deg);
+  }
+
+  #works.v56-description-open .works-description-toggle i::after {
+    opacity: 0;
+  }
+
+  #works #works-exhibit-note {
+    grid-column: 1 / -1 !important;
+    grid-row: 3 !important;
+    display: block !important;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 36em !important;
+    max-height: none;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible;
+    opacity: 1;
+    transform: none;
+  }
+
+  #works.v56-description-ready #works-exhibit-note {
+    max-height: 0 !important;
+    overflow: hidden !important;
+    opacity: 0 !important;
+    transform: translate3d(0, -7px, 0) !important;
+    pointer-events: none;
+    transition:
+      max-height 780ms var(--v56-works-ease),
+      opacity 320ms ease,
+      margin-top 480ms ease,
+      transform 620ms var(--v56-works-ease) !important;
+  }
+
+  #works.v56-description-ready.v56-description-open #works-exhibit-note {
+    max-height: var(--v56-note-height, 220px) !important;
+    margin-top: 2px !important;
+    opacity: 1 !important;
+    transform: translate3d(0, 0, 0) !important;
+    pointer-events: auto;
+  }
+
+  /* Native rail: equal insets keep the active card centered at every mobile width. */
+  #works .works-grid {
+    --v56-work-inset: calc((100% - var(--v55-work-width)) / 2);
+    align-items: flex-start !important;
+    gap: var(--v55-work-gap) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 2px var(--v56-work-inset) 8px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    overscroll-behavior-x: contain !important;
+    scroll-padding-inline: var(--v56-work-inset) !important;
+    scroll-snap-type: x mandatory !important;
+    scroll-behavior: auto !important;
+    touch-action: pan-x pan-y !important;
+    scroll-anchor: none;
+    overflow-anchor: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #works .work-card,
+  #works .work-card:nth-child(n),
+  #works .work-card .media,
+  #works .work-card .media img {
+    touch-action: pan-x pan-y !important;
+  }
+
+  #works .work-card,
+  #works .work-card:nth-child(n) {
+    align-content: start !important;
+    scroll-snap-align: center !important;
+    scroll-snap-stop: always !important;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  html.editing #works .work-card,
+  html.editing #works .work-card:nth-child(n) {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+
+  #works .work-card figcaption,
+  #works .works-exhibit__sticky.is-copy-hidden .work-card figcaption,
+  #works .works-exhibit__sticky.is-switching .work-card figcaption {
+    box-sizing: border-box !important;
+    min-height: 48px !important;
+    padding: 10px 1px 0 !important;
+  }
+
+  /* Replace the inherited desktop vertical rail with one compact horizontal control. */
+  #works .works-loop-controls,
+  #works .works-exhibit__sticky.is-copy-hidden .works-loop-controls {
+    position: relative !important;
+    inset: auto !important;
+    z-index: 5 !important;
+    display: grid !important;
+    grid-template-columns: 44px minmax(70px, 1fr) 44px !important;
+    grid-auto-flow: column !important;
+    align-items: center !important;
+    gap: 4px !important;
+    box-sizing: border-box !important;
+    width: var(--v55-work-width) !important;
+    min-width: 0 !important;
+    max-width: 520px !important;
+    min-height: 52px !important;
+    height: 52px !important;
+    margin: 0 auto !important;
+    padding: 4px !important;
+    color: #3d3733 !important;
+    border: 1px solid rgba(101, 75, 57, .18) !important;
+    border-radius: 17px !important;
+    background: rgba(250, 247, 242, .96) !important;
+    box-shadow: 0 10px 24px rgba(60, 43, 33, .08) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    filter: none !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    contain: layout paint;
+  }
+
+  #works .works-loop-controls::before {
+    content: none !important;
+    display: none !important;
+  }
+
+  #works .works-loop-controls button,
+  #works .works-loop-controls span {
+    position: static !important;
+    inset: auto !important;
+    display: grid !important;
+    place-items: center !important;
+    box-sizing: border-box !important;
+    width: auto !important;
+    min-width: 0 !important;
+    min-height: 42px !important;
+    height: 42px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 13px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+
+  #works .works-loop-controls button {
+    overflow: hidden;
+    color: #39332f !important;
+    font-size: 0 !important;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: color 260ms ease, background 260ms ease, opacity 260ms ease !important;
+  }
+
+  #works #works-loop-prev::after,
+  #works #works-loop-next::after {
+    font: 400 18px/1 Arial, sans-serif;
+  }
+
+  #works #works-loop-prev::after {
+    content: "\2190";
+  }
+
+  #works #works-loop-next::after {
+    content: "\2192";
+  }
+
+  #works .works-loop-controls button:not(:disabled):active {
+    color: #fff !important;
+    background: #403832 !important;
+    transform: none !important;
+  }
+
+  #works .works-loop-controls button:disabled {
+    opacity: .28 !important;
+  }
+
+  #works .works-loop-controls span {
+    color: #5e554f !important;
+    font: 500 9px/1 Arial, sans-serif !important;
+    letter-spacing: .18em !important;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  html.editing #works .works-description-toggle {
+    display: none !important;
+  }
+
+  html.editing #works #works-exhibit-note {
+    max-height: none !important;
+    margin-top: 5px !important;
+    overflow: visible !important;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+  }
+
+  /* Mobile headings: natural Chinese phrases first, with a runtime orphan guard below. */
+  #booking .section-heading h2,
+  #booking .booking-step h3,
+  #service-intro .service-intro__header h2,
+  #service-intro .service-plan h3,
+  #service-intro .service-extra h3,
+  #service-intro .service-rules h3,
+  #service-intro .makeup-showcase h3,
+  #works .works-exhibit__intro h2,
+  #works #works-exhibit-title,
+  #about .about__copy h2 {
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+    line-break: strict;
+    text-wrap: pretty;
+    hyphens: none;
+  }
+
+  #booking .section-heading h2 {
+    max-width: 100% !important;
+    font-size: clamp(29px, 7vw, 40px) !important;
+  }
+
+  #service-intro .service-plan h3,
+  #service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) h3 {
+    font-size: clamp(26px, 7.4vw, 35px) !important;
+  }
+
+  @supports (word-break: auto-phrase) {
+    #booking .section-heading h2,
+    #booking .booking-step h3,
+    #service-intro .service-intro__header h2,
+    #service-intro .service-plan h3,
+    #service-intro .service-extra h3,
+    #service-intro .service-rules h3,
+    #service-intro .makeup-showcase h3,
+    #works .works-exhibit__intro h2,
+    #works #works-exhibit-title,
+    #about .about__copy h2 {
+      word-break: auto-phrase !important;
+    }
+  }
+
+  html.v56-mobile-works body main :is(
+    #booking .section-heading h2,
+    #booking .booking-step h3,
+    #service-intro .service-intro__header h2,
+    #service-intro .service-plan h3,
+    #service-intro .service-extra h3,
+    #service-intro .service-rules h3,
+    #service-intro .makeup-showcase h3,
+    #works .works-exhibit__intro h2,
+    #works #works-exhibit-title,
+    #about .about__copy h2
+  ).v56-orphan-guard {
+    font-size: var(--v56-orphan-font-size) !important;
+    letter-spacing: var(--v56-orphan-letter-spacing, inherit) !important;
+  }
+}
+
+@media (max-width: 390px) {
+  #works .works-exhibit__hud,
+  #works .works-exhibit__sticky.is-copy-hidden .works-exhibit__hud,
+  #works .works-exhibit__sticky.is-stage-focused .works-exhibit__hud {
+    margin-bottom: 8px !important;
+  }
+
+  #works .work-card figcaption,
+  #works .works-exhibit__sticky.is-copy-hidden .work-card figcaption,
+  #works .works-exhibit__sticky.is-switching .work-card figcaption {
+    min-height: 44px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #works #works-exhibit-note,
+  #works .works-description-toggle i,
+  #works .works-loop-controls button {
+    transition-duration: 1ms !important;
+  }
+}
