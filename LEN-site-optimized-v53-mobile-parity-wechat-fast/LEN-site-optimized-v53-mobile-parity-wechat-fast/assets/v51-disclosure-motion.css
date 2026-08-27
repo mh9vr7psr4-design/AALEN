@@ -1,0 +1,269 @@
+/* LEN v51 — visible opening progress and eased service disclosures. */
+
+:root {
+  --v51-disclosure-ease: cubic-bezier(.16, 1, .3, 1);
+  --v51-disclosure-ease-soft: cubic-bezier(.22, .82, .24, 1);
+}
+
+/* The opening-ink layer is the visible loader in this version; keep progress here. */
+.opening-ink__progress {
+  position: absolute;
+  right: 50%;
+  bottom: clamp(42px, 7.2vh, 82px);
+  z-index: 6;
+  display: grid;
+  gap: 12px;
+  width: min(420px, calc(100vw - 48px));
+  transform: translateX(50%);
+  color: #49382f;
+  pointer-events: none;
+}
+
+.opening-ink__progress-meta {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  color: rgba(74, 53, 43, .72);
+  font: 500 9px/1 Arial, Helvetica, sans-serif;
+  letter-spacing: .27em;
+}
+
+.opening-ink__progress-meta b {
+  min-width: 50px;
+  color: #352720;
+  font: 400 18px/.9 Georgia, "Times New Roman", serif;
+  letter-spacing: .015em;
+  text-align: right;
+}
+
+.opening-ink__progress-meta em {
+  font-style: normal;
+}
+
+.opening-ink__progress-track {
+  position: relative;
+  height: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(83, 56, 42, .15);
+  border-radius: 999px;
+  background: rgba(102, 70, 52, .12);
+  box-shadow: inset 0 1px 2px rgba(70, 47, 34, .08);
+}
+
+.opening-ink__progress-track i {
+  position: absolute;
+  inset: -1px;
+  display: block;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #704735 0%, #b48362 56%, #e0bd8d 100%);
+  box-shadow: 0 0 13px rgba(163, 111, 75, .62);
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
+}
+
+.opening-ink__progress-track::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 -28%;
+  width: 24%;
+  background: linear-gradient(90deg, transparent, rgba(255, 249, 239, .94), transparent);
+  opacity: .82;
+  transform: translateX(-150%);
+  animation: v51-opening-progress-sheen 1.3s linear infinite;
+}
+
+@keyframes v51-opening-progress-sheen {
+  to { transform: translateX(620%); }
+}
+
+/* Accordion: the whole row has a tangible open/close state, while JS eases height. */
+#service-intro.services-combined .service-disclosure {
+  position: relative;
+  isolation: isolate;
+  transition:
+    border-color .5s var(--v51-disclosure-ease-soft),
+    box-shadow .5s var(--v51-disclosure-ease-soft);
+}
+
+#service-intro.services-combined .service-disclosure[open] {
+  border-color: rgba(112, 71, 53, .32);
+  box-shadow: 0 18px 38px rgba(67, 49, 39, .055);
+}
+
+#service-intro.services-combined .service-disclosure.is-disclosure-animating {
+  overflow: hidden;
+  will-change: height;
+}
+
+#service-intro.services-combined .service-disclosure summary {
+  grid-template-columns: minmax(150px, .35fr) minmax(0, 1fr) 48px;
+  gap: clamp(18px, 2vw, 28px);
+  min-height: 98px;
+  padding-block: 20px;
+  transition:
+    background .56s var(--v51-disclosure-ease-soft),
+    color .44s ease;
+}
+
+#service-intro.services-combined .service-disclosure summary:hover,
+#service-intro.services-combined .service-disclosure summary:focus-visible,
+#service-intro.services-combined .service-disclosure[open] summary {
+  background: rgba(249, 245, 239, .76) !important;
+}
+
+#service-intro.services-combined .service-disclosure summary:focus-visible {
+  outline: none;
+}
+
+#service-intro.services-combined .service-disclosure summary strong {
+  display: inline-block;
+  transition: transform .62s var(--v51-disclosure-ease);
+}
+
+#service-intro.services-combined .service-disclosure[open]:not(.is-disclosure-closing) summary strong {
+  transform: translate3d(4px, 0, 0);
+}
+
+/* A larger circled plus reads as an invitation to expand without making the row loud. */
+#service-intro.services-combined .service-disclosure summary > i {
+  --v51-icon-rotation: 0deg;
+  --v51-icon-scale: 1;
+  position: relative;
+  z-index: 0;
+  display: grid !important;
+  place-items: center;
+  justify-self: end;
+  width: 42px;
+  height: 42px;
+  margin: 0;
+  border: 1px solid rgba(98, 68, 50, .34);
+  border-radius: 999px;
+  color: #43342c !important;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255, 255, 255, .88), transparent 44%),
+    rgba(250, 247, 242, .62);
+  box-shadow:
+    0 8px 18px rgba(70, 46, 34, .09),
+    inset 0 1px rgba(255, 255, 255, .8);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 30px !important;
+  font-style: normal;
+  font-weight: 300 !important;
+  line-height: 1 !important;
+  transform: rotate(var(--v51-icon-rotation)) scale(var(--v51-icon-scale)) !important;
+  transition:
+    transform .62s var(--v51-disclosure-ease),
+    color .42s ease,
+    border-color .42s ease,
+    box-shadow .5s var(--v51-disclosure-ease-soft),
+    background .5s var(--v51-disclosure-ease-soft);
+  will-change: transform;
+}
+
+#service-intro.services-combined .service-disclosure summary > i::before {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  z-index: -1;
+  border: 1px solid rgba(130, 86, 58, .2);
+  border-radius: inherit;
+  opacity: 0;
+  transform: scale(.84);
+  transition:
+    opacity .48s ease,
+    transform .56s var(--v51-disclosure-ease);
+}
+
+#service-intro.services-combined .service-disclosure summary:hover > i,
+#service-intro.services-combined .service-disclosure summary:focus-visible > i {
+  --v51-icon-scale: 1.055;
+  border-color: rgba(112, 71, 53, .52);
+  color: #704735 !important;
+  box-shadow:
+    0 12px 24px rgba(71, 47, 36, .13),
+    inset 0 1px rgba(255, 255, 255, .88);
+}
+
+#service-intro.services-combined .service-disclosure summary:hover > i::before,
+#service-intro.services-combined .service-disclosure summary:focus-visible > i::before,
+#service-intro.services-combined .service-disclosure[open]:not(.is-disclosure-closing) summary > i::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+#service-intro.services-combined .service-disclosure[open]:not(.is-disclosure-closing) summary > i {
+  --v51-icon-rotation: 45deg;
+  border-color: rgba(112, 71, 53, .58);
+  color: #704735 !important;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255, 255, 255, .95), transparent 44%),
+    rgba(238, 225, 212, .86);
+}
+
+#service-intro.services-combined .service-disclosure.is-disclosure-closing summary > i {
+  --v51-icon-rotation: 0deg;
+}
+
+#service-intro.services-combined .service-disclosure__panel {
+  animation: none !important;
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition:
+    opacity .32s ease,
+    transform .46s var(--v51-disclosure-ease);
+  will-change: opacity, transform;
+}
+
+#service-intro.services-combined .service-disclosure.is-disclosure-closing .service-disclosure__panel {
+  opacity: 0;
+  transform: translate3d(0, -10px, 0);
+}
+
+@media (max-width: 900px) {
+  .opening-ink__progress {
+    bottom: max(34px, calc(env(safe-area-inset-bottom) + 30px));
+    width: calc(100vw - 36px);
+  }
+
+  .opening-ink__progress-meta {
+    font-size: 8px;
+    letter-spacing: .22em;
+  }
+
+  .opening-ink__progress-meta b {
+    font-size: 16px;
+  }
+
+  #service-intro.services-combined .service-disclosure summary {
+    grid-template-columns: minmax(0, 1fr) 48px;
+    gap: 10px 16px;
+    min-height: 94px;
+  }
+
+  #service-intro.services-combined .service-disclosure summary span,
+  #service-intro.services-combined .service-disclosure summary strong {
+    grid-column: 1;
+  }
+
+  #service-intro.services-combined .service-disclosure summary > i {
+    grid-column: 2;
+    grid-row: 1 / 3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .opening-ink__progress-track::after {
+    animation: none;
+  }
+
+  #service-intro.services-combined .service-disclosure,
+  #service-intro.services-combined .service-disclosure summary,
+  #service-intro.services-combined .service-disclosure summary strong,
+  #service-intro.services-combined .service-disclosure summary > i,
+  #service-intro.services-combined .service-disclosure summary > i::before,
+  #service-intro.services-combined .service-disclosure__panel {
+    transition-duration: 1ms !important;
+  }
+}

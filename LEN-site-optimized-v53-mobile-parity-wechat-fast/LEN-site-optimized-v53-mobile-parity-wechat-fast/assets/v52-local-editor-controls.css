@@ -1,0 +1,193 @@
+/* LEN v52 — faster work-group editing and local autosave controls. */
+
+#gallery-manager .gallery-manager__panel {
+  overscroll-behavior: contain;
+}
+
+#gallery-manager .gallery-manager__group-nav {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  margin: -8px 0 22px;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, .12);
+  background: rgba(255, 255, 255, .045);
+}
+
+#gallery-manager .gallery-manager__group-nav[hidden] {
+  display: none;
+}
+
+#gallery-manager .gallery-manager__group-nav button {
+  min-height: 36px;
+  padding: 8px 10px;
+  color: rgba(255, 255, 255, .86) !important;
+  border-color: rgba(255, 255, 255, .16) !important;
+  background: rgba(255, 255, 255, .035) !important;
+  font-size: 9px;
+  letter-spacing: .04em;
+}
+
+#gallery-manager .gallery-manager__group-nav button:last-child {
+  color: #f1dfca !important;
+  border-color: rgba(220, 181, 143, .38) !important;
+  background: rgba(126, 84, 59, .18) !important;
+}
+
+#gallery-manager .gallery-manager__group-nav span {
+  min-width: 68px;
+  color: rgba(255, 255, 255, .55);
+  font: 500 9px/1 Arial, Helvetica, sans-serif;
+  letter-spacing: .13em;
+  text-align: center;
+  white-space: nowrap;
+}
+
+#gallery-manager .gallery-manager__group-nav button:hover:not(:disabled),
+#gallery-manager .gallery-manager__group-nav button:focus-visible:not(:disabled) {
+  color: #201914 !important;
+  border-color: #f4e8dc !important;
+  background: #f4e8dc !important;
+}
+
+.owner-tools__autosave {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 38px auto;
+  gap: 10px;
+  align-items: center;
+  min-height: 54px;
+  margin-top: 8px;
+  padding: 9px 11px;
+  border: 1px solid rgba(255, 255, 255, .16);
+  color: #f7f6f1;
+  background: rgba(255, 255, 255, .04);
+  cursor: pointer;
+  transition:
+    border-color .35s ease,
+    background .35s ease,
+    box-shadow .35s ease;
+}
+
+.owner-tools__autosave:hover {
+  border-color: rgba(232, 225, 207, .4);
+  background: rgba(255, 255, 255, .065);
+}
+
+.owner-tools__autosave > span {
+  display: grid;
+  gap: 4px;
+}
+
+.owner-tools__autosave strong {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .08em;
+}
+
+.owner-tools__autosave small {
+  color: rgba(255, 255, 255, .52);
+  font-size: 8px;
+  letter-spacing: .04em;
+}
+
+.owner-tools__autosave input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.owner-tools__autosave > i {
+  position: relative;
+  display: block;
+  width: 38px;
+  height: 22px;
+  border: 1px solid rgba(255, 255, 255, .28);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .11);
+  box-shadow: inset 0 1px rgba(255, 255, 255, .08);
+  transition:
+    background .35s ease,
+    border-color .35s ease,
+    box-shadow .35s ease;
+}
+
+.owner-tools__autosave > i::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .88);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .24);
+  transition: transform .42s cubic-bezier(.16, 1, .3, 1);
+}
+
+.owner-tools__autosave input:checked + i {
+  border-color: rgba(231, 198, 160, .86);
+  background: linear-gradient(90deg, #855841, #c4936a);
+  box-shadow:
+    0 6px 15px rgba(137, 84, 58, .22),
+    inset 0 1px rgba(255, 255, 255, .22);
+}
+
+.owner-tools__autosave input:checked + i::after {
+  transform: translateX(16px);
+}
+
+.owner-tools__autosave input:focus-visible + i {
+  outline: 2px solid #f1dfca;
+  outline-offset: 3px;
+}
+
+.owner-tools__autosave > b {
+  min-width: 34px;
+  color: rgba(255, 255, 255, .54);
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: .04em;
+  text-align: right;
+}
+
+.owner-tools__autosave input:checked ~ b {
+  color: #f0d8bd;
+}
+
+@media (max-width: 680px) {
+  #gallery-manager .gallery-manager__panel {
+    overflow-y: auto;
+  }
+
+  #gallery-manager .gallery-manager__group-nav {
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  #gallery-manager .gallery-manager__group-nav button {
+    min-height: 34px;
+    padding-inline: 7px;
+    font-size: 8px;
+  }
+
+  #gallery-manager .gallery-manager__group-nav span {
+    min-width: 54px;
+    font-size: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #gallery-manager .gallery-manager__group-nav button,
+  .owner-tools__autosave,
+  .owner-tools__autosave > i,
+  .owner-tools__autosave > i::after {
+    transition-duration: 1ms !important;
+  }
+}
