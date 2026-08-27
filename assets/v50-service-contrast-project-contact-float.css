@@ -1,0 +1,233 @@
+/* LEN v50 — fixed service contrast, three service tiers, quadratic contact text float. */
+
+#service-intro.services-combined {
+  --v50-ink: #342f2b;
+  --v50-ink-soft: #4d453f;
+  --v50-copy: #655c55;
+  --v50-muted: #645b55;
+  --v50-accent: #80583f;
+  --v50-line: rgba(84, 64, 51, .19);
+}
+
+/* Keep every text state readable on the light service surface. */
+#service-intro.services-combined [data-edit],
+#service-intro.services-combined [data-edit]:hover,
+#service-intro.services-combined [data-edit]:focus,
+#service-intro.services-combined .plan-float-target,
+#service-intro.services-combined .plan-float-target:hover,
+#service-intro.services-combined .plan-float-target:focus,
+#service-intro.services-combined .service-plan:is(:hover, :focus-within, .is-v19-gold) [data-edit],
+html.editing #service-intro.services-combined [data-edit],
+html.editing #service-intro.services-combined [data-edit]:hover,
+html.editing #service-intro.services-combined [data-edit]:focus {
+  color: var(--v50-copy) !important;
+  text-shadow: none !important;
+}
+
+#service-intro.services-combined .service-intro__header h2,
+#service-intro.services-combined .service-intro__header h2 [data-edit],
+#service-intro.services-combined .service-journey h3,
+#service-intro.services-combined .service-plan h3,
+#service-intro.services-combined .service-plan:is(:hover, :focus-within, .is-v19-gold) h3,
+#service-intro.services-combined .service-basics b,
+#service-intro.services-combined .service-disclosure summary strong,
+#service-intro.services-combined .service-disclosure[open] summary strong {
+  color: var(--v50-ink) !important;
+  text-shadow: none !important;
+}
+
+#service-intro.services-combined .eyebrow,
+#service-intro.services-combined .service-journey > article > span,
+#service-intro.services-combined .service-plan__top > span,
+#service-intro.services-combined .service-plan:is(:hover, :focus-within, .is-v19-gold) .service-plan__top > span,
+#service-intro.services-combined .service-note-list b,
+#service-intro.services-combined .service-disclosure summary > span,
+#service-intro.services-combined .service-disclosure[open] summary > span {
+  color: var(--v50-accent) !important;
+  text-shadow: none !important;
+}
+
+#service-intro.services-combined .service-intro__lead,
+#service-intro.services-combined .service-intro__aside,
+#service-intro.services-combined .service-journey p,
+#service-intro.services-combined .service-plan__summary,
+#service-intro.services-combined .service-plan:is(:hover, :focus-within, .is-v19-gold) .service-plan__summary,
+#service-intro.services-combined .service-plan li,
+#service-intro.services-combined .service-plan:is(:hover, :focus-within, .is-v19-gold) li,
+#service-intro.services-combined .service-makeup-note,
+#service-intro.services-combined .service-note-list span,
+#service-intro.services-combined .service-addon-grid span {
+  color: var(--v50-copy) !important;
+  text-shadow: none !important;
+}
+
+#service-intro.services-combined .service-plan__price small,
+#service-intro.services-combined .service-plan:is(:hover, :focus-within, .is-v19-gold) .service-plan__price small,
+#service-intro.services-combined .service-plan__facts small,
+#service-intro.services-combined .service-basics small {
+  color: var(--v50-muted) !important;
+  text-shadow: none !important;
+}
+
+#service-intro.services-combined .service-plan__price strong,
+#service-intro.services-combined .service-plan:is(:hover, :focus-within, .is-v19-gold) .service-plan__price strong,
+#service-intro.services-combined .service-plan__facts b,
+#service-intro.services-combined .service-addon-grid b,
+#service-intro.services-combined .plan-details-toggle,
+#service-intro.services-combined .plan-details-toggle:hover,
+#service-intro.services-combined .plan-details-toggle:focus-visible,
+#service-intro.services-combined .service-disclosure summary i {
+  color: var(--v50-ink-soft) !important;
+  text-shadow: none !important;
+}
+
+#service-intro.services-combined .service-plan,
+#service-intro.services-combined .service-plan:is(:hover, :focus-within, .is-v19-gold) {
+  color: var(--v50-ink) !important;
+  border-color: rgba(101, 75, 57, .18) !important;
+  background:
+    linear-gradient(112deg, transparent 0 72%, rgba(255, 255, 255, .32) 72.2% 80%, transparent 80.2%),
+    radial-gradient(ellipse at 92% 25%, rgba(132, 94, 66, .11), transparent 28%),
+    linear-gradient(104deg, rgba(250, 247, 242, .91), rgba(231, 217, 204, .66)) !important;
+  box-shadow:
+    0 22px 52px rgba(74, 56, 44, .08),
+    inset 0 1px rgba(255, 255, 255, .8) !important;
+}
+
+#service-intro.services-combined .service-plan:is(:hover, :focus-within, .is-v19-gold) {
+  border-color: rgba(137, 96, 67, .3) !important;
+  background:
+    linear-gradient(112deg, transparent 0 72%, rgba(255, 255, 255, .42) 72.2% 80%, transparent 80.2%),
+    radial-gradient(ellipse at 92% 25%, rgba(132, 94, 66, .15), transparent 30%),
+    linear-gradient(104deg, rgba(250, 247, 242, .98), rgba(225, 207, 191, .78)) !important;
+  box-shadow:
+    0 28px 66px rgba(74, 56, 44, .13),
+    inset 0 1px rgba(255, 255, 255, .9) !important;
+}
+
+#service-intro.services-combined .service-plan--project,
+#service-intro.services-combined .service-plan--project:is(:hover, :focus-within, .is-v19-gold) {
+  background:
+    linear-gradient(108deg, transparent 0 69%, rgba(255, 255, 255, .31) 69.2% 80%, transparent 80.2%),
+    radial-gradient(ellipse at 90% 27%, rgba(96, 74, 61, .14), transparent 31%),
+    linear-gradient(105deg, rgba(246, 242, 237, .96), rgba(218, 205, 194, .8)) !important;
+}
+
+#service-intro.services-combined .service-plan--project .service-plan__facts b {
+  font-size: clamp(13px, 1.08vw, 18px) !important;
+  letter-spacing: .015em;
+}
+
+#service-intro.services-combined .service-plan__price--consult strong,
+#service-intro.services-combined .service-plan--project:is(:hover, :focus-within, .is-v19-gold) .service-plan__price--consult strong {
+  font-family: "Songti SC", STSong, SimSun, "Noto Serif SC", Georgia, serif !important;
+  font-size: clamp(27px, 2.1vw, 38px) !important;
+  font-weight: 400 !important;
+  letter-spacing: .02em !important;
+}
+
+#service-intro.services-combined .service-disclosure,
+#service-intro.services-combined .service-disclosure[open],
+#service-intro.services-combined .service-disclosure summary,
+#service-intro.services-combined .service-disclosure summary:hover,
+#service-intro.services-combined .service-disclosure[open] summary {
+  color: var(--v50-ink) !important;
+}
+
+#service-intro.services-combined .service-disclosure summary:hover,
+#service-intro.services-combined .service-disclosure[open] summary {
+  background: rgba(249, 245, 239, .55) !important;
+}
+
+#service-intro.services-combined .plan-choice button,
+#service-intro.services-combined .plan-choice button:hover,
+#service-intro.services-combined .plan-choice button:focus-visible {
+  color: var(--v50-copy) !important;
+}
+
+#service-intro.services-combined .plan-choice button[aria-selected="true"],
+#service-intro.services-combined .plan-choice button[aria-selected="true"]:hover,
+#service-intro.services-combined .plan-choice button[aria-selected="true"]:focus-visible {
+  color: var(--v50-ink) !important;
+  background: #d8c4b3 !important;
+  box-shadow: 0 9px 24px rgba(76, 55, 42, .12) !important;
+}
+
+#service-intro.services-combined .service-makeup-images figcaption,
+#service-intro.services-combined .service-makeup-images figcaption:hover {
+  color: var(--v50-ink) !important;
+  background: rgba(247, 242, 235, .9) !important;
+  text-shadow: none !important;
+}
+
+#service-intro.services-combined .service-addon-grid p,
+#service-intro.services-combined .service-note-list p {
+  border-color: var(--v50-line) !important;
+}
+
+/* Three concise service tabs on mobile. */
+@media (max-width: 900px) {
+  #service-intro.services-combined .plan-choice {
+    gap: 4px;
+  }
+
+  #service-intro.services-combined .plan-choice button {
+    min-width: 0;
+    padding-inline: 8px;
+    font-size: 11px;
+    letter-spacing: .035em;
+  }
+
+  #service-intro[data-active-plan="light"] .service-plan:not([data-plan-key="light"]),
+  #service-intro[data-active-plan="deep"] .service-plan:not([data-plan-key="deep"]),
+  #service-intro[data-active-plan="project"] .service-plan:not([data-plan-key="project"]) {
+    display: none !important;
+  }
+
+  #service-intro[data-active-plan="light"] .service-plan[data-plan-key="light"],
+  #service-intro[data-active-plan="deep"] .service-plan[data-plan-key="deep"],
+  #service-intro[data-active-plan="project"] .service-plan[data-plan-key="project"] {
+    display: grid !important;
+  }
+
+  #service-intro.services-combined .service-plan--project .service-plan__facts b {
+    font-size: 12px !important;
+  }
+}
+
+/* Contact copy follows an exact quadratic Bézier path calculated in JS. */
+#contact .contact-float-target {
+  position: relative;
+  z-index: 2;
+  transform:
+    translate3d(var(--contact-float-x, 0px), var(--contact-float-y, 0px), 0)
+    rotate(var(--contact-float-r, 0deg))
+    scale(1.006);
+  transform-origin: 50% 65%;
+  transition:
+    transform 620ms cubic-bezier(.25, .46, .45, .94),
+    text-shadow 420ms ease;
+  text-shadow: 0 11px 26px rgba(62, 45, 36, .11);
+  will-change: transform;
+}
+
+#contact .contact-float-target.is-contact-float-tap {
+  transform:
+    translate3d(var(--contact-float-x, 0px), calc(var(--contact-float-y, 0px) - 2px), 0)
+    rotate(var(--contact-float-r, 0deg))
+    scale(1.012);
+}
+
+html.editing #contact .contact-float-target {
+  transform: none !important;
+  text-shadow: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #contact .contact-float-target,
+  #contact .contact-float-target.is-contact-float-tap {
+    transform: none !important;
+    transition: none !important;
+    text-shadow: none !important;
+  }
+}
