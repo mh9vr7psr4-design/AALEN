@@ -1,0 +1,78 @@
+/* LEN v47 — opening duration and progress visibility.
+   Existing opening geometry and motion remain unchanged. */
+
+.intro__progress {
+  bottom: clamp(44px, 6.8vh, 76px) !important;
+  width: min(480px, calc(100vw - 48px)) !important;
+  padding: 16px 18px 15px !important;
+  border: 1px solid rgba(255, 255, 255, .28) !important;
+  border-radius: 12px !important;
+  color: #f7f1e8 !important;
+  background: rgba(28, 25, 22, .6) !important;
+  box-shadow:
+    0 18px 48px rgba(20, 15, 12, .22),
+    inset 0 1px rgba(255, 255, 255, .14) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(116%);
+  backdrop-filter: blur(16px) saturate(116%);
+}
+
+.intro__progress-meta {
+  margin-bottom: 13px !important;
+  color: rgba(247, 241, 232, .74) !important;
+  font-size: 9px !important;
+  font-weight: 500 !important;
+  letter-spacing: .28em !important;
+}
+
+.intro__progress-meta b {
+  min-width: 54px;
+  color: #fffaf2 !important;
+  font-size: 18px !important;
+  font-weight: 400 !important;
+  letter-spacing: .02em !important;
+  text-align: right;
+}
+
+.intro__progress-track {
+  height: 5px !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(255, 255, 255, .12) !important;
+  border-radius: 999px !important;
+  background: rgba(255, 255, 255, .16) !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, .16) !important;
+}
+
+.intro__progress-track i {
+  border-radius: inherit !important;
+  background: linear-gradient(90deg, #7b5844 0%, #b98461 58%, #f2d5aa 100%) !important;
+  box-shadow:
+    0 0 16px rgba(216, 165, 116, .76),
+    0 0 4px rgba(255, 245, 226, .95) !important;
+}
+
+.intro__progress-track::after {
+  width: 22% !important;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .94), transparent) !important;
+}
+
+@media (max-width: 700px) {
+  .intro__progress {
+    bottom: max(58px, calc(env(safe-area-inset-bottom) + 48px)) !important;
+    width: calc(100vw - 36px) !important;
+    padding: 14px 15px 13px !important;
+  }
+
+  .intro__progress-meta {
+    margin-bottom: 11px !important;
+    font-size: 8px !important;
+    letter-spacing: .22em !important;
+  }
+
+  .intro__progress-meta b {
+    font-size: 16px !important;
+  }
+
+  .intro__progress-track {
+    height: 5px !important;
+  }
+}

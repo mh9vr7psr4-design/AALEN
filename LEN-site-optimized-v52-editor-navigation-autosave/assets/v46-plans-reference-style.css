@@ -1,0 +1,503 @@
+/* LEN v46 — Plans reference restyle.
+   Presentation only: no animation, transition, transform or JS behavior changes. */
+
+#service-intro {
+  --v46-plan-paper: #f5efe8;
+  --v46-plan-paper-soft: rgba(250, 247, 242, .78);
+  --v46-plan-ink: #3f3732;
+  --v46-plan-copy: #6d655f;
+  --v46-plan-muted: #9b9188;
+  --v46-plan-gold: #b88d61;
+  --v46-plan-line: rgba(114, 86, 63, .16);
+  color: var(--v46-plan-ink) !important;
+  background:
+    radial-gradient(circle at 76% 9%, rgba(255, 253, 247, .96) 0 7%, rgba(255, 249, 239, .48) 21%, transparent 43%),
+    radial-gradient(ellipse at 91% 31%, rgba(152, 111, 77, .12), transparent 31%),
+    radial-gradient(ellipse at 13% 73%, rgba(255, 255, 255, .46), transparent 35%),
+    linear-gradient(123deg, #d7cec5 0%, #e8e0d7 42%, #f4eee6 72%, #ded2c6 100%) !important;
+}
+
+#service-intro::before {
+  opacity: 1 !important;
+  background:
+    radial-gradient(circle at 72% 15%, rgba(255, 255, 249, .95) 0 2px, transparent 3px),
+    radial-gradient(circle at 82% 28%, rgba(255, 246, 220, .88) 0 2px, transparent 3.5px),
+    radial-gradient(circle at 68% 45%, rgba(255, 250, 232, .72) 0 1.5px, transparent 3px),
+    radial-gradient(circle at 90% 57%, rgba(255, 247, 222, .7) 0 2px, transparent 4px),
+    linear-gradient(105deg, transparent 0 59%, rgba(255, 255, 255, .24) 59.2% 67%, transparent 67.2%),
+    linear-gradient(119deg, transparent 0 73%, rgba(116, 85, 63, .045) 73.2% 74%, transparent 74.2%) !important;
+  background-size: auto, auto, auto, auto, auto, auto !important;
+  mix-blend-mode: screen !important;
+}
+
+#service-intro::after {
+  content: "";
+  position: absolute;
+  top: 3%;
+  right: -11%;
+  z-index: 0;
+  width: min(53vw, 920px);
+  aspect-ratio: .84;
+  border-radius: 50%;
+  opacity: .34;
+  background:
+    radial-gradient(ellipse at 42% 26%, rgba(107, 78, 57, .14) 0 3%, transparent 24%),
+    radial-gradient(ellipse at 63% 45%, rgba(107, 78, 57, .11) 0 2%, transparent 26%),
+    radial-gradient(ellipse at 33% 71%, rgba(107, 78, 57, .1) 0 2%, transparent 27%);
+  filter: blur(24px);
+  pointer-events: none;
+}
+
+#service-intro .service-intro__halo {
+  border: 0 !important;
+  background: radial-gradient(circle, rgba(255, 249, 237, .38), transparent 69%) !important;
+}
+
+#service-intro .service-intro__layout {
+  width: min(100%, 1680px) !important;
+}
+
+#service-intro .service-intro__copy {
+  gap: clamp(30px, 4.5vw, 76px) clamp(16px, 2vw, 36px) !important;
+}
+
+#service-intro .service-intro__header {
+  grid-column: 1 / -1 !important;
+  width: min(88%, 1420px) !important;
+  max-width: none !important;
+  min-height: clamp(570px, 68svh, 720px);
+  margin: 0 0 clamp(36px, 4vw, 68px) !important;
+  padding: clamp(72px, 6.6vw, 118px) clamp(62px, 7vw, 128px) !important;
+  border: 1px solid rgba(255, 255, 255, .54) !important;
+  border-radius: 11px !important;
+  color: var(--v46-plan-ink) !important;
+  background:
+    linear-gradient(108deg, transparent 0 68%, rgba(255, 255, 255, .28) 68.2% 78%, transparent 78.2%),
+    radial-gradient(ellipse at 92% 33%, rgba(255, 255, 255, .68), transparent 31%),
+    linear-gradient(101deg, rgba(250, 247, 242, .76), rgba(247, 242, 235, .54) 72%, rgba(244, 236, 227, .34)) !important;
+  box-shadow:
+    0 34px 92px rgba(75, 55, 42, .08),
+    inset 0 1px rgba(255, 255, 255, .72) !important;
+  -webkit-backdrop-filter: blur(2px) saturate(108%);
+  backdrop-filter: blur(2px) saturate(108%);
+}
+
+#service-intro .service-intro__header::before {
+  content: "";
+  position: absolute;
+  top: -19%;
+  right: -5%;
+  bottom: -25%;
+  z-index: 0;
+  width: 35%;
+  opacity: .5;
+  border-left: 1px solid rgba(255, 255, 255, .46);
+  background:
+    linear-gradient(157deg, rgba(255, 255, 255, .34), transparent 52%),
+    radial-gradient(ellipse at 66% 49%, rgba(111, 82, 61, .12), transparent 54%);
+  transform: rotate(-8deg);
+  pointer-events: none;
+}
+
+#service-intro .eyebrow {
+  margin-bottom: clamp(30px, 3vw, 46px) !important;
+  color: var(--v46-plan-gold) !important;
+  font-size: 10px !important;
+  font-weight: 500 !important;
+  letter-spacing: .34em !important;
+}
+
+#service-intro .service-intro__header h2 {
+  max-width: 10.6em !important;
+  margin: 0 !important;
+  color: var(--v46-plan-ink) !important;
+  font-family: "Songti SC", STSong, SimSun, "Noto Serif SC", Georgia, serif !important;
+  font-size: clamp(54px, 4.35vw, 76px) !important;
+  font-weight: 400 !important;
+  line-height: 1.16 !important;
+  letter-spacing: -.055em !important;
+}
+
+#service-intro .service-intro__header h2::after {
+  content: "";
+  display: block;
+  width: 52px;
+  height: 1px;
+  margin-top: clamp(30px, 3vw, 43px);
+  background: linear-gradient(90deg, var(--v46-plan-gold) 0 62%, rgba(184, 141, 97, .18) 62%);
+}
+
+#service-intro .service-intro__lead {
+  max-width: 42em !important;
+  margin: clamp(25px, 2.4vw, 36px) 0 0 !important;
+  color: var(--v46-plan-copy) !important;
+  font-size: clamp(14px, .96vw, 17px) !important;
+  line-height: 1.92 !important;
+  letter-spacing: .005em !important;
+}
+
+#service-intro .service-intro__aside {
+  position: relative;
+  max-width: 47em !important;
+  margin: clamp(26px, 2.6vw, 38px) 0 0 !important;
+  padding: 17px 22px 17px 56px !important;
+  border: 1px solid rgba(255, 255, 255, .34) !important;
+  border-left: 1px solid rgba(255, 255, 255, .34) !important;
+  border-radius: 9px !important;
+  color: #6c625a !important;
+  background: rgba(224, 211, 198, .27) !important;
+  box-shadow: inset 0 1px rgba(255, 255, 255, .38) !important;
+  font-size: 12px !important;
+  line-height: 1.9 !important;
+}
+
+#service-intro .service-intro__aside::before {
+  content: "✦";
+  position: absolute;
+  top: 17px;
+  left: 24px;
+  color: #c49a6d;
+  font-size: 18px;
+  line-height: 1;
+}
+
+#service-intro .service-plan-list {
+  display: grid !important;
+  grid-column: 1 / -1 !important;
+  gap: 16px !important;
+  width: min(100%, 1360px) !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+#service-intro .service-plan-list::before {
+  content: "—  ✦  CHOOSE YOUR PLAN  ✦  —";
+  display: block;
+  margin: 0 0 clamp(28px, 3.4vw, 50px);
+  color: var(--v46-plan-gold);
+  font: 500 10px/1.2 Arial, sans-serif;
+  letter-spacing: .32em;
+  text-align: center;
+}
+
+#service-intro .service-plan {
+  grid-template-columns: minmax(0, 1.18fr) minmax(205px, .54fr) minmax(190px, .52fr) !important;
+  grid-template-areas:
+    "plan-title plan-price plan-art"
+    "plan-list plan-summary plan-art" !important;
+  grid-template-rows: auto 1fr !important;
+  gap: 22px clamp(30px, 3vw, 54px) !important;
+  min-height: 294px !important;
+  padding: clamp(38px, 3.6vw, 54px) clamp(34px, 3.4vw, 52px) clamp(34px, 3.2vw, 48px) !important;
+  border: 1px solid rgba(255, 255, 255, .53) !important;
+  border-radius: 14px !important;
+  color: var(--v46-plan-ink) !important;
+  background:
+    linear-gradient(112deg, transparent 0 71%, rgba(255, 255, 255, .32) 71.2% 79%, transparent 79.2%),
+    radial-gradient(ellipse at 93% 30%, rgba(126, 93, 68, .12) 0 2%, transparent 27%),
+    radial-gradient(ellipse at 88% 83%, rgba(126, 93, 68, .11) 0 2%, transparent 31%),
+    linear-gradient(96deg, rgba(250, 247, 242, .83) 0 73%, rgba(238, 224, 210, .48) 100%) !important;
+  box-shadow:
+    0 22px 58px rgba(79, 59, 46, .075),
+    inset 0 1px rgba(255, 255, 255, .78) !important;
+  -webkit-backdrop-filter: blur(7px) saturate(108%);
+  backdrop-filter: blur(7px) saturate(108%);
+}
+
+#service-intro .service-plan--premium {
+  background:
+    linear-gradient(101deg, transparent 0 71%, rgba(255, 255, 255, .38) 71.2% 80%, transparent 80.2%),
+    linear-gradient(81deg, transparent 0 82%, rgba(130, 96, 72, .08) 82.2% 83%, transparent 83.2%),
+    radial-gradient(ellipse at 91% 38%, rgba(151, 112, 82, .12), transparent 31%),
+    linear-gradient(96deg, rgba(250, 247, 242, .84) 0 73%, rgba(230, 216, 203, .5) 100%) !important;
+}
+
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) {
+  border-color: rgba(184, 141, 97, .26) !important;
+  color: var(--v46-plan-ink) !important;
+  background:
+    linear-gradient(112deg, transparent 0 71%, rgba(255, 255, 255, .4) 71.2% 79%, transparent 79.2%),
+    radial-gradient(ellipse at 93% 30%, rgba(126, 93, 68, .15) 0 2%, transparent 27%),
+    radial-gradient(ellipse at 88% 83%, rgba(126, 93, 68, .13) 0 2%, transparent 31%),
+    linear-gradient(96deg, rgba(252, 249, 245, .88) 0 73%, rgba(235, 220, 207, .56) 100%) !important;
+  box-shadow:
+    0 28px 68px rgba(79, 59, 46, .11),
+    inset 0 1px rgba(255, 255, 255, .84) !important;
+}
+
+#service-intro .service-plan__top {
+  grid-area: plan-title;
+}
+
+#service-intro .service-plan__top > span,
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) .service-plan__top > span {
+  margin-bottom: 12px !important;
+  color: var(--v46-plan-gold) !important;
+  font-size: 9px !important;
+  font-weight: 500 !important;
+  letter-spacing: .25em !important;
+}
+
+#service-intro .service-plan h3,
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) h3 {
+  color: var(--v46-plan-ink) !important;
+  font-family: "Songti SC", STSong, SimSun, "Noto Serif SC", Georgia, serif !important;
+  font-size: clamp(32px, 2.25vw, 42px) !important;
+  font-weight: 400 !important;
+  line-height: 1.12 !important;
+  letter-spacing: -.045em !important;
+  text-shadow: none !important;
+}
+
+#service-intro .service-plan__price {
+  grid-area: plan-price;
+  align-self: stretch;
+  gap: 16px !important;
+  padding: 2px 0 4px clamp(30px, 3vw, 48px) !important;
+  border-left: 1px solid var(--v46-plan-line) !important;
+}
+
+#service-intro .service-plan__price p,
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) .service-plan__price p {
+  justify-content: flex-start !important;
+  gap: clamp(28px, 3vw, 52px) !important;
+  padding: 0 !important;
+  color: var(--v46-plan-ink) !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+#service-intro .service-plan__price small,
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) .service-plan__price small {
+  min-width: 34px;
+  color: #70675f !important;
+  font-size: 10px !important;
+  letter-spacing: .08em !important;
+}
+
+#service-intro .service-plan__price strong,
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) .service-plan__price strong {
+  color: #3a342f !important;
+  font: 300 clamp(31px, 2.35vw, 42px)/.96 Arial, sans-serif !important;
+  letter-spacing: -.055em !important;
+  text-shadow: none !important;
+}
+
+#service-intro .service-plan__summary,
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) .service-plan__summary {
+  grid-area: plan-summary;
+  align-self: end;
+  margin: 0 !important;
+  padding-left: clamp(30px, 3vw, 48px);
+  color: var(--v46-plan-muted) !important;
+  border-left: 1px solid var(--v46-plan-line);
+  font-size: 11px !important;
+  line-height: 1.7 !important;
+  letter-spacing: .08em !important;
+}
+
+#service-intro .service-plan ul {
+  grid-area: plan-list;
+  align-self: end;
+  gap: 7px !important;
+  margin: 0 !important;
+}
+
+#service-intro .service-plan li,
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) li {
+  padding-left: 23px !important;
+  color: #645d57 !important;
+  border-color: transparent !important;
+  font-size: 12px !important;
+  line-height: 1.62 !important;
+}
+
+#service-intro .service-plan li::before,
+#service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) li::before {
+  content: "✦" !important;
+  top: .06em !important;
+  left: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  color: #c0986f !important;
+  background: transparent !important;
+  font-size: 12px !important;
+  line-height: 1.4 !important;
+}
+
+@media (max-width: 1100px) and (min-width: 901px) {
+  #service-intro .service-intro__header {
+    width: 94% !important;
+  }
+
+  #service-intro .service-plan {
+    grid-template-columns: minmax(0, 1fr) minmax(190px, .56fr) minmax(120px, .32fr) !important;
+    gap: 20px 30px !important;
+  }
+}
+
+@media (max-width: 900px) {
+  #service-intro {
+    background:
+      radial-gradient(circle at 78% 7%, rgba(255, 253, 247, .88), transparent 31%),
+      radial-gradient(ellipse at 9% 61%, rgba(255, 255, 255, .42), transparent 34%),
+      linear-gradient(145deg, #ded6ce, #eee7df 55%, #d9cec3) !important;
+  }
+
+  #service-intro::after {
+    top: 7%;
+    right: -47%;
+    width: 102vw;
+    opacity: .2;
+  }
+
+  #service-intro .service-intro__copy {
+    display: block !important;
+  }
+
+  #service-intro .service-intro__header {
+    width: 100% !important;
+    min-height: 0 !important;
+    margin-bottom: clamp(32px, 9vw, 54px) !important;
+    padding: clamp(34px, 9vw, 54px) clamp(20px, 6vw, 30px) !important;
+    border-radius: 10px !important;
+    background:
+      linear-gradient(112deg, transparent 0 69%, rgba(255, 255, 255, .25) 69.2% 81%, transparent 81.2%),
+      rgba(250, 247, 242, .62) !important;
+  }
+
+  #service-intro .service-intro__header::before {
+    right: -20%;
+    width: 54%;
+    opacity: .3;
+  }
+
+  #service-intro .eyebrow {
+    margin-bottom: 24px !important;
+    font-size: 8px !important;
+    letter-spacing: .28em !important;
+  }
+
+  #service-intro .service-intro__header h2 {
+    max-width: 9.8em !important;
+    font-size: clamp(38px, 10.3vw, 58px) !important;
+    line-height: 1.12 !important;
+  }
+
+  #service-intro .service-intro__header h2::after {
+    width: 40px;
+    margin-top: 25px;
+  }
+
+  #service-intro .service-intro__lead {
+    margin-top: 22px !important;
+    font-size: 13px !important;
+    line-height: 1.82 !important;
+  }
+
+  #service-intro .service-intro__aside {
+    margin-top: 22px !important;
+    padding: 15px 16px 15px 45px !important;
+    font-size: 11px !important;
+    line-height: 1.78 !important;
+  }
+
+  #service-intro .service-intro__aside::before {
+    top: 16px;
+    left: 17px;
+    font-size: 15px;
+  }
+
+  #service-intro .service-plan-list {
+    display: block !important;
+    width: 100% !important;
+    margin-bottom: clamp(34px, 10vw, 64px) !important;
+  }
+
+  #service-intro .service-plan-list::before {
+    margin-bottom: 22px;
+    font-size: 8px;
+    letter-spacing: .2em;
+  }
+
+  #service-intro .service-plan {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    grid-template-areas:
+      "plan-title plan-title"
+      "plan-price plan-price"
+      "plan-summary plan-summary"
+      "plan-list plan-list" !important;
+    gap: 17px 16px !important;
+    min-height: 0 !important;
+    padding: 24px 20px 19px !important;
+    border-radius: 12px !important;
+    background:
+      linear-gradient(119deg, transparent 0 73%, rgba(255, 255, 255, .3) 73.2% 84%, transparent 84.2%),
+      linear-gradient(102deg, rgba(250, 247, 242, .82), rgba(237, 224, 212, .47)) !important;
+  }
+
+  #service-intro .service-plan h3,
+  #service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) h3 {
+    font-size: clamp(29px, 8.6vw, 39px) !important;
+  }
+
+  #service-intro .service-plan__price {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    padding: 14px 0 0 !important;
+    border-top: 1px solid var(--v46-plan-line) !important;
+    border-left: 0 !important;
+  }
+
+  #service-intro .service-plan__price p,
+  #service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) .service-plan__price p {
+    display: block !important;
+  }
+
+  #service-intro .service-plan__price small {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  #service-intro .service-plan__price strong,
+  #service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) .service-plan__price strong {
+    font-size: clamp(28px, 8.2vw, 38px) !important;
+  }
+
+  #service-intro .service-plan__summary,
+  #service-intro .service-plan:is(:hover, :focus-within, .is-v19-gold) .service-plan__summary {
+    align-self: auto;
+    padding: 0 0 13px;
+    border-bottom: 1px solid var(--v46-plan-line);
+    border-left: 0;
+    font-size: 10px !important;
+  }
+
+  #service-intro .service-plan ul {
+    grid-area: plan-list;
+  }
+
+  #service-intro .plan-details-toggle {
+    grid-column: 1 / -1;
+    grid-row: 5;
+  }
+}
+
+@media (max-width: 520px) {
+  #service-intro .service-intro__header {
+    padding-inline: 18px !important;
+  }
+
+  #service-intro .service-intro__header h2 {
+    font-size: clamp(36px, 10.7vw, 48px) !important;
+  }
+
+  #service-intro .service-plan-list::before {
+    content: "✦  CHOOSE YOUR PLAN  ✦";
+  }
+}

@@ -1,0 +1,47 @@
+/* LEN v48 — mobile photographer image is a clean portrait-only crop. */
+
+@media (max-width: 900px) {
+  #about .about__visual,
+  .about-letter-preview .about__visual {
+    width: min(100%, 420px) !important;
+    max-width: 420px !important;
+    justify-self: center !important;
+  }
+
+  #about .about__portrait,
+  .about-letter-preview .about__portrait {
+    width: 100% !important;
+    aspect-ratio: 3 / 4 !important;
+    overflow: hidden !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: #d7d3cd !important;
+    box-shadow: 0 22px 54px rgba(36, 29, 24, .12) !important;
+    transform: none !important;
+  }
+
+  #about .about__portrait::before,
+  #about .about__portrait::after,
+  .about-letter-preview .about__portrait::before,
+  .about-letter-preview .about__portrait::after {
+    display: none !important;
+  }
+
+  #about .about__portrait img,
+  .about-letter-preview .about__portrait img {
+    position: absolute !important;
+    top: -30.1% !important;
+    left: -73.8% !important;
+    width: auto !important;
+    max-width: none !important;
+    height: 154.8% !important;
+    object-fit: initial !important;
+    filter: saturate(.94) contrast(1.015) !important;
+    transform: none !important;
+  }
+
+  #about .about__index,
+  .about-letter-preview .about__index {
+    display: none !important;
+  }
+}
