@@ -1,0 +1,19 @@
+/* Keep the collection label visible on small screens while preserving the existing exhibit navigation. */
+.works-exhibit .work-card figcaption p.work-card__category {
+  display: block !important;
+  margin-top: 6px !important;
+  color: #77827d !important;
+  font-size: 8px !important;
+  line-height: 1.4 !important;
+  letter-spacing: .06em !important;
+}
+@media (max-width: 620px) {
+  .works-exhibit .work-card figcaption p.work-card__category {
+    display: block !important;
+    max-width: calc(60vw - 36px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
